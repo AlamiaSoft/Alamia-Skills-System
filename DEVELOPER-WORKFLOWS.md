@@ -1,18 +1,18 @@
 # Developer Workflows: Alamia-Skills-System in Action
 
-> **A practical guide and walkthrough demonstrating how developers interact with the Alamia-Skills-System lifecycle operating model.**
+> **A practical guide demonstrating how developers interact with the Alamia-Skills-System lifecycle operating model in any software project.**
 
 ---
 
 ## 1. The Interaction Model
 
-Traditional AI pair programming forces developers into **tool micromanagement**:
-- *"Read file A, check git status, see what we did yesterday."*
-- *"Run pytest on tests/test_foo.py."*
-- *"Review the code smells in this function."*
-- *"Write a handoff note in docs/handoffs."*
+Traditional AI pair programming forces developers into **tool and prompt micromanagement**:
+- *"Read file A, check git status, see what we did in the last session."*
+- *"Run our test runner on the test folder."*
+- *"Review the code smells in this new function."*
+- *"Write a handoff note for next time."*
 
-With **Alamia-Skills-System**, the developer operates strictly at the **lifecycle stage level**. The developer uses 5 high-level commands, and the system resolves state, dependencies, and atomic skills autonomously:
+With **Alamia-Skills-System**, developers communicate at the **lifecycle stage level**. You use 5 high-level commands, and the system autonomously resolves project state, discovers the stack, executes the correct test runner, and chains atomic skills:
 
 ```text
 ┌──────────────┐     ┌──────────────┐     ┌──────────────┐     ┌─────────────────────┐     ┌──────────────┐
@@ -20,6 +20,8 @@ With **Alamia-Skills-System**, the developer operates strictly at the **lifecycl
 │ (Kickoff/Ctx)│     │ (Coding/TDD) │     │ (Validation) │     │  (Drift Governance) │     │ (Next Handoff│
 └──────────────┘     └──────────────┘     └──────────────┘     └─────────────────────┘     └──────────────┘
 ```
+
+The system contains **zero hardcoded project assumptions**. Below is a concrete walkthrough demonstrating the developer experience using an illustrative web service (`payment-service`).
 
 ---
 
@@ -33,41 +35,44 @@ With **Alamia-Skills-System**, the developer operates strictly at the **lifecycl
 
 ### Behind the Scenes: What Alamia-Skills-System Does
 1. **Dynamic Stack Discovery (`core/adapters/stack_detector.py`):**
-   - Discovers Python 3.12, FastAPI, LangGraph, pip, and Docker compose.
+   - Inspects manifests (`package.json`, `composer.json`, `pyproject.toml`, `Cargo.toml`, etc.) to identify the language, frameworks, package managers, and container setups.
 2. **Dynamic Test Runner Discovery (`core/adapters/test_detector.py`):**
-   - Locates `tests/` and identifies `pytest` as the test command.
+   - Automatically determines the test runner and command (e.g. `pytest`, `npm test`, `npx vitest`, `./vendor/bin/pest`, `cargo test`).
 3. **Session Memory Discovery (`core/adapters/memory_detector.py`):**
-   - Scans `.ai/transient/handoffs/`, finds the latest handoff file (`07-session-handoff-dashboard-autonomous-scout-and-autologin.md`), extracts its title, and parses the 4 active pending objectives.
+   - Scans for existing session memory across common conventions (`docs/handoffs/`, `.ai/transient/handoffs/`, `handoffs/`, `CHANGELOG.md`).
+   - Parses the latest handoff file, detects its numbering sequence, and extracts active pending objectives.
 4. **Git Inspection:**
-   - Detects active branch `standalone-flow` and latest commit.
+   - Detects the active branch, latest commit, and uncommitted changes.
 5. **Idempotent Reconciliation (`core/reconciler.py`):**
-   - Ensures `.alamia/project.json` matches project state without overwriting local custom rules.
+   - Generates or reconciles `.alamia/project.json` and connects lifecycle commands without touching project business code.
 
 ### The System's Response to the Developer
 ```markdown
 # Alamia-Skills-System: Bootstrap & Reconciliation Report
 
-**Project:** `KamalExpress-Agents` | **Status:** `Case D` (Configured & Reconciled)
+**Project:** `payment-service` | **Status:** `Case D` (Configured & Reconciled)
 
 ---
 
 ### 1. Discovered Stack & Environment
-- **Primary Language:** `python` (Frameworks: `fastapi, langgraph, langchain`)
-- **Package Manager:** `pip` | **Containers:** `docker, docker-compose`
+- **Primary Language:** `typescript` (Frameworks: `express, prisma`)
+- **Package Manager:** `pnpm` | **Containers:** `docker-compose`
 
 ### 2. Testing Configuration
-- **Runner:** `pytest` | **Command:** `pytest` | **Dir:** `tests`
+- **Runner:** `vitest` | **Command:** `pnpm test` | **Dir:** `tests/`
 
 ### 3. Discovered Project Memory
-- **Latest Handoff:** `.ai/transient/handoffs/07-session-handoff-dashboard-autonomous-scout-and-autologin.md`
+- **Handoff Location:** `docs/handoffs/`
+- **Latest Handoff:** `docs/handoffs/04-webhook-integration.md`
 - **Active Pending Objectives:**
-  1. Autonomous Scout Standby Decoupling (Pure Scout Mode)
-  2. Dedicated In-Card Log Console for Slot Inspector
-  3. Queue-to-Booking End-to-End Validation
-  4. Portainer Staging Deployment
+  1. Add HMAC-SHA256 signature verification to webhook endpoints
+  2. Implement Redis-backed idempotency key cache
+  3. Add retry backoff policy for failed provider notifications
+  4. Integration test suite for webhook replays
 
 ### 4. Git State
-- **Branch:** `standalone-flow` (`1e825fd add to gitignore`)
+- **Branch:** `feature/webhooks` (`9a14c2b add webhook route skeleton`)
+- **Working Tree:** Clean
 
 ---
 **Ready.** You can now say `implement`, `qa`, `architecture-review`, or `session-end`.
@@ -77,39 +82,39 @@ With **Alamia-Skills-System**, the developer operates strictly at the **lifecycl
 
 ## Workflow 2: Active Feature Implementation (`implement`)
 
-### Scenario A: Working on Next Queued Task
-The developer does not need to re-type the task from the previous session:
+### Scenario A: Working on the Next Pending Objective
+The developer does not need to copy-paste tasks from the previous session:
 
 ```text
 "Implement the next pending objective"
 ```
 
 #### What Alamia-Skills-System Does:
-1. Reads `.alamia/project.json` $\rightarrow$ inspects the latest handoff $\rightarrow$ selects Task 1: **"Autonomous Scout Standby Decoupling (Pure Scout Mode)"**.
-2. Reads the relevant architectural specification: `.ai/permanent/architecture/08-failproof-autonomous-workers-specification.md`.
+1. Consults `.alamia/project.json` $\rightarrow$ inspects the latest handoff $\rightarrow$ selects Task 1: **"Add HMAC-SHA256 signature verification to webhook endpoints"**.
+2. Reads the relevant architectural specification from the project's detected architecture directory (e.g., `docs/architecture/02-security-boundaries.md`).
 3. Invokes Matt Pocock's atomic skill `/tdd`:
-   - Writes a reproduction/unit test in `tests/test_operational_mode_and_day_rules.py` verifying that when `queued_clients == 0`, the monitor does *not* enter standby if pure scout mode is active.
-4. Modifies `agents/appointments/monitor.py` to allow the scout to probe without queued applicants.
-5. Runs the immediate test suite via `pytest` to verify the green phase.
+   - Writes a unit test in `tests/webhooks/signature.test.ts` asserting that requests with invalid signatures receive HTTP 401, and valid signatures pass.
+4. Implements the signature verification middleware in `src/middleware/verifyWebhook.ts`.
+5. Executes the project's detected test runner (`pnpm test tests/webhooks/signature.test.ts`) to verify the green phase.
 6. Hands control back to the developer:
-   > *"Implemented Pure Scout mode in `agents/appointments/monitor.py`. Targeted tests are passing. Ready for `qa`."*
+   > *"Implemented HMAC-SHA256 webhook signature verification. Targeted unit tests passing. Ready for `qa`."*
 
 ---
 
-### Scenario B: Working on a Specific Requested Feature
-The developer specifies custom requirements:
+### Scenario B: Working on a Custom User-Specified Feature
+The developer specifies a custom task:
 
 ```text
-"Implement dedicated in-card log console for the slot inspector"
+"Implement Redis-backed idempotency key cache for checkout requests"
 ```
 
 #### What Alamia-Skills-System Does:
 1. Recognizes user-specified task overrides default handoff queue.
-2. Reads architecture for UI conventions: inspects `api/static/index.html` and existing log streaming endpoint (`/api/logs/stream`).
-3. Invokes atomic skill `/prototype` or `/to-spec` to ensure the DOM structure and CSS follow existing shadcn/ui patterns.
-4. Implements the scrolling log box under the Telemetry Summary Bar in `api/static/index.html`.
-5. Prompts the developer:
-   > *"In-card log stream integrated. Ready for `qa` or visual check."*
+2. Reads architecture for caching patterns in `docs/architecture/`.
+3. If requirements are ambiguous, invokes atomic skill `/to-spec` to clarify TTL and failure behavior before writing code.
+4. Implements the cache middleware and updates the route handler.
+5. Runs immediate test verification and prompts:
+   > *"Idempotency middleware implemented. Ready for `qa`."*
 
 ---
 
@@ -122,29 +127,23 @@ The developer specifies custom requirements:
 *(or `"Test changes"`, `"Validate"`)*
 
 ### Behind the Scenes: What Alamia-Skills-System Does
-1. Checks `.alamia/project.json` for the discovered test configuration:
-   ```json
-   "testing": { "runner": "pytest", "command": "pytest" }
-   ```
-2. Executes the test suite against changed files:
-   ```bash
-   pytest tests/test_operational_mode_and_day_rules.py
-   ```
-3. Checks for regressions across dependent modules.
-4. If tests pass, generates a structured verification matrix.
-5. **Failure Case Handling:** If a test fails, the orchestrator automatically invokes Matt Pocock's `/diagnosing-bugs` atomic skill, isolates the root cause (e.g., deprecated `utcnow()` or missing fixture), and presents the fix hypothesis.
+1. Checks `.alamia/project.json` for the discovered test runner command (e.g. `pnpm test`, `pytest`, `./vendor/bin/pest`, `cargo test`).
+2. Executes the test suite against changed modules and full regressions.
+3. Runs configured linters or typecheckers (e.g., `tsc --noEmit`, `eslint`, `mypy`).
+4. **Failure Handling:** If a test fails, the orchestrator automatically invokes Matt Pocock's `/diagnosing-bugs` atomic skill, isolates the root cause, and proposes the minimal fix.
 
 ### The System's Response to the Developer
 ```markdown
 ## QA Verification Matrix
 
-| Target | Tests Run | Passed | Failed | Warnings | Execution Time |
-| :--- | :---: | :---: | :---: | :---: | :---: |
-| `tests/test_operational_mode_and_day_rules.py` | 4 | 4 | 0 | 30 | 0.62s |
+| Target | Tests Run | Passed | Failed | Duration |
+| :--- | :---: | :---: | :---: | :---: |
+| `tests/webhooks/signature.test.ts` | 6 | 6 | 0 | 0.38s |
+| `tests/api/checkout.test.ts` | 14 | 14 | 0 | 0.82s |
 
 - **Automated Tests:** PASSED
-- **Static Check:** Clean syntax
-- **Deprecation Warnings:** 30 warnings (`datetime.utcnow()` and FastAPI `@app.on_event`) noted for future refactor.
+- **Type Checking:** 0 errors (`tsc --noEmit` clean)
+- **Regressions:** None detected
 - **Overall QA Status:** **PASSED (Green)**
 ```
 
@@ -159,14 +158,14 @@ The developer specifies custom requirements:
 *(or `"Check drift"`)*
 
 ### Behind the Scenes: What Alamia-Skills-System Does
-1. Checks `.alamia/project.json` for `memory.architecture_dir` (`.ai/permanent/architecture/`).
-2. Gathers `git diff` of all changes made during the session.
+1. Checks `.alamia/project.json` for `memory.architecture_dir`.
+2. Inspects `git diff` against the base branch (`main` or merge-base).
 3. Invokes Matt Pocock's two-axis `/code-review` atomic skill:
    - **Axis 1 (Standards):** Checks against Fowler smell baseline (Feature Envy, Data Clumps, Shotgun Surgery).
-   - **Axis 2 (Spec & Architecture):** Validates against `.ai/permanent/architecture/01-system-architecture.md`:
-     - *Rule:* Does new code access SQLite directly without thread-safe connection helpers?
-     - *Rule:* Does the frontend talk to the database directly or route through FastAPI?
-     - *Rule:* Are background worker loops properly decoupled from request handlers?
+   - **Axis 2 (Spec & Architecture):** Validates against the project's documented architecture rules:
+     - *Rule:* Does the middleware talk to raw redis clients directly or through the shared cache abstraction?
+     - *Rule:* Are secret keys hardcoded or retrieved through the configuration manager?
+     - *Rule:* Are domain boundaries respected?
 
 ### The System's Response to the Developer
 ```markdown
@@ -174,12 +173,12 @@ The developer specifies custom requirements:
 
 ### Axis 1: Standards & Code Smells
 - **Duplicated Code:** None detected.
-- **Shotgun Surgery:** Changes isolated to `monitor.py` and `index.html`.
+- **Shotgun Surgery:** Changes isolated strictly to `src/middleware/` and `tests/`.
 
-### Axis 2: Architectural Alignment (01-system-architecture.md)
-- **SQLite Concurrency:** Conforms to WAL thread-safe connection patterns.
-- **Control Plane Boundaries:** Clean separation maintained; UI uses `/api/logs/stream`.
-- **Verdict:** **ALIGNED (Zero Drift Detected)**
+### Axis 2: Architectural Alignment (docs/architecture/02-security-boundaries.md)
+- **Secret Management:** Webhook secret resolved via `config.get('WEBHOOK_SECRET')`.
+- **Layer Boundaries:** Clean separation; middleware acts as a gate before controllers.
+- **Verdict:** **ALIGNED (Zero Architectural Drift)**
 ```
 
 ---
@@ -193,74 +192,73 @@ The developer specifies custom requirements:
 *(or `"Wrap up"`, `"Handoff"`)*
 
 ### Behind the Scenes: What Alamia-Skills-System Does
-1. Inspects Git status (`git status --short`) to catalog all staged and unstaged files.
-2. Checks latest test health.
-3. Detects the project's memory pattern:
-   - Discovered sequential numbering scheme in `.ai/transient/handoffs/`.
-   - Previous file was `07-...`.
-   - **Automatically calculates the next sequence:** `08-session-handoff-...md`.
-4. Writes the new handoff adhering strictly to the headings and formatting of previous handoffs:
-   - *Section 1: Objectives Achieved in This Session*
-   - *Section 2: Key Verification Artifacts & System State*
-   - *Section 3: Pending Work / Next Session Objectives* (carries forward remaining items).
+1. Inspects Git status (`git status --short`) to catalog all modified, added, and untracked files.
+2. Verifies latest test suite health.
+3. Detects the project's memory convention:
+   - Identifies sequential numbering in `docs/handoffs/`.
+   - Previous handoff was `04-webhook-integration.md`.
+   - **Calculates the next sequence:** `docs/handoffs/05-webhook-signature-verification.md`.
+4. Writes the new handoff adhering strictly to the established format:
+   - *Objectives Achieved in This Session*
+   - *Key Verification Artifacts & System State*
+   - *Pending Work / Next Session Objectives* (carries forward unfinished tasks).
 5. Reports Git status cleanly without auto-pushing.
 
-### The Generated Artifact: `.ai/transient/handoffs/08-session-handoff-...md`
+### The Generated Artifact: `docs/handoffs/05-webhook-signature-verification.md`
 ```markdown
-# Session Handoff 08: Autonomous Scout Decoupling & In-Card Console
+# Session Handoff 05: Webhook Signature Verification & Idempotency Cache
 
 > **Session Date:** 2026-10-05  
-> **Branch:** `standalone-flow`  
-> **Status:** Verified (Pytest Green)  
+> **Branch:** `feature/webhooks`  
+> **Status:** Verified (Vitest Green)  
 
 ---
 
 ## 1. Objectives Achieved in This Session
-1. **Autonomous Scout Standby Decoupling:**
-   - Modified `agents/appointments/monitor.py` to probe GVC portal even when client queue is 0.
-2. **Dedicated In-Card Log Console:**
-   - Integrated streaming log display directly into GVC Slot Inspector view in `api/static/index.html`.
+1. **HMAC-SHA256 Webhook Signature Verification:**
+   - Implemented `src/middleware/verifyWebhook.ts` checking timing-safe signatures.
+2. **Redis Idempotency Cache:**
+   - Integrated duplicate request rejection with 24-hour sliding TTL.
 
 ---
 
 ## 2. Key Verification Artifacts & System State
 | Component | State / Verification | Location |
 | :--- | :--- | :--- |
-| **Monitor Loop** | Verified decoupled standby logic | `agents/appointments/monitor.py` |
-| **Unit Tests** | 4 passed in 0.62s | `tests/test_operational_mode_and_day_rules.py` |
+| **Signature Middleware** | 6 unit tests passing | `tests/webhooks/signature.test.ts` |
+| **Idempotency Cache** | 14 integration tests passing | `tests/api/checkout.test.ts` |
 
 ---
 
 ## 3. Pending Work / Next Session Objectives
-1. **Queue-to-Booking End-to-End Validation:**
-   - Add test applicant and verify auto-booking triggers on discovered slots.
-2. **Portainer Staging Deployment:**
-   - Merge `standalone-flow` to `main` and trigger Portainer staging script.
+1. **Add retry backoff policy for failed provider notifications:**
+   - Implement exponential backoff queue in `src/workers/notificationRetry.ts`.
+2. **Integration test suite for webhook replays:**
+   - Simulate out-of-order network replay attacks in `tests/e2e/webhooks.test.ts`.
 ```
 
 ---
 
-## Cross-Project Portability Example (Drop into Laravel)
+## Cross-Stack Adaptability
 
-If you copy the identical `Alamia-Skills-System` folder into an unrelated **Laravel** project:
+Because Alamia-Skills-System uses universal discovery adapters, the exact same five commands work identically across different tech stacks:
 
-1. You run: `"Bootstrap this project"`.
-2. Alamia detects:
-   - Stack: `php`, framework: `laravel`, package manager: `composer`.
-   - Testing: `pest` (command: `./vendor/bin/pest`).
-   - Memory: `docs/handoffs/`.
-3. You run: `"Run QA"`.
-4. Alamia executes: `./vendor/bin/pest` automatically.
-5. **Zero lines of Alamia-Skills-System source code were modified.**
+| Tech Stack | What `bootstrap` Detects | What `qa` Runs | Memory Convention Supported |
+| :--- | :--- | :--- | :--- |
+| **PHP / Laravel** | PHP 8.x, Composer, Laravel | `./vendor/bin/pest` or `phpunit` | `docs/handoffs/`, `notes/`, `CHANGELOG.md` |
+| **Node / Next.js / TS** | TypeScript, pnpm/npm, Next.js | `npx vitest` or `npm test` | `docs/handoffs/`, `.scratch/`, `docs/sessions/` |
+| **Python / FastAPI / Django** | Python 3.x, pip/poetry, FastAPI | `pytest` | `.ai/transient/handoffs/`, `docs/handoffs/` |
+| **Rust** | Rust, Cargo | `cargo test` | `docs/handoffs/`, `CHANGELOG.md` |
+| **Go** | Go, `go.mod` | `go test ./...` | `docs/handoffs/`, `notes/` |
 
 ---
 
-## Developer Cheatsheet
+## Summary Cheatsheet
 
 | Command | What to Say | What Alamia Does | Next Recommended Step |
 | :--- | :--- | :--- | :--- |
-| **`bootstrap`** | *"Bootstrap project"* / *"Start session"* | Discovers stack, tests, git, and extracts last handoff's pending tasks. | Proceed to `implement`. |
-| **`implement`** | *"Implement next task"* / *"Implement X"* | Reads architecture spec, routes to `/to-spec` or `/tdd`, writes code & unit tests. | Proceed to `qa`. |
+| **`bootstrap`** | *"Bootstrap project"* / *"Start session"* | Discovers stack, tests, git state, and extracts last handoff's pending tasks. | Proceed to `implement`. |
+| **`implement`** | *"Implement next task"* / *"Implement X"* | Reads architecture spec, routes to `/to-spec` or `/tdd`, writes code & tests. | Proceed to `qa`. |
 | **`qa`** | *"Run QA"* / *"Validate changes"* | Dynamically executes detected test runner & linters; isolates bugs with `/diagnosing-bugs`. | Proceed to `architecture-review`. |
 | **`architecture-review`** | *"Review architecture"* / *"Check drift"* | Compares diff against architecture specs using two-axis `/code-review`. | Proceed to `session-end`. |
 | **`session-end`** | *"End session"* / *"Wrap up"* | Verifies tests, catalogs git diff, and writes the next sequential handoff file. | Session closed cleanly. |
