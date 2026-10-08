@@ -99,9 +99,61 @@ def test_reconciler_idempotency():
         print("[PASS] Reconciler idempotency verified successfully!")
 
 
+def test_monorepo_discovery():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        root = Path(tmpdir)
+        backend = root / "backend"
+        backend.mkdir()
+        composer_data = {
+            "name": "company/backend-api",
+            "require": {"php": "^8.2", "laravel/framework": "^11.0"}
+        }
+        (backend / "composer.json").write_text(json.dumps(composer_data), encoding="utf-8")
+        (backend / "phpunit.xml").write_text("<phpunit></phpunit>", encoding="utf-8")
+
+        frontend = root / "frontend"
+        frontend.mkdir()
+        pkg_data = {
+            "name": "frontend-ui",
+            "dependencies": {"next": "^14.0.0", "react": "^18.0.0"}
+        }
+        (frontend / "package.json").write_text(json.dumps(pkg_data), encoding="utf-8")
+        (frontend / "tsconfig.json").write_text("{}", encoding="utf-8")
+
+        engine = ProjectStateEngine(root)
+        state = engine.inspect()
+
+        assert "php" in state["stack"]["languages"]
+        assert "typescript" in state["stack"]["languages"]
+        assert "laravel" in state["stack"]["frameworks"]
+        assert "nextjs" in state["stack"]["frameworks"]
+        assert "composer" in state["stack"]["package_managers"]
+        assert "npm" in state["stack"]["package_managers"]
+        assert state["testing"]["runner"] == "phpunit"
+        print("[PASS] Monorepo / multi-directory project discovery verified successfully!")
+
+
+def test_agent_pm_skills_registration():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        root = Path(tmpdir)
+        (root / "package.json").write_text('{"name": "test-app"}', encoding="utf-8")
+
+        reconciler = ProjectReconciler(root)
+        reconciler.reconcile()
+
+        skills_json = root / ".agents" / "skills.json"
+        assert skills_json.exists()
+        cfg = json.loads(skills_json.read_text(encoding="utf-8"))
+        paths = [e["path"] for e in cfg.get("entries", [])]
+        assert any("agent-pm" in p for p in paths)
+        print("[PASS] Vendored agent-pm registration in skills.json verified successfully!")
+
+
 if __name__ == "__main__":
     test_laravel_discovery()
     test_node_nextjs_discovery()
     test_fresh_project_case_a()
+    test_monorepo_discovery()
     test_reconciler_idempotency()
+    test_agent_pm_skills_registration()
     print("\nALL PORTABILITY TESTS PASSED!")

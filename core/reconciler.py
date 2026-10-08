@@ -92,7 +92,7 @@ class ProjectReconciler:
             else:
                 actions_taken.append(f"Preserved existing lifecycle skill: {group}")
 
-        # 3. Reconcile .agents/skills.json to expose atomic skills
+        # 3. Reconcile .agents/skills.json to expose atomic skills & agent-pm
         vendor_repo_dir = self.system_root / "vendor" / "mattpocock-skills"
         vendor_skills_dir = vendor_repo_dir / "skills"
 
@@ -111,28 +111,58 @@ class ProjectReconciler:
             except Exception as e:
                 actions_taken.append(f"Notice: Could not auto-pull atomic skills ({e}). Skipping vendor registration.")
 
+        # Ensure agent-pm is present in vendor/agent-pm (from local sibling or GitHub)
+        vendor_pm_dir = self.system_root / "vendor" / "agent-pm"
+        if not vendor_pm_dir.exists():
+            sibling_pm = self.system_root.parent / "agent-pm"
+            if sibling_pm.exists():
+                try:
+                    shutil.copytree(sibling_pm, vendor_pm_dir, ignore=shutil.ignore_patterns(".git", "node_modules"))
+                    actions_taken.append("Vendored agent-pm from local sibling repository.")
+                except Exception as e:
+                    actions_taken.append(f"Notice: Could not copy local agent-pm ({e}).")
+            else:
+                try:
+                    vendor_pm_dir.parent.mkdir(parents=True, exist_ok=True)
+                    import subprocess
+                    subprocess.run(
+                        ["git", "clone", "--depth", "1", "https://github.com/AlamiaSoft/agent-pm.git", str(vendor_pm_dir)],
+                        check=True,
+                        capture_output=True,
+                        text=True,
+                    )
+                    actions_taken.append("Auto-pulled agent-pm from GitHub into Alamia-Skills-System/vendor/.")
+                except Exception as e:
+                    actions_taken.append(f"Notice: Could not auto-pull agent-pm ({e}). Skipping agent-pm registration.")
+
         skills_config_path = self.project_root / ".agents" / "skills.json"
-        rel_vendor_path = None
+        skill_entries = []
+
         if vendor_skills_dir.exists():
             try:
                 rel_vendor_path = str(vendor_skills_dir.relative_to(self.project_root)).replace("\\", "/")
             except ValueError:
-                # If Alamia-Skills-System is outside project root or on a different drive
                 rel_vendor_path = str(vendor_skills_dir).replace("\\", "/")
+            skill_entries.append({"path": f"{rel_vendor_path}/engineering"})
+            skill_entries.append({"path": f"{rel_vendor_path}/productivity"})
 
-        if rel_vendor_path:
-            skills_cfg = {
-                "entries": [
-                    {"path": f"{rel_vendor_path}/engineering"},
-                    {"path": f"{rel_vendor_path}/productivity"},
-                ]
-            }
+        # Register agent-pm from vendor/agent-pm
+        vendor_pm_skills_dir = vendor_pm_dir / ".agents" / "skills"
+        if vendor_pm_skills_dir.exists():
+            try:
+                rel_pm_path = str(vendor_pm_skills_dir.relative_to(self.project_root)).replace("\\", "/")
+            except ValueError:
+                rel_pm_path = str(vendor_pm_skills_dir).replace("\\", "/")
+            skill_entries.append({"path": f"{rel_pm_path}/agent-pm"})
+
+        if skill_entries:
+            skills_cfg = {"entries": skill_entries}
             new_cfg_str = json.dumps(skills_cfg, indent=2)
             existing_cfg_str = skills_config_path.read_text(encoding="utf-8") if skills_config_path.exists() else None
 
             if existing_cfg_str != new_cfg_str:
                 skills_config_path.write_text(new_cfg_str, encoding="utf-8")
-                actions_taken.append("Configured .agents/skills.json to expose Matt Pocock atomic skills.")
+                actions_taken.append("Configured .agents/skills.json to expose atomic skills and agent-pm.")
             else:
                 actions_taken.append(".agents/skills.json is already up to date.")
 

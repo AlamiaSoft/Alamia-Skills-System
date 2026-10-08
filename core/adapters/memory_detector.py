@@ -18,6 +18,7 @@ class MemoryDetector(BaseDetector):
 
         # 1. Discover session handoff directory
         potential_handoff_dirs = [
+            project_root / ".project" / "runs",
             project_root / ".ai" / "transient" / "handoffs",
             project_root / ".ai" / "handoffs",
             project_root / "docs" / "handoffs",
@@ -25,6 +26,7 @@ class MemoryDetector(BaseDetector):
             project_root / "handoffs",
             project_root / ".scratch" / "handoffs",
             project_root / ".notes" / "handoffs",
+            project_root / ".project" / "tasks",
         ]
 
         for p in potential_handoff_dirs:
@@ -39,6 +41,8 @@ class MemoryDetector(BaseDetector):
             project_root / "docs" / "architecture",
             project_root / "docs" / "specs",
             project_root / "docs" / "design",
+            project_root / "docs" / "manual",
+            project_root / "docs",
             project_root / "architecture",
             project_root / "specs",
         ]
@@ -49,7 +53,17 @@ class MemoryDetector(BaseDetector):
                 break
 
         # 3. Discover worklog / roadmap files
-        for wl in ["CHANGELOG.md", "ROADMAP.md", "TODO.md", "ARCHITECTURE.md"]:
+        for wl in [
+            "AGENTS.md",
+            "ARCHITECTURE.md",
+            "PROJECT_PLAN.md",
+            "TASK_STATUS.md",
+            "CHANGELOG.md",
+            "ROADMAP.md",
+            "TODO.md",
+            "docs/ACCOUNTANT_READINESS_CERTIFICATION.md",
+            "docs/ACCOUNTANT_UAT_GUIDE.md",
+        ]:
             if (project_root / wl).is_file():
                 worklogs.append(wl)
 
