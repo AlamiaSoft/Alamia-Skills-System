@@ -1,6 +1,6 @@
 # Developer Workflows: Alamia-Skills-System in Action
 
-> **A practical guide demonstrating how developers interact with the Alamia-Skills-System lifecycle operating model in any software project.**
+> **A comprehensive guide demonstrating how developers interact with the Alamia-Skills-System lifecycle operating model across any software project.**
 
 ---
 
@@ -12,16 +12,22 @@ Traditional AI pair programming forces developers into **tool and prompt microma
 - *"Review the code smells in this new function."*
 - *"Write a handoff note for next time."*
 
-With **Alamia-Skills-System**, developers communicate at the **lifecycle stage level**. You use 5 high-level commands, and the system autonomously resolves project state, discovers the stack, executes the correct test runner, and chains atomic skills:
+With **Alamia-Skills-System**, developers communicate at the **lifecycle and strategic level**. The system autonomously resolves project state, discovers the stack, executes the correct test runner, enforces domain invariants, and chains atomic skills:
 
 ```text
 ┌──────────────┐     ┌──────────────┐     ┌──────────────┐     ┌─────────────────────┐     ┌──────────────┐
 │  bootstrap   │ ──> │  implement   │ ──> │      qa      │ ──> │ architecture-review │ ──> │ session-end  │
 │ (Kickoff/Ctx)│     │ (Coding/TDD) │     │ (Validation) │     │  (Drift Governance) │     │ (Next Handoff│
 └──────────────┘     └──────────────┘     └──────────────┘     └─────────────────────┘     └──────────────┘
+       │                    ▲                    │                                                ▲
+       ▼                    │                    ▼                                                │
+┌──────────────┐     ┌──────────────┐     ┌───────────────────┐                          ┌──────────────┐
+│expert-consult│ ──> │ingest-critique│    │ audit-portability │                          │agent-pm state│
+│(Prompt Synth)│     │(Feedback->DAG│    │(Zero Env Lock-in) │                          │(DAG Sealing) │
+└──────────────┘     └──────────────┘     └───────────────────┘                          └──────────────┘
 ```
 
-The system contains **zero hardcoded project assumptions**. Below is a concrete walkthrough demonstrating the developer experience using an illustrative web service (`payment-service`).
+The system contains **zero hardcoded project assumptions**. Below are the concrete workflows demonstrating the complete developer experience.
 
 ---
 
@@ -35,16 +41,16 @@ The system contains **zero hardcoded project assumptions**. Below is a concrete 
 
 ### Behind the Scenes: What Alamia-Skills-System Does
 1. **Dynamic Stack Discovery (`core/adapters/stack_detector.py`):**
-   - Inspects manifests (`package.json`, `composer.json`, `pyproject.toml`, `Cargo.toml`, etc.) to identify the language, frameworks, package managers, and container setups.
+   - Inspects manifests (`package.json`, `composer.json`, `pyproject.toml`, `Cargo.toml`, etc.) in root and subdirectories to identify languages, frameworks, package managers, and container setups.
 2. **Dynamic Test Runner Discovery (`core/adapters/test_detector.py`):**
    - Automatically determines the test runner and command (e.g. `pytest`, `npm test`, `npx vitest`, `./vendor/bin/pest`, `cargo test`).
-3. **Session Memory Discovery (`core/adapters/memory_detector.py`):**
-   - Scans for existing session memory across common conventions (`docs/handoffs/`, `.ai/transient/handoffs/`, `handoffs/`, `CHANGELOG.md`).
-   - Parses the latest handoff file, detects its numbering sequence, and extracts active pending objectives.
+3. **Session Memory & PM Discovery (`core/adapters/memory_detector.py`):**
+   - Scans for existing session memory across common conventions (`.project/tasks`, `docs/handoffs/`, `.ai/transient/handoffs/`, `handoffs/`, `CHANGELOG.md`).
+   - Parses the latest handoff file or DAG queue and extracts active pending objectives.
 4. **Git Inspection:**
    - Detects the active branch, latest commit, and uncommitted changes.
 5. **Idempotent Reconciliation (`core/reconciler.py`):**
-   - Generates or reconciles `.alamia/project.json` and connects lifecycle commands without touching project business code.
+   - Generates or reconciles `.alamia/project.json` and connects lifecycle commands and vendored atomic skills (`agent-pm`, `mattpocock-skills`) without touching project business code.
 
 ### The System's Response to the Developer
 ```markdown
@@ -62,13 +68,12 @@ The system contains **zero hardcoded project assumptions**. Below is a concrete 
 - **Runner:** `vitest` | **Command:** `pnpm test` | **Dir:** `tests/`
 
 ### 3. Discovered Project Memory
-- **Handoff Location:** `docs/handoffs/`
+- **Handoff Location:** `.project/tasks` / `docs/handoffs/`
 - **Latest Handoff:** `docs/handoffs/04-webhook-integration.md`
 - **Active Pending Objectives:**
   1. Add HMAC-SHA256 signature verification to webhook endpoints
   2. Implement Redis-backed idempotency key cache
   3. Add retry backoff policy for failed provider notifications
-  4. Integration test suite for webhook replays
 
 ### 4. Git State
 - **Branch:** `feature/webhooks` (`9a14c2b add webhook route skeleton`)
@@ -83,38 +88,22 @@ The system contains **zero hardcoded project assumptions**. Below is a concrete 
 ## Workflow 2: Active Feature Implementation (`implement`)
 
 ### Scenario A: Working on the Next Pending Objective
-The developer does not need to copy-paste tasks from the previous session:
+The developer does not need to copy-paste tasks from previous chats:
 
 ```text
 "Implement the next pending objective"
 ```
 
 #### What Alamia-Skills-System Does:
-1. Consults `.alamia/project.json` $\rightarrow$ inspects the latest handoff $\rightarrow$ selects Task 1: **"Add HMAC-SHA256 signature verification to webhook endpoints"**.
-2. Reads the relevant architectural specification from the project's detected architecture directory (e.g., `docs/architecture/02-security-boundaries.md`).
-3. Invokes Matt Pocock's atomic skill `/tdd`:
-   - Writes a unit test in `tests/webhooks/signature.test.ts` asserting that requests with invalid signatures receive HTTP 401, and valid signatures pass.
-4. Implements the signature verification middleware in `src/middleware/verifyWebhook.ts`.
-5. Executes the project's detected test runner (`pnpm test tests/webhooks/signature.test.ts`) to verify the green phase.
-6. Hands control back to the developer:
+1. Resolves next unblocked task (via `node scripts/pm.js next` or `.alamia/project.json` latest handoff).
+2. Compiles targeted context brief (`pm.js context <id>`).
+3. Reads the relevant architectural specification from the discovered architecture directory.
+4. Invokes Matt Pocock's atomic skill `/tdd`:
+   - Writes a unit test asserting edge cases and failure modes.
+5. Implements the business logic following project conventions.
+6. Executes the project's detected test runner to verify green phase.
+7. Hands control back to the developer:
    > *"Implemented HMAC-SHA256 webhook signature verification. Targeted unit tests passing. Ready for `qa`."*
-
----
-
-### Scenario B: Working on a Custom User-Specified Feature
-The developer specifies a custom task:
-
-```text
-"Implement Redis-backed idempotency key cache for checkout requests"
-```
-
-#### What Alamia-Skills-System Does:
-1. Recognizes user-specified task overrides default handoff queue.
-2. Reads architecture for caching patterns in `docs/architecture/`.
-3. If requirements are ambiguous, invokes atomic skill `/to-spec` to clarify TTL and failure behavior before writing code.
-4. Implements the cache middleware and updates the route handler.
-5. Runs immediate test verification and prompts:
-   > *"Idempotency middleware implemented. Ready for `qa`."*
 
 ---
 
@@ -127,10 +116,10 @@ The developer specifies a custom task:
 *(or `"Test changes"`, `"Validate"`)*
 
 ### Behind the Scenes: What Alamia-Skills-System Does
-1. Checks `.alamia/project.json` for the discovered test runner command (e.g. `pnpm test`, `pytest`, `./vendor/bin/pest`, `cargo test`).
+1. Checks `.alamia/project.json` for the discovered test runner command.
 2. Executes the test suite against changed modules and full regressions.
-3. Runs configured linters or typecheckers (e.g., `tsc --noEmit`, `eslint`, `mypy`).
-4. **Failure Handling:** If a test fails, the orchestrator automatically invokes Matt Pocock's `/diagnosing-bugs` atomic skill, isolates the root cause, and proposes the minimal fix.
+3. Runs configured linters or typecheckers (`tsc --noEmit`, `eslint`, `phpstan`, `mypy`).
+4. **Failure Handling:** If a test fails, automatically invokes `/diagnosing-bugs`, isolates the root cause, and proposes the minimal fix.
 
 ### The System's Response to the Developer
 ```markdown
@@ -142,7 +131,7 @@ The developer specifies a custom task:
 | `tests/api/checkout.test.ts` | 14 | 14 | 0 | 0.82s |
 
 - **Automated Tests:** PASSED
-- **Type Checking:** 0 errors (`tsc --noEmit` clean)
+- **Type Checking:** 0 errors clean
 - **Regressions:** None detected
 - **Overall QA Status:** **PASSED (Green)**
 ```
@@ -159,27 +148,10 @@ The developer specifies a custom task:
 
 ### Behind the Scenes: What Alamia-Skills-System Does
 1. Checks `.alamia/project.json` for `memory.architecture_dir`.
-2. Inspects `git diff` against the base branch (`main` or merge-base).
-3. Invokes Matt Pocock's two-axis `/code-review` atomic skill:
+2. Inspects `git diff` against base branch or merge-base.
+3. Invokes two-axis `/code-review`:
    - **Axis 1 (Standards):** Checks against Fowler smell baseline (Feature Envy, Data Clumps, Shotgun Surgery).
-   - **Axis 2 (Spec & Architecture):** Validates against the project's documented architecture rules:
-     - *Rule:* Does the middleware talk to raw redis clients directly or through the shared cache abstraction?
-     - *Rule:* Are secret keys hardcoded or retrieved through the configuration manager?
-     - *Rule:* Are domain boundaries respected?
-
-### The System's Response to the Developer
-```markdown
-## Architecture Review & Drift Analysis
-
-### Axis 1: Standards & Code Smells
-- **Duplicated Code:** None detected.
-- **Shotgun Surgery:** Changes isolated strictly to `src/middleware/` and `tests/`.
-
-### Axis 2: Architectural Alignment (docs/architecture/02-security-boundaries.md)
-- **Secret Management:** Webhook secret resolved via `config.get('WEBHOOK_SECRET')`.
-- **Layer Boundaries:** Clean separation; middleware acts as a gate before controllers.
-- **Verdict:** **ALIGNED (Zero Architectural Drift)**
-```
+   - **Axis 2 (Spec & Invariants):** Validates against the project's documented architecture rules and domain boundaries.
 
 ---
 
@@ -192,73 +164,111 @@ The developer specifies a custom task:
 *(or `"Wrap up"`, `"Handoff"`)*
 
 ### Behind the Scenes: What Alamia-Skills-System Does
-1. Inspects Git status (`git status --short`) to catalog all modified, added, and untracked files.
-2. Verifies latest test suite health.
-3. Detects the project's memory convention:
-   - Identifies sequential numbering in `docs/handoffs/`.
-   - Previous handoff was `04-webhook-integration.md`.
-   - **Calculates the next sequence:** `docs/handoffs/05-webhook-signature-verification.md`.
-4. Writes the new handoff adhering strictly to the established format:
-   - *Objectives Achieved in This Session*
+1. Inspects Git working tree (`git status --short`) to catalog all modifications.
+2. Verifies latest test suite health and closes out completed `agent-pm` tasks with evidence.
+3. Detects sequential handoffs in `docs/handoffs/` or updates worklogs.
+4. Writes the next sequential handoff file recording:
+   - *Objectives Achieved*
    - *Key Verification Artifacts & System State*
-   - *Pending Work / Next Session Objectives* (carries forward unfinished tasks).
-5. Reports Git status cleanly without auto-pushing.
-
-### The Generated Artifact: `docs/handoffs/05-webhook-signature-verification.md`
-```markdown
-# Session Handoff 05: Webhook Signature Verification & Idempotency Cache
-
-> **Session Date:** 2026-10-05  
-> **Branch:** `feature/webhooks`  
-> **Status:** Verified (Vitest Green)  
+   - *Pending Work / Next Objectives*
+5. Reports Git status cleanly without auto-pushing unless requested.
 
 ---
 
-## 1. Objectives Achieved in This Session
-1. **HMAC-SHA256 Webhook Signature Verification:**
-   - Implemented `src/middleware/verifyWebhook.ts` checking timing-safe signatures.
-2. **Redis Idempotency Cache:**
-   - Integrated duplicate request rejection with 24-hour sliding TTL.
+## Workflow 6: Expert Consultation Prompt Builder (`expert-consult`)
 
----
-
-## 2. Key Verification Artifacts & System State
-| Component | State / Verification | Location |
-| :--- | :--- | :--- |
-| **Signature Middleware** | 6 unit tests passing | `tests/webhooks/signature.test.ts` |
-| **Idempotency Cache** | 14 integration tests passing | `tests/api/checkout.test.ts` |
-
----
-
-## 3. Pending Work / Next Session Objectives
-1. **Add retry backoff policy for failed provider notifications:**
-   - Implement exponential backoff queue in `src/workers/notificationRetry.ts`.
-2. **Integration test suite for webhook replays:**
-   - Simulate out-of-order network replay attacks in `tests/e2e/webhooks.test.ts`.
+### The Developer's Input
+```text
+"Prepare an expert consultation prompt for <subsystem or problem>"
 ```
 
+### Purpose & Problem Solved
+When dealing with complex mathematical formulas, forensic anomaly diagnosis, intricate state machines, or regulatory logic, asking a single agent can lead to hallucinated shortcuts. Developers need a clean, condensed, architecture-first consultation prompt to feed to an expert model or senior architect.
+
+### Behind the Scenes: What Alamia-Skills-System Does
+1. Analyzes the target subsystem, service layer, and data invariants.
+2. Synthesizes an **Architecture-First Consultation Brief**:
+   - High-level system architecture and constraints.
+   - Exact implementation summary (methods, formulas, tables).
+   - Concrete problem statement or anomaly example.
+   - Specific, targeted questions for the expert.
+3. Saves the prompt to `docs/consultations/<topic>-prompt.md` (or artifact) for immediate copy-paste or subagent invocation.
+
 ---
 
-## Cross-Stack Adaptability
+## Workflow 7: Feedback & Critique Ingestion into Task DAG (`ingest-critique`)
 
-Because Alamia-Skills-System uses universal discovery adapters, the exact same five commands work identically across different tech stacks:
+### The Developer's Input
+```text
+"Ingest feedback from docs/reviews/feedback.md into project tasks"
+```
 
-| Tech Stack | What `bootstrap` Detects | What `qa` Runs | Memory Convention Supported |
-| :--- | :--- | :--- | :--- |
-| **PHP / Laravel** | PHP 8.x, Composer, Laravel | `./vendor/bin/pest` or `phpunit` | `docs/handoffs/`, `notes/`, `CHANGELOG.md` |
-| **Node / Next.js / TS** | TypeScript, pnpm/npm, Next.js | `npx vitest` or `npm test` | `docs/handoffs/`, `.scratch/`, `docs/sessions/` |
-| **Python / FastAPI / Django** | Python 3.x, pip/poetry, FastAPI | `pytest` | `.ai/transient/handoffs/`, `docs/handoffs/` |
-| **Rust** | Rust, Cargo | `cargo test` | `docs/handoffs/`, `CHANGELOG.md` |
-| **Go** | Go, `go.mod` | `go test ./...` | `docs/handoffs/`, `notes/` |
+### Purpose & Problem Solved
+Expert critiques, code review comments, and domain audits arrive as unstructured prose. Developers lose time manually parsing and typing individual task tickets.
+
+### Behind the Scenes: What Alamia-Skills-System Does
+1. Parses the feedback file into discrete, actionable critique points.
+2. Correlates each point with affected files in the repository.
+3. Automatically creates dependency-ordered `agent-pm` tasks:
+   ```bash
+   node scripts/pm.js add "<Issue Title>" --priority=<Prio> --epic=<Epic>
+   ```
+4. Updates the task DAG with explicit test verification requirements.
+5. Returns a structured ingestion matrix mapping feedback items to task IDs.
+
+---
+
+## Workflow 8: Portability & Environment Hardening Audit (`audit-portability`)
+
+### The Developer's Input
+```text
+"Audit portability"
+```
+*(or `"Check environment readiness"`, `"Harden deployment"`)*
+
+### Purpose & Problem Solved
+Prevents subtle environment breakage before deployment:
+- Hardcoded relative query parameters (e.g. `?page=coa`) that break when hosted under subdirectories or reverse proxies.
+- Hardcoded filesystem path separators (`\` vs `/`) breaking across Windows/Linux.
+- Hardcoded localhost ports, static origins, or absolute file URLs.
+
+### Behind the Scenes: What Alamia-Skills-System Does
+1. Scans modified source files for hardcoded query strings, static base URLs, and OS path separators.
+2. Verifies that all routes use dynamic URL builders or framework route helpers.
+3. Checks environment variable fallbacks and configuration managers.
+4. Generates a **Portability & Environment Audit Matrix** highlighting any detected environment lock-in.
+
+---
+
+## Workflow 9: Anti-Heuristic & Invariant-Guarded Implementation (`rule-first-tdd`)
+
+### The Developer's Input
+```text
+"Implement task T-XXX with strict invariants"
+```
+*(or `"Implement X with zero heuristic guessing"`)*
+
+### Purpose & Problem Solved
+AI coding tools frequently introduce fuzzy heuristic guesses (e.g. `startsWith('4')`, `includes('tax')`, or hardcoded fallback codes) that cause subtle data corruption in enterprise software.
+
+### Behind the Scenes: What Alamia-Skills-System Does
+1. **Invariant Declaration Gate**: Identifies and logs the inviolable domain invariants before touching any production code.
+2. **Negative Tests First**: Writes unit tests that explicitly attempt to violate the invariant or feed heuristic edge cases, proving the test fails.
+3. **Explicit Rule Resolution**: Implements logic using strict configuration rules, explicit parameters, or user selections—eliminating all pattern-matching guesswork.
+4. **Verification Gate**: Executes tests ensuring both positive assertions and negative invariant protections pass.
 
 ---
 
 ## Summary Cheatsheet
 
-| Command | What to Say | What Alamia Does | Next Recommended Step |
+| Command | What to Say | What Alamia Does | Next Step |
 | :--- | :--- | :--- | :--- |
 | **`bootstrap`** | *"Bootstrap project"* / *"Start session"* | Discovers stack, tests, git state, and extracts last handoff's pending tasks. | Proceed to `implement`. |
-| **`implement`** | *"Implement next task"* / *"Implement X"* | Reads architecture spec, routes to `/to-spec` or `/tdd`, writes code & tests. | Proceed to `qa`. |
-| **`qa`** | *"Run QA"* / *"Validate changes"* | Dynamically executes detected test runner & linters; isolates bugs with `/diagnosing-bugs`. | Proceed to `architecture-review`. |
-| **`architecture-review`** | *"Review architecture"* / *"Check drift"* | Compares diff against architecture specs using two-axis `/code-review`. | Proceed to `session-end`. |
-| **`session-end`** | *"End session"* / *"Wrap up"* | Verifies tests, catalogs git diff, and writes the next sequential handoff file. | Session closed cleanly. |
+| **`implement`** | *"Implement next task"* / *"Implement X"* | Reads architecture spec, loads context brief, writes code & tests via `/tdd`. | Proceed to `qa`. |
+| **`qa`** | *"Run QA"* / *"Validate changes"* | Executes detected test runner & linters; isolates bugs with `/diagnosing-bugs`. | Proceed to `architecture-review`. |
+| **`architecture-review`**| *"Review architecture"* / *"Check drift"* | Compares diff against architecture specs using two-axis `/code-review`. | Proceed to `session-end`. |
+| **`session-end`** | *"End session"* / *"Wrap up"* | Verifies tests, seals PM tasks with evidence, and writes sequential handoff. | Session closed cleanly. |
+| **`expert-consult`** | *"Prepare expert prompt for X"* | Compiles zero-bloat architecture-first consultation prompt for expert models. | Share with expert model. |
+| **`ingest-critique`** | *"Ingest feedback from <file>"* | Parses critique into discrete issues and generates structured `agent-pm` DAG tasks. | Proceed to `implement`. |
+| **`audit-portability`** | *"Audit portability"* / *"Harden"* | Scans for hardcoded URLs, path separators, and environment lock-ins. | Safe for multi-env deploy. |
+| **`rule-first-tdd`** | *"Implement X with strict invariants"*| Enforces negative invariant tests first; eliminates heuristic guessing. | Proceed to `qa`. |
