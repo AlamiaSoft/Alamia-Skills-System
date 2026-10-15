@@ -29,8 +29,8 @@ def write_candidate(root: Path, slug="sample-skill", **overrides):
     metadata.update(overrides)
     (candidate / "candidate.json").write_text(json.dumps(metadata), encoding="utf-8")
     (candidate / "SKILL.md").write_text(
-        "---\\nname: sample-skill\\ndescription: A sample verified skill.\\n---\\n\\n"
-        "# Sample Skill\\n\\n## Steps\\n1. Run a focused check.\\n",
+        "---\nname: sample-skill\ndescription: A sample verified skill.\n---\n\n"
+        "# Sample Skill\n\n## Steps\n1. Run a focused check.\n",
         encoding="utf-8",
     )
     return candidate
@@ -69,7 +69,7 @@ class SkillCandidateValidationTests(unittest.TestCase):
             existing = root / ".agents" / "skills" / "engineering" / "sample-skill"
             existing.mkdir(parents=True)
             (existing / "SKILL.md").write_text(
-                "---\\nname: sample-skill\\ndescription: Existing skill.\\n---\\n\\n# Existing\\n\\n## Steps\\n",
+                "---\nname: sample-skill\ndescription: Existing skill.\n---\n\n# Existing\n\n## Steps\n",
                 encoding="utf-8",
             )
             self.assertTrue(any("existing project skill" in e for e in validate_candidate(candidate, root)))
@@ -79,7 +79,7 @@ class SkillCandidateValidationTests(unittest.TestCase):
             root = Path(tmp)
             candidate = write_candidate(root)
             skill = candidate / "SKILL.md"
-            skill.write_text(skill.read_text(encoding="utf-8") + '\\nAPI_KEY = "this-is-a-real-looking-secret-value"\\n', encoding="utf-8")
+            skill.write_text(skill.read_text(encoding="utf-8") + '\nAPI_KEY = "this-is-a-real-looking-secret-value"\n', encoding="utf-8")
             self.assertTrue(any("credential" in e for e in validate_candidate(candidate, root)))
 
 
