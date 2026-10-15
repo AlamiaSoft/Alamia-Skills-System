@@ -163,7 +163,7 @@ Once bootstrapped, developers do not need to memorize individual skills. The ent
 Alamia-Skills-System is designed to work from its bundled files without network access during normal use.
 
 * **Pre-bundled:** The Matt Pocock atomic skills and Agent-PM are included under `vendor/`.
-* **Pinned fallback:** If the Matt Pocock skills are absent, the reconciler clones upstream tag `v1.3.1`. If Agent-PM is absent, it checks out commit `76d1a82ac0401221a00ca218f4eda72e7d344c12`.
+* **Pinned fallback:** If the Matt Pocock skills are absent, the reconciler clones upstream tag `v1.3.1`. If Agent-PM is absent and there is no adjacent local `agent-pm` checkout, it clones the repository and checks out commit `76d1a82ac0401221a00ca218f4eda72e7d344c12`; a sibling checkout is intentionally preferred for local development.
 * **Network behavior:** Network access is used only when an optional vendor directory is missing. The exact refs, licenses, blob verification, and known local overlays are documented in `vendor/UPSTREAMS.json`.
 
 
