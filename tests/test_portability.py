@@ -149,6 +149,74 @@ def test_agent_pm_skills_registration():
         print("[PASS] Vendored agent-pm registration in skills.json verified successfully!")
 
 
+def test_reconciler_preserves_custom_project_settings_and_skill_entries():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        root = Path(tmpdir)
+        (root / "package.json").write_text('{"name":"custom-app"}', encoding="utf-8")
+        alamia = root / ".alamia"
+        alamia.mkdir()
+        (alamia / "project.json").write_text(json.dumps({
+            "custom_setting": {"keep": True},
+            "memory": {"custom_handoff_policy": "manual"},
+            "lifecycle": {"custom_group": "preserve"},
+        }), encoding="utf-8")
+        agents = root / ".agents"
+        agents.mkdir()
+        (agents / "skills.json").write_text(json.dumps({
+            "custom_metadata": "preserve",
+            "entries": [{"path": "local/custom-skill"}],
+        }), encoding="utf-8")
+
+        ProjectReconciler(root).reconcile()
+        profile = json.loads((alamia / "project.json").read_text(encoding="utf-8"))
+        skills = json.loads((agents / "skills.json").read_text(encoding="utf-8"))
+
+        assert profile["custom_setting"] == {"keep": True}
+        assert profile["memory"]["custom_handoff_policy"] == "manual"
+        assert profile["lifecycle"]["custom_group"] == "preserve"
+        assert skills["custom_metadata"] == "preserve"
+        assert {"path": "local/custom-skill"} in skills["entries"]
+
+
+def test_invalid_project_profile_is_backed_up_before_repair():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        root = Path(tmpdir)
+        (root / "package.json").write_text('{"name":"repair-app"}', encoding="utf-8")
+        alamia = root / ".alamia"
+        alamia.mkdir()
+        original = "{invalid json"
+        (alamia / "project.json").write_text(original, encoding="utf-8")
+
+        ProjectReconciler(root).reconcile()
+
+        assert (alamia / "project.json.bak").read_text(encoding="utf-8") == original
+        repaired = json.loads((alamia / "project.json").read_text(encoding="utf-8"))
+        assert repaired["schema_version"] == 1
+        assert repaired["system_version"] == "0.2.0"
+
+
+def test_state_engine_classifies_outdated_profile_as_case_e():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        root = Path(tmpdir)
+        (root / "package.json").write_text('{"name":"outdated-app"}', encoding="utf-8")
+        agents_skills = root / ".agents" / "skills"
+        for name in ["bootstrap", "implement", "qa", "architecture-review", "session-end"]:
+            skill_dir = agents_skills / name
+            skill_dir.mkdir(parents=True)
+            (skill_dir / "SKILL.md").write_text(f"---\\nname: {name}\\n---\\n", encoding="utf-8")
+        alamia = root / ".alamia"
+        alamia.mkdir()
+        (alamia / "project.json").write_text(json.dumps({
+            "schema_version": 0,
+            "system_version": "0.1.0",
+            "lifecycle": {"groups": ["bootstrap", "implement", "qa", "architecture-review", "session-end"]},
+        }), encoding="utf-8")
+
+        state = ProjectStateEngine(root).inspect()
+        assert state["case_classification"]["case"] == "Case E"
+        assert "outdated" in state["case_classification"]["description"].lower()
+
+
 if __name__ == "__main__":
     test_laravel_discovery()
     test_node_nextjs_discovery()
@@ -156,4 +224,7 @@ if __name__ == "__main__":
     test_monorepo_discovery()
     test_reconciler_idempotency()
     test_agent_pm_skills_registration()
+    test_reconciler_preserves_custom_project_settings_and_skill_entries()
+    test_invalid_project_profile_is_backed_up_before_repair()
+    test_state_engine_classifies_outdated_profile_as_case_e()
     print("\nALL PORTABILITY TESTS PASSED!")
