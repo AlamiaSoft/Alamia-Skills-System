@@ -160,12 +160,12 @@ Once bootstrapped, developers do not need to memorize individual skills. The ent
 
 ## 6. Self-Containment & Offline Support
 
-Alamia-Skills-System is **100% self-contained**:
-* **Pre-bundled:** The complete catalog of Matt Pocock atomic skills is bundled directly in `Alamia-Skills-System/vendor/mattpocock-skills/`. No external network calls or npm installs are needed.
-* **Auto-Pull Fallback:** If `Alamia-Skills-System` is copied as a lightweight bundle without the `vendor/` directory, the reconciler automatically detects its absence and clones it from GitHub on demand:
-  ```python
-  git clone --depth 1 https://github.com/mattpocock/skills.git
-  ```
+Alamia-Skills-System is designed to work from its bundled files without network access during normal use.
+
+* **Pre-bundled:** The Matt Pocock atomic skills and Agent-PM are included under `vendor/`.
+* **Pinned fallback:** If the Matt Pocock skills are absent, the reconciler clones upstream tag `v1.3.1`. If Agent-PM is absent, it checks out commit `76d1a82ac0401221a00ca218f4eda72e7d344c12`.
+* **Network behavior:** Network access is used only when an optional vendor directory is missing. The exact refs, licenses, blob verification, and known local overlays are documented in `vendor/UPSTREAMS.json`.
+
 
 ---
 
