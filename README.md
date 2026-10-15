@@ -179,12 +179,15 @@ python Alamia-Skills-System/tests/test_portability.py
 
 Expected output:
 ```text
-[PASS] Laravel project discovery verified successfully!
-[PASS] Next.js / TypeScript discovery verified successfully!
-[PASS] Fresh project (Case A) verified successfully!
-[PASS] Reconciler idempotency verified successfully!
+The script exercises Laravel/Pest discovery, Next.js/Vitest discovery, fresh-project classification, monorepo discovery, Agent-PM registration, reconciler idempotency, custom-setting preservation, malformed-profile backup/repair, and outdated-profile detection.
 
+Expected final line:
+
+```text
 ALL PORTABILITY TESTS PASSED!
+```
+
+Governed skill-learning tests run separately through `python -m unittest discover -s tests -p 'test_skill_learning.py' -v`.
 ```
 
 ---
