@@ -37,7 +37,7 @@ The `session-end` skill prepares the codebase for clean continuation into the ne
    - Capture a candidate under `.alamia/learning/candidates/<slug>/` with `candidate.json` and `SKILL.md`, using `templates/skill-candidate-template/` as the schema/example when available.
    - Record concrete evidence, exact verification commands/results, scope (`shared` or `project`), prerequisites, limitations, and source session. Distinguish observed facts from hypotheses.
    - Never include secrets, credentials, private user data, or copied proprietary material. If uncertain, omit the material and flag it for human review.
-   - Validate the candidate with `python scripts/validate_skill_candidate.py <candidate-dir> --project-root <project-root>` when the validator is available.
+   - Validate the candidate with `python Alamia-Skills-System/scripts/validate_skill_candidate.py <candidate-dir> --project-root <project-root>` when the system is installed as a folder in the project; if this repository itself is the project root, use `python scripts/validate_skill_candidate.py ...`.
    - A candidate is not an approved skill. Do not edit the approved catalog, change policy, or promote candidates automatically. Promotion requires explicit human approval and review of evidence.
    - If no reusable lesson meets this bar, record no candidate; do not manufacture one.
 

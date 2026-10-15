@@ -62,6 +62,18 @@ class SkillCandidateValidationTests(unittest.TestCase):
             second = write_candidate(root, "two", title="verified-example skill")
             self.assertTrue(any("Duplicate candidate title" in e for e in validate_candidate(second, root)))
 
+    def test_existing_nested_skill_duplicate_is_rejected(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            candidate = write_candidate(root)
+            existing = root / ".agents" / "skills" / "engineering" / "sample-skill"
+            existing.mkdir(parents=True)
+            (existing / "SKILL.md").write_text(
+                "---\\nname: sample-skill\\ndescription: Existing skill.\\n---\\n\\n# Existing\\n\\n## Steps\\n",
+                encoding="utf-8",
+            )
+            self.assertTrue(any("existing project skill" in e for e in validate_candidate(candidate, root)))
+
     def test_obvious_secret_material_is_rejected(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

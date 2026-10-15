@@ -117,7 +117,7 @@ def validate_candidate(candidate_dir: Path, project_root: Path | None = None) ->
 
     approved_skills = project_root / ".agents" / "skills"
     if approved_skills.is_dir():
-        for skill_file in approved_skills.glob("*/SKILL.md"):
+        for skill_file in approved_skills.rglob("SKILL.md"):
             if skill_file.resolve() == skill_path.resolve() if skill_path.exists() else False:
                 continue
             try:
@@ -125,7 +125,9 @@ def validate_candidate(candidate_dir: Path, project_root: Path | None = None) ->
             except OSError:
                 continue
             name_match = re.search(r"(?m)^name:\s*(.+?)\s*$", text)
-            if candidate_title and name_match and _normalized(name_match.group(1)) == candidate_title:
+            existing_name = _normalized(name_match.group(1)) if name_match else ""
+            candidate_id = _normalized(str(metadata.get("id", "")))
+            if existing_name and existing_name in {candidate_title, candidate_id}:
                 errors.append(f"Candidate duplicates an existing project skill: {skill_file.parent.name}.")
 
     return errors
