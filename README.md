@@ -189,7 +189,20 @@ ALL PORTABILITY TESTS PASSED!
 
 ---
 
-## 8. License & Attribution
+
+## 9. Governed Skill Learning (Candidate → Review → Approval)
+
+Session learning is deliberately **proposal-based**, not self-modifying. At session end, agents may capture a reusable technique under `.alamia/learning/candidates/<slug>/` using `candidate.json` and `SKILL.md`.
+
+Validate a candidate before review:
+
+```bash
+python Alamia-Skills-System/scripts/validate_skill_candidate.py .alamia/learning/candidates/<slug> --project-root .
+```
+
+The validator checks required metadata, evidence and verification records, scope, duplicate IDs/titles, skill frontmatter, and obvious credential patterns. A passing result means **structure passed only**; it does not certify the technique or approve it for reuse. A human must review the evidence, scope, security/privacy, and limitations before promoting a candidate into an approved catalog. Keep shared skills separate from project-specific skills, and never store secrets or private user data in skill files.
+
+## 10. License & Attribution
 
 - **Alamia-Skills-System:** Developed by Alamia AI.
 - **Atomic Skills Catalog:** Reuses and builds upon the atomic skills ecosystem created by [Matt Pocock](https://github.com/mattpocock/skills) under MIT License.

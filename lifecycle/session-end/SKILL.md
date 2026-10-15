@@ -31,9 +31,19 @@ The `session-end` skill prepares the codebase for clean continuation into the ne
    - **Verification Artifacts:** Tests executed, logs inspected, or live behavior observed.
    - **Pending Work / Next Session Objectives:** Clear, actionable items for the next session.
 
-4. **Git Hygiene (Do Not Auto-Push)**:
+4. **Governed Learning Review (Never Auto-Promote)**:
+   - Review the session for reusable techniques, verified project conventions, root-cause findings, and failed approaches that are worth preserving.
+   - Search existing approved skills and pending candidates before proposing anything new. Prefer improving an existing skill over creating a near-duplicate.
+   - Capture a candidate under `.alamia/learning/candidates/<slug>/` with `candidate.json` and `SKILL.md`, using `templates/skill-candidate-template/` as the schema/example when available.
+   - Record concrete evidence, exact verification commands/results, scope (`shared` or `project`), prerequisites, limitations, and source session. Distinguish observed facts from hypotheses.
+   - Never include secrets, credentials, private user data, or copied proprietary material. If uncertain, omit the material and flag it for human review.
+   - Validate the candidate with `python scripts/validate_skill_candidate.py <candidate-dir> --project-root <project-root>` when the validator is available.
+   - A candidate is not an approved skill. Do not edit the approved catalog, change policy, or promote candidates automatically. Promotion requires explicit human approval and review of evidence.
+   - If no reusable lesson meets this bar, record no candidate; do not manufacture one.
+
+5. **Git Hygiene (Do Not Auto-Push)**:
    - Report staged and unstaged changes.
    - Only stage and commit if the developer explicitly asks. Never auto-push without confirmation.
 
-5. **Present Next-Session Handoff Summary**:
+6. **Present Next-Session Handoff Summary**:
    - Deliver a concise closing summary and confirm that all state has been safely captured.
