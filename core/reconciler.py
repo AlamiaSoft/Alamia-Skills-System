@@ -61,15 +61,18 @@ class ProjectReconciler:
         # Check if profile changed or is new
         existing_profile_str = config_path.read_text(encoding="utf-8") if config_path.exists() else None
         existing_profile = {}
+        profile_needs_backup = False
         if existing_profile_str:
             try:
                 parsed = json.loads(existing_profile_str)
                 if isinstance(parsed, dict):
                     existing_profile = parsed
                 else:
-                    actions_taken.append("Notice: existing .alamia/project.json was not an object; backed it up before repair.")
+                    profile_needs_backup = True
+                    actions_taken.append("Notice: existing .alamia/project.json was not an object; preserving it before repair.")
             except json.JSONDecodeError:
-                actions_taken.append("Notice: existing .alamia/project.json was invalid JSON; backed it up before repair.")
+                profile_needs_backup = True
+                actions_taken.append("Notice: existing .alamia/project.json was invalid JSON; preserving it before repair.")
 
         # Preserve user-owned top-level and nested keys. Refresh only fields owned by discovery.
         merged_profile = dict(existing_profile)
@@ -81,7 +84,7 @@ class ProjectReconciler:
         new_profile_str = json.dumps(merged_profile, indent=2)
 
         if existing_profile_str != new_profile_str:
-            if existing_profile_str and ("invalid JSON" in " ".join(actions_taken) or not isinstance(existing_profile, dict)):
+            if existing_profile_str and profile_needs_backup:
                 backup_path = config_path.with_suffix(".json.bak")
                 if not backup_path.exists():
                     backup_path.write_text(existing_profile_str, encoding="utf-8")
