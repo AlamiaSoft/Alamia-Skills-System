@@ -182,6 +182,15 @@ class ProjectReconciler:
                 rel_pm_path = str(vendor_pm_skills_dir).replace("\\", "/")
             skill_entries.append({"path": f"{rel_pm_path}/agent-pm"})
 
+        # Register the Alamia DAG planning skill for issue/task decomposition and daily-goal planning.
+        dag_skill_dir = self.system_root / "skills" / "dag-task-planning"
+        if (dag_skill_dir / "SKILL.md").exists():
+            try:
+                rel_dag_skill_path = str(dag_skill_dir.relative_to(self.project_root)).replace("\\", "/")
+            except ValueError:
+                rel_dag_skill_path = str(dag_skill_dir).replace("\\", "/")
+            skill_entries.append({"path": rel_dag_skill_path})
+
         if skill_entries:
             existing_cfg_str = skills_config_path.read_text(encoding="utf-8") if skills_config_path.exists() else None
             existing_cfg = {}
