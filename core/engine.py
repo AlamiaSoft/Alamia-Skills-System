@@ -1,43 +1,25 @@
-"""
-Core Project State Engine for Alamia-Skills-System.
-Coordinates project discovery, git inspection, case classification, and state reporting.
-"""
+"""Project state discovery and lifecycle health classification."""
 from pathlib import Path
-from typing import Any, Dict, List
-import subprocess
+from typing import Any, Dict
 import json
-import sys
+import subprocess
 
 try:
-    from .adapters import (
-        StackDetector,
-        TestDetector,
-        MemoryDetector,
-        AgentDetector,
-    )
+    from .adapters import StackDetector, TestDetector, MemoryDetector, AgentDetector
 except ImportError:
-    # Support direct execution via `python path/to/engine.py`
-    from pathlib import Path
     import sys
     sys.path.insert(0, str(Path(__file__).resolve().parent))
-    from adapters import (
-        StackDetector,
-        TestDetector,
-        MemoryDetector,
-        AgentDetector,
-    )
+    from adapters import StackDetector, TestDetector, MemoryDetector, AgentDetector
 
 CORE_LIFECYCLE_GROUPS = [
-    "bootstrap",
-    "implement",
-    "qa",
-    "architecture-review",
-    "session-end",
+    "bootstrap", "implement", "qa", "architecture-review", "session-end",
 ]
+PROFILE_SCHEMA_VERSION = 1
+SYSTEM_VERSION = "0.2.0"
 
 
 class ProjectStateEngine:
-    """State engine that inspects any repository and computes its lifecycle profile."""
+    """Inspect a repository and classify its lifecycle infrastructure."""
 
     def __init__(self, project_root: Path = None):
         self.project_root = (project_root or Path.cwd()).resolve()
@@ -47,26 +29,27 @@ class ProjectStateEngine:
         self.agent_detector = AgentDetector()
 
     def inspect(self) -> Dict[str, Any]:
-        """Run full discovery and produce the project state."""
         stack_info = self.stack_detector.detect(self.project_root)
         test_info = self.test_detector.detect(self.project_root)
         memory_info = self.memory_detector.detect(self.project_root)
         agent_info = self.agent_detector.detect(self.project_root)
         git_info = self._get_git_info()
 
-        # Classify Project Case (A, B, C, D, or E)
-        classification = self._classify_state(stack_info, agent_info)
-
-        # Check existing Alamia configuration
-        alamia_config_path = self.project_root / ".alamia" / "project.json"
-        has_alamia_config = alamia_config_path.exists()
+        config_path = self.project_root / ".alamia" / "project.json"
+        has_config = config_path.exists()
         configured_profile = None
-        if has_alamia_config:
+        config_error = None
+        if has_config:
             try:
-                configured_profile = json.loads(alamia_config_path.read_text(encoding="utf-8"))
-            except Exception:
-                pass
+                configured_profile = json.loads(config_path.read_text(encoding="utf-8"))
+                if not isinstance(configured_profile, dict):
+                    config_error = "Project profile must be a JSON object."
+            except (OSError, json.JSONDecodeError) as exc:
+                config_error = f"Project profile is unreadable or invalid JSON: {exc}"
 
+        classification = self._classify_state(
+            stack_info, agent_info, configured_profile, has_config, config_error
+        )
         return {
             "project_name": self.project_root.name,
             "project_root": str(self.project_root).replace("\\", "/"),
@@ -76,99 +59,91 @@ class ProjectStateEngine:
             "testing": test_info,
             "memory": memory_info,
             "agent_infrastructure": agent_info,
-            "alamia_configured": has_alamia_config,
+            "alamia_configured": has_config,
             "configured_profile": configured_profile,
+            "profile_error": config_error,
             "missing_lifecycle_skills": [
-                s for s in CORE_LIFECYCLE_GROUPS if s not in agent_info["installed_skills"]
+                skill for skill in CORE_LIFECYCLE_GROUPS
+                if skill not in agent_info["installed_skills"]
             ],
         }
 
     def _get_git_info(self) -> Dict[str, Any]:
-        """Inspect Git repository state safely."""
-        git_dir = self.project_root / ".git"
-        if not git_dir.exists():
-            return {"is_git": False, "branch": None, "commit": None, "dirty": False}
-
+        if not (self.project_root / ".git").exists():
+            return {
+                "is_git": False, "branch": None, "latest_commit": None,
+                "is_dirty": False, "uncommitted_lines": 0,
+            }
         try:
-            branch = subprocess.check_output(
-                ["git", "branch", "--show-current"],
-                cwd=self.project_root,
-                stderr=subprocess.DEVNULL,
-                text=True,
-            ).strip()
+            def git(*args):
+                return subprocess.check_output(
+                    ["git", *args], cwd=self.project_root,
+                    stderr=subprocess.DEVNULL, text=True,
+                ).strip()
 
-            commit = subprocess.check_output(
-                ["git", "log", "-1", "--oneline"],
-                cwd=self.project_root,
-                stderr=subprocess.DEVNULL,
-                text=True,
-            ).strip()
-
-            status = subprocess.check_output(
-                ["git", "status", "--porcelain"],
-                cwd=self.project_root,
-                stderr=subprocess.DEVNULL,
-                text=True,
-            ).strip()
-
+            branch = git("branch", "--show-current")
+            commit = git("log", "-1", "--oneline")
+            status = git("status", "--porcelain")
             return {
                 "is_git": True,
                 "branch": branch or "HEAD detached",
-                "latest_commit": commit,
+                "latest_commit": commit or None,
                 "is_dirty": bool(status),
                 "uncommitted_lines": len(status.splitlines()) if status else 0,
             }
-        except Exception:
-            return {"is_git": True, "branch": "unknown", "latest_commit": "unknown", "is_dirty": False}
+        except (OSError, subprocess.CalledProcessError):
+            return {
+                "is_git": True, "branch": "unknown", "latest_commit": "unknown",
+                "is_dirty": False, "uncommitted_lines": 0,
+            }
 
-    def _classify_state(self, stack_info: Dict[str, Any], agent_info: Dict[str, Any]) -> Dict[str, str]:
-        """
-        Classifies project into Cases A through E:
-        - Case A: Fresh project
-        - Case B: Existing project with no skill infrastructure
-        - Case C: Partially configured project
-        - Case D: Configured & healthy project
-        - Case E: Existing but outdated infrastructure
-        """
+    def _classify_state(
+        self, stack_info: Dict[str, Any], agent_info: Dict[str, Any],
+        configured_profile: Any = None, has_config: bool = False,
+        config_error: str = None,
+    ) -> Dict[str, str]:
         installed = set(agent_info["installed_skills"])
         required = set(CORE_LIFECYCLE_GROUPS)
-
         is_fresh = not stack_info["manifests"] and not stack_info["languages"]
 
         if is_fresh and not installed:
-            return {
-                "case": "Case A",
-                "description": "Fresh project with no existing code or agent infrastructure.",
-            }
-
+            return {"case": "Case A", "description": "Fresh project with no existing code or agent infrastructure."}
         if not installed:
-            return {
-                "case": "Case B",
-                "description": "Existing project with established code but no skill infrastructure.",
-            }
+            return {"case": "Case B", "description": "Existing project with code but no lifecycle skill infrastructure."}
 
         missing = required - installed
-        if missing and installed:
+        if missing:
             return {
                 "case": "Case C",
                 "description": f"Partially configured project (missing skills: {', '.join(sorted(missing))}).",
             }
+        if not has_config:
+            return {"case": "Case C", "description": "Lifecycle skills exist, but .alamia/project.json is missing."}
+        if config_error:
+            return {"case": "Case E", "description": f"Project profile needs repair: {config_error}"}
 
-        # If all core skills are present, check if config matches
-        alamia_config = self.project_root / ".alamia" / "project.json"
-        if not alamia_config.exists():
+        if not isinstance(configured_profile, dict):
+            return {"case": "Case E", "description": "Project profile is not a JSON object."}
+
+        schema_version = configured_profile.get("schema_version")
+        system_version = configured_profile.get("system_version")
+        if schema_version != PROFILE_SCHEMA_VERSION or system_version != SYSTEM_VERSION:
             return {
-                "case": "Case C",
-                "description": "Lifecycle skills present, but project profile (.alamia/project.json) is not yet reconciled.",
+                "case": "Case E",
+                "description": (
+                    "Project profile is outdated "
+                    f"(schema {schema_version!r}, system {system_version!r}; "
+                    f"expected schema {PROFILE_SCHEMA_VERSION}, system {SYSTEM_VERSION})."
+                ),
             }
 
-        return {
-            "case": "Case D",
-            "description": "Configured project with active skill infrastructure and reconciled profile.",
-        }
+        lifecycle = configured_profile.get("lifecycle", {})
+        configured_groups = set(lifecycle.get("groups", [])) if isinstance(lifecycle, dict) else set()
+        if not required.issubset(configured_groups):
+            return {"case": "Case E", "description": "Project profile lifecycle configuration is incomplete or inconsistent."}
+
+        return {"case": "Case D", "description": "Configured project with current profile and required lifecycle skills."}
 
 
 if __name__ == "__main__":
-    engine = ProjectStateEngine()
-    state = engine.inspect()
-    print(json.dumps(state, indent=2))
+    print(json.dumps(ProjectStateEngine().inspect(), indent=2))

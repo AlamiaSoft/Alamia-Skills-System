@@ -37,7 +37,8 @@ class ProjectReconciler:
         config_path = alamia_dir / "project.json"
 
         profile = {
-            "version": "0.1.0",
+            "schema_version": 1,
+            "system_version": "0.2.0",
             "project_name": state["project_name"],
             "stack": state["stack"],
             "testing": state["testing"],
@@ -59,11 +60,37 @@ class ProjectReconciler:
 
         # Check if profile changed or is new
         existing_profile_str = config_path.read_text(encoding="utf-8") if config_path.exists() else None
-        new_profile_str = json.dumps(profile, indent=2)
+        existing_profile = {}
+        profile_needs_backup = False
+        if existing_profile_str:
+            try:
+                parsed = json.loads(existing_profile_str)
+                if isinstance(parsed, dict):
+                    existing_profile = parsed
+                else:
+                    profile_needs_backup = True
+                    actions_taken.append("Notice: existing .alamia/project.json was not an object; preserving it before repair.")
+            except json.JSONDecodeError:
+                profile_needs_backup = True
+                actions_taken.append("Notice: existing .alamia/project.json was invalid JSON; preserving it before repair.")
+
+        # Preserve user-owned top-level and nested keys. Refresh only fields owned by discovery.
+        merged_profile = dict(existing_profile)
+        for key, value in profile.items():
+            if isinstance(value, dict) and isinstance(existing_profile.get(key), dict):
+                merged_profile[key] = {**existing_profile[key], **value}
+            else:
+                merged_profile[key] = value
+        new_profile_str = json.dumps(merged_profile, indent=2)
 
         if existing_profile_str != new_profile_str:
+            if existing_profile_str and profile_needs_backup:
+                backup_path = config_path.with_suffix(".json.bak")
+                if not backup_path.exists():
+                    backup_path.write_text(existing_profile_str, encoding="utf-8")
+                    actions_taken.append("Preserved the previous project profile at .alamia/project.json.bak.")
             config_path.write_text(new_profile_str, encoding="utf-8")
-            actions_taken.append("Updated .alamia/project.json with detected project profile.")
+            actions_taken.append("Updated .alamia/project.json while preserving user-managed settings.")
         else:
             actions_taken.append(".alamia/project.json is already up to date.")
 
@@ -156,13 +183,36 @@ class ProjectReconciler:
             skill_entries.append({"path": f"{rel_pm_path}/agent-pm"})
 
         if skill_entries:
-            skills_cfg = {"entries": skill_entries}
-            new_cfg_str = json.dumps(skills_cfg, indent=2)
             existing_cfg_str = skills_config_path.read_text(encoding="utf-8") if skills_config_path.exists() else None
+            existing_cfg = {}
+            if existing_cfg_str:
+                try:
+                    parsed = json.loads(existing_cfg_str)
+                    if isinstance(parsed, dict):
+                        existing_cfg = parsed
+                except json.JSONDecodeError:
+                    backup_path = skills_config_path.with_suffix(".json.bak")
+                    if not backup_path.exists():
+                        backup_path.write_text(existing_cfg_str, encoding="utf-8")
+                        actions_taken.append("Preserved invalid .agents/skills.json at .agents/skills.json.bak.")
+            existing_entries = existing_cfg.get("entries", [])
+            if not isinstance(existing_entries, list):
+                existing_entries = []
+            merged_entries = list(existing_entries)
+            known_paths = {
+                item.get("path") for item in merged_entries
+                if isinstance(item, dict) and isinstance(item.get("path"), str)
+            }
+            for entry in skill_entries:
+                if entry["path"] not in known_paths:
+                    merged_entries.append(entry)
+                    known_paths.add(entry["path"])
+            skills_cfg = {**existing_cfg, "entries": merged_entries}
+            new_cfg_str = json.dumps(skills_cfg, indent=2)
 
             if existing_cfg_str != new_cfg_str:
                 skills_config_path.write_text(new_cfg_str, encoding="utf-8")
-                actions_taken.append("Configured .agents/skills.json to expose atomic skills and agent-pm.")
+                actions_taken.append("Merged Alamia skill registrations without removing existing entries.")
             else:
                 actions_taken.append(".agents/skills.json is already up to date.")
 
