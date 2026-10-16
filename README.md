@@ -160,7 +160,7 @@ Once bootstrapped, developers do not need to memorize individual skills. The ent
 * **Command:** *"End session"* or *"Wrap up"*.
 
 ### DAG-driven planning skill
-Use the registered `dag-task-planning` skill when defining features, Epics, GitHub Issues, daily goals, or dependency graphs. It requires implementation tasks to fit within one working day; longer efforts must be decomposed into independently verifiable daily-goal tasks. It also requires dependency validation, explicit acceptance/verification criteria, and governed learning capture after each completed task.
+Use the registered `dag-task-planning` skill when defining features, Epics, GitHub Issues, daily goals, or dependency graphs. It requires implementation tasks to fit within one working day; longer efforts must be decomposed into independently verifiable daily-goal tasks. It also requires dependency validation, risk-proportionate tests and CI/CD gates, explicit verification evidence, and governed learning capture after each completed task. Resident agents may post progress/blocker updates before checks pass, but must not post completion reports or mark PRs review-ready until all required acceptance tests and blocking CI checks are green.
 
 ---
 
