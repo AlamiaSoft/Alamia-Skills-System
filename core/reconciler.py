@@ -129,7 +129,7 @@ class ProjectReconciler:
                 vendor_repo_dir.parent.mkdir(parents=True, exist_ok=True)
                 import subprocess
                 subprocess.run(
-                    ["git", "clone", "--depth", "1", "https://github.com/mattpocock/skills.git", str(vendor_repo_dir)],
+                    ["git", "clone", "--depth", "1", "--branch", "v1.3.1", "https://github.com/mattpocock/skills.git", str(vendor_repo_dir)],
                     check=True,
                     capture_output=True,
                     text=True,
@@ -153,12 +153,18 @@ class ProjectReconciler:
                     vendor_pm_dir.parent.mkdir(parents=True, exist_ok=True)
                     import subprocess
                     subprocess.run(
-                        ["git", "clone", "--depth", "1", "https://github.com/AlamiaSoft/agent-pm.git", str(vendor_pm_dir)],
+                        ["git", "clone", "https://github.com/AlamiaSoft/agent-pm.git", str(vendor_pm_dir)],
                         check=True,
                         capture_output=True,
                         text=True,
                     )
-                    actions_taken.append("Auto-pulled agent-pm from GitHub into Alamia-Skills-System/vendor/.")
+                    subprocess.run(
+                        ["git", "-C", str(vendor_pm_dir), "checkout", "--detach", "76d1a82ac0401221a00ca218f4eda72e7d344c12"],
+                        check=True,
+                        capture_output=True,
+                        text=True,
+                    )
+                    actions_taken.append("Auto-pulled agent-pm at pinned commit 76d1a82ac0401221a00ca218f4eda72e7d344c12.")
                 except Exception as e:
                     actions_taken.append(f"Notice: Could not auto-pull agent-pm ({e}). Skipping agent-pm registration.")
 

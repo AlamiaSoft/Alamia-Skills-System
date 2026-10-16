@@ -160,12 +160,12 @@ Once bootstrapped, developers do not need to memorize individual skills. The ent
 
 ## 6. Self-Containment & Offline Support
 
-Alamia-Skills-System is **100% self-contained**:
-* **Pre-bundled:** The complete catalog of Matt Pocock atomic skills is bundled directly in `Alamia-Skills-System/vendor/mattpocock-skills/`. No external network calls or npm installs are needed.
-* **Auto-Pull Fallback:** If `Alamia-Skills-System` is copied as a lightweight bundle without the `vendor/` directory, the reconciler automatically detects its absence and clones it from GitHub on demand:
-  ```python
-  git clone --depth 1 https://github.com/mattpocock/skills.git
-  ```
+Alamia-Skills-System is designed to work from its bundled files without network access during normal use.
+
+* **Pre-bundled:** The Matt Pocock atomic skills and Agent-PM are included under `vendor/`.
+* **Pinned fallback:** If the Matt Pocock skills are absent, the reconciler clones upstream tag `v1.3.1`. If Agent-PM is absent and there is no adjacent local `agent-pm` checkout, it clones the repository and checks out commit `76d1a82ac0401221a00ca218f4eda72e7d344c12`; a sibling checkout is intentionally preferred for local development.
+* **Network behavior:** Network access is used only when an optional vendor directory is missing. The exact refs, licenses, blob verification, and known local overlays are documented in `vendor/UPSTREAMS.json`.
+
 
 ---
 
@@ -179,12 +179,15 @@ python Alamia-Skills-System/tests/test_portability.py
 
 Expected output:
 ```text
-[PASS] Laravel project discovery verified successfully!
-[PASS] Next.js / TypeScript discovery verified successfully!
-[PASS] Fresh project (Case A) verified successfully!
-[PASS] Reconciler idempotency verified successfully!
+The script exercises Laravel/Pest discovery, Next.js/Vitest discovery, fresh-project classification, monorepo discovery, Agent-PM registration, reconciler idempotency, custom-setting preservation, malformed-profile backup/repair, and outdated-profile detection.
 
+Expected final line:
+
+```text
 ALL PORTABILITY TESTS PASSED!
+```
+
+Governed skill-learning tests run separately through `python -m unittest discover -s tests -p 'test_skill_learning.py' -v`.
 ```
 
 ---
