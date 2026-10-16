@@ -1,0 +1,35 @@
+{
+  "id": "example-reusable-workflow",
+  "title": "Example Reusable Workflow",
+  "scope": "project",
+  "status": "candidate",
+  "summary": "Describe the repeatable technique, the problem it solves, and when it should be applied.",
+  "prerequisites": [
+    "State required tools, access, and preconditions."
+  ],
+  "steps": [
+    "Describe the first reproducible step.",
+    "Describe the next step and expected result."
+  ],
+  "evidence": [
+    "Link a commit, test, issue, or concrete observation supporting the lesson."
+  ],
+  "validation": {
+    "commands": [
+      "Replace with the exact command used to verify the technique."
+    ],
+    "results": "Record the actual result; do not claim a test passed unless it was run."
+  },
+  "known_limitations": [
+    "State known edge cases and conditions where this skill should not be used."
+  ],
+  "sensitive_data_reviewed": false,
+  "source_session": "Link or identifier for the originating task/session",
+  "target_projects": [],
+  "created_at": "YYYY-MM-DD",
+  "approval": {
+    "status": "not-reviewed",
+    "approved_by": null,
+    "approved_at": null
+  }
+}

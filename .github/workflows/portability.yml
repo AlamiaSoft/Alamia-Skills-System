@@ -1,4 +1,4 @@
-name: Python portability tests
+name: Python portability and learning tests
 
 on:
   push:
@@ -19,3 +19,5 @@ jobs:
           python-version: "3.12"
       - name: Run portability and reconciliation regression tests
         run: python tests/test_portability.py
+      - name: Run governed skill-learning tests
+        run: python -m unittest discover -s tests -p 'test_skill_learning.py' -v
