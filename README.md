@@ -87,6 +87,8 @@ Alamia-Skills-System/
 │   ├── qa/SKILL.md               # Executes detected test runner & static checks
 │   ├── architecture-review/SKILL.md # Analyzes changes against discovered architecture
 │   └── session-end/SKILL.md      # Formats next sequential handoff in native style
+├── skills/
+│   └── dag-task-planning/SKILL.md # Creates one-day agent tasks, daily goals, valid DAGs, and per-task learning
 ├── templates/                    # Starter templates for unconfigured projects
 │   ├── handoff-template.md       # Standard session handoff template
 │   ├── architecture-template.md  # Baseline architecture specification template
@@ -155,6 +157,9 @@ Once bootstrapped, developers do not need to memorize individual skills. The ent
 ### 5. `session-end` (Wrap-Up & Handoff)
 * **What it does:** Verifies working tree status, checks test health, and drafts the **next sequential handoff** (e.g. `08-session-handoff-...md` in `.ai/transient/handoffs/` or `docs/handoffs/`) in the project's exact native format.
 * **Command:** *"End session"* or *"Wrap up"*.
+
+### DAG-driven planning skill
+Use the registered `dag-task-planning` skill when defining features, Epics, GitHub Issues, daily goals, or dependency graphs. It requires implementation tasks to fit within one working day; longer efforts must be decomposed into independently verifiable daily-goal tasks. It also requires dependency validation, explicit acceptance/verification criteria, and governed learning capture after each completed task.
 
 ---
 
