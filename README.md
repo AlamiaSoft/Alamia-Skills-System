@@ -88,7 +88,8 @@ Alamia-Skills-System/
 │   ├── architecture-review/SKILL.md # Analyzes changes against discovered architecture
 │   └── session-end/SKILL.md      # Formats next sequential handoff in native style
 ├── skills/
-│   └── dag-task-planning/SKILL.md # Creates one-day agent tasks, daily goals, valid DAGs, and per-task learning
+│   ├── dag-task-planning/SKILL.md # Creates one-day agent tasks, daily goals, valid DAGs, and per-task learning
+│   └── persistent-operational-tooling/SKILL.md # Discover, reuse, and safely persist operational tools
 ├── templates/                    # Starter templates for unconfigured projects
 │   ├── handoff-template.md       # Standard session handoff template
 │   ├── architecture-template.md  # Baseline architecture specification template
