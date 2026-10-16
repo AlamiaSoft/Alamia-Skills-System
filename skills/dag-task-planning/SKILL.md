@@ -95,13 +95,15 @@ When a task is completed:
 
 1. Verify each acceptance criterion against its planned evidence; run relevant local checks and inspect the actual PR CI status.
 2. Report exact commands, working directories, results, failed attempts, CI run links, and any skipped checks with reasons. A command written in an issue is a plan, not proof it ran.
-3. Do not call a PR review-ready while required checks are pending/failing, required evidence is missing, or a known failure-path test has not been addressed. If a check cannot run, mark the criterion blocked/not verified and state the decision needed.
-4. Record actual result versus estimate and identify unexpected discoveries.
-5. Capture evidence and confidence for each reusable lesson.
-6. Create/update a learning candidate when the lesson is reusable; never auto-promote unvalidated knowledge.
-7. Link the learning candidate or approved skill update from the task when possible.
-8. Update issue/PR status and DAG readiness only after verifying the actual GitHub/CI state.
-9. Select the next unblocked task in the agreed priority order only after the task's required gates and approval boundaries are satisfied.
+3. **Gate final reports on green required checks.** The resident agent may post concise progress and blocker updates at any time, but must not post a completion/final report, claim the task is done, mark the PR review-ready, or recommend advancing the DAG while any required acceptance test or blocking CI/CD check is pending, failing, skipped without an approved exception, unavailable, or unsupported by evidence.
+4. If a required gate is not green, keep the task blocked/not verified and post a status update naming the exact check, observed result, missing evidence/environment, and next action. Do not describe a blocker update as a completion report. A human-approved exception must be explicit and recorded; the agent cannot silently waive a gate.
+5. Only after all required acceptance tests and blocking CI/CD checks are green, post a final report with the actual commit SHA, changed files, criterion-by-criterion outcomes, exact commands/results, CI links, and remaining non-blocking risks. A passing CI run does not replace human review or approval boundaries.
+6. Record actual result versus estimate and identify unexpected discoveries.
+7. Capture evidence and confidence for each reusable lesson.
+8. Create/update a learning candidate when the lesson is reusable; never auto-promote unvalidated knowledge.
+9. Link the learning candidate or approved skill update from the task when possible.
+10. Update issue/PR status and DAG readiness only after verifying the actual GitHub/CI state.
+11. Select the next unblocked task in the agreed priority order only after the task's required gates and approval boundaries are satisfied.
 
 Do this after every task, even when several tasks are completed in one session. Session-end summaries consolidate the work; they do not replace task-level learning.
 
