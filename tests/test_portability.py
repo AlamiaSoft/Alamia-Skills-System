@@ -149,6 +149,25 @@ def test_agent_pm_skills_registration():
         print("[PASS] Vendored agent-pm registration in skills.json verified successfully!")
 
 
+
+def test_persistent_operational_tooling_skill_registration():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        root = Path(tmpdir)
+        (root / "package.json").write_text('{"name": "tooling-skill-test"}', encoding="utf-8")
+
+        reconciler = ProjectReconciler(root)
+        reconciler.reconcile()
+
+        skills_json = root / ".agents" / "skills.json"
+        assert skills_json.exists()
+        cfg = json.loads(skills_json.read_text(encoding="utf-8"))
+        paths = [e["path"] for e in cfg.get("entries", [])]
+        assert any("persistent-operational-tooling" in p for p in paths)
+        assert any("dag-task-planning" in p for p in paths)
+        assert {"path": "local/custom-skill"} not in cfg.get("entries", [])
+        print("[PASS] Persistent operational tooling skill registration verified successfully!")
+
+
 def test_reconciler_preserves_custom_project_settings_and_skill_entries():
     with tempfile.TemporaryDirectory() as tmpdir:
         root = Path(tmpdir)
@@ -224,6 +243,7 @@ if __name__ == "__main__":
     test_monorepo_discovery()
     test_reconciler_idempotency()
     test_agent_pm_skills_registration()
+    test_persistent_operational_tooling_skill_registration()
     test_reconciler_preserves_custom_project_settings_and_skill_entries()
     test_invalid_project_profile_is_backed_up_before_repair()
     test_state_engine_classifies_outdated_profile_as_case_e()
