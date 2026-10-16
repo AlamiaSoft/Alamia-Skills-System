@@ -21,14 +21,19 @@ The `implement` skill manages the active development phase. It is **project-agno
    - Read any specifications or conventions relevant to the target module or feature.
    - If a spec is needed before coding, invoke the atomic skill `/to-spec`.
 
-3. **Orchestrate Atomic Implementation**:
+3. **Reuse Operational Tooling Before Creating Utilities**:
+   - When a task involves recurring GitHub/API, repository-maintenance, diagnostics, or verification work, consult the registered `persistent-operational-tooling` skill before creating a new script.
+   - Discover existing scripts, MCP/connector tools, and CLI capabilities first. Prefer an existing suitable tool; persist a script only when reuse provides real value. Do not add a wrapper solely to duplicate an existing capability.
+   - Preserve security, local repository conventions, and the human approval boundary for externally consequential actions.
+
+4. **Orchestrate Atomic Implementation**:
    - For testable logic, invoke the atomic skill `/tdd` (test-driven development).
    - Write or update code following the language conventions detected in `.alamia/project.json`.
    - Update or add tests in the project's detected test directory.
 
-4. **Verify Immediate Changes**:
+5. **Verify Immediate Changes**:
    - Run the project's detected test command (from `.alamia/project.json`) against the modified unit/file.
 
-5. **Handoff to Validation**:
+6. **Handoff to Validation**:
    - Inform the developer of the completed changes.
    - Suggest the next lifecycle phase: `qa` for comprehensive test suite validation.
