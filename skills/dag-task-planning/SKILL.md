@@ -25,13 +25,18 @@ Convert desired outcomes into a dependency-aware, GitHub-backed plan that a deve
 8. **Plan verification and CI/CD as part of the DAG.** For every task, decide during planning which automated checks, tests, and human decisions are needed to establish its acceptance criteria. Add or identify the CI workflow and required status checks where the repository supports them. Put test-writing and CI setup tasks in the DAG when they are prerequisites; do not leave them as vague follow-up work. Reuse existing workflows and test commands, and never invent a workflow, command, or status check that has not been verified.
 9. **Use risk-proportionate test gates.** Choose checks based on change type and impact: formatting/lint/static analysis, unit tests, integration/contract tests, migrations/schema checks, security checks, end-to-end tests, concurrency/retry/failure-injection tests, and supported-database certification as applicable. Financial/accounting, tenant isolation, authorization, idempotency, concurrency, destructive operations, and production changes require explicit negative/failure-path coverage where relevant. Do not require every test category for every task; document why a category is applicable or not applicable.
 10. **Separate automated evidence from human judgment.** CI can establish repeatable technical evidence, not approve architecture, business semantics, security exceptions, financial correctness, or production risk by itself. Define which gates are machine-enforced and which require an explicit human decision. Passing CI does not authorize merge, deployment, closing an Epic, or starting a dependent task unless the project's policy says so.
-11. **Verify the resulting plan.** After creating or editing issues, retrieve the created records and confirm titles, bodies, links, dependencies, labels, and referenced workflows/checks. If a machine-readable DAG is used, validate references, missing nodes, cycles, and dependency ordering. Report any operation that failed; never claim an issue, relationship, workflow, or check exists without verifying it.
+11. **Verify the resulting plan.** After creating or editing issues, retrieve the created records and confirm titles, bodies, links, dependencies, labels, issue types, milestones, and referenced workflows/checks. If a machine-readable DAG is used, validate references, missing nodes, cycles, and dependency ordering. Report any operation that failed; never claim an issue, relationship, workflow, or check exists without verifying it.
+12. **Classify every issue before creating it.** Inspect the repository/organization's native GitHub Issue Types, labels, issue forms/templates, and naming conventions. Assign the most accurate supported type (for example Epic, Feature, Bug, Task, Chore/Technical Debt, Security, or Documentation) to every newly created issue. Prefer native Issue Types when available; otherwise use the repository's established type labels/templates. Do not assume the GitHub instance supports native issue types, do not invent labels, and do not confuse type with priority, status, component, or risk. If no reliable convention exists, propose a small consistent taxonomy and record that it is a proposed change before applying it broadly.
+13. **Plan milestones deliberately.** Inspect existing milestones and the release/phase plan before creating DAG issues. If the DAG has meaningful delivery phases, a release target, or a time-bounded outcome, assign the appropriate existing milestone to every issue that contributes to it, including parent/Epic and child tasks where the repository convention supports that. Create a new milestone only when there is a real, named deliverable or release boundary with a clear completion criterion; define its title, purpose, and due date only when the date is genuinely agreed. Do not create a milestone per daily task or invent dates. If no meaningful milestone is planned, leave it unset and state why. Verify the assigned milestone after issue creation.
+14. **Keep planning metadata orthogonal and consistent.** Use type for what the work is, priority for urgency, milestone for the delivery/release grouping, labels for component/risk/special handling, assignee for accountable ownership, and dependencies for execution order. Use existing GitHub Projects/status/estimate fields if already adopted and useful; do not create duplicate tracking systems. Every child task must inherit or link to the correct parent, milestone, and component context without copying stale information.
 
 ## Workflow
 
 ### 1. Discover before planning
 
-- Confirm repository, default branch, existing backlog, labels, milestones, templates, planning files, architecture/ADR documents, and current priority order.
+- Confirm repository, default branch, existing backlog, native issue types (if available), labels, milestones and due dates, issue forms/templates, project-board fields, planning files, architecture/ADR documents, and current priority order.
+- Inspect existing conventions for issue type, priority, status, component, risk, ownership, and release grouping. Keep these dimensions separate and reuse existing values.
+- Decide whether the plan needs an Epic/parent, one or more milestones, a project board, or a machine-readable DAG. Choose the minimum set that improves traceability; do not create duplicate sources of truth.
 - Read relevant existing issues and avoid duplicate work.
 - Separate verified repository facts from assumptions and decisions that need the owner.
 - Ask a concise question only if a missing decision materially blocks safe planning; otherwise record the assumption explicitly.
@@ -46,6 +51,7 @@ Create an Epic or equivalent parent issue for each coherent outcome that spans m
 - Child task list and dependency overview.
 - Risks, external decisions, and release/security gates.
 - Links to relevant existing issues and design decisions.
+- Explicit parent/child hierarchy, issue type, priority rationale, milestone/release target (or why none applies), and accountable owner where known.
 
 For a truly single-day change, do not create a ceremonial Epic unless repository conventions require one.
 
@@ -55,12 +61,16 @@ For a truly single-day change, do not create a ceremonial Epic unless repository
 - Target a small task that can finish in one day; if estimated effort or uncertainty makes that unlikely, split it.
 - For multi-day features, create a sequence of daily-goal tasks. Each daily goal should end in a verifiable artifact: a tested vertical slice, merged-safe code change, passing regression test, validated interface, documented decision, or another meaningful increment.
 - Keep discovery/spikes bounded to one day and require a decision/evidence output, not open-ended research.
+- Group tasks into milestones only around real deliverables/releases/phases. A milestone is not a substitute for DAG dependencies, and a due date is not an estimate. Avoid milestone sprawl and avoid dates that were not agreed.
 - Prefer independently reviewable changes and one focused PR per task where practical.
 - Identify tasks that can safely run in parallel, but make integration and validation tasks explicit.
 
 ### 4. Build and validate the DAG
 
-- Represent each task as a node with stable issue number/URL, estimated effort, daily goal, dependencies, acceptance criteria, and status.
+- Represent each task as a node with stable issue number/URL, issue type, estimated effort, daily goal, dependencies, acceptance criteria, status, priority, milestone (if applicable), and owner (if known).
+- Before creating issues, assign issue type using native GitHub Issue Types when available; otherwise follow existing repository labels/templates. Use a type such as Epic/Feature/Bug/Task/Chore/Documentation/Security only when it accurately describes the work and is supported by the repository's taxonomy.
+- Assign a milestone when the task belongs to a defined release, delivery phase, or time-bounded outcome. Prefer an existing milestone. If a new milestone is needed, create it with a clear scope and completion criterion; only set a due date if one is agreed. If the plan has no real milestone, leave the field unset rather than inventing one.
+- Keep priority, issue type, milestone, labels, status, and dependency links semantically distinct. A P0 label must not be treated as a dependency edge or a release milestone.
 - Add dependency edges only when a real prerequisite exists. Avoid serializing independent work unnecessarily.
 - Include explicit integration, security/accounting review, end-to-end verification, and release gates where appropriate.
 - Define a verification matrix for the Epic: task/acceptance criterion → test type or review → command/workflow → expected evidence → blocking or advisory status.
@@ -77,6 +87,10 @@ For a task issue, include:
 - **Objective / daily goal**
 - **Estimate** (focused working time; no task exceeds one working day)
 - **Context and constraints**
+- **Issue type** (native GitHub type where available; otherwise established type label/template)
+- **Priority and rationale** (using repository convention)
+- **Milestone/release target** (existing milestone or newly defined milestone; if none applies, explicitly say why)
+- **Owner/assignee** (when known; do not assign speculatively)
 - **Dependencies** (blocked by / blocks / parent Epic)
 - **Scope** (included and excluded)
 - **Acceptance criteria** (observable checkboxes)
@@ -109,4 +123,4 @@ Do this after every task, even when several tasks are completed in one session. 
 
 ## Definition of a successful plan
 
-A plan is ready for execution when every task is at most one working day, multi-day outcomes have daily-goal subtasks, dependencies form a valid DAG, each task has testable acceptance criteria plus a risk-proportionate test strategy and verification evidence, applicable CI/CD gates are identified or explicitly marked unverified, learning capture is included in completion criteria, and the next eligible task is unambiguous. A PR is review-ready only when its required checks and evidence are available; human review remains focused on design, correctness, trade-offs, security, and decisions that automation cannot settle.
+A plan is ready for execution when every task is at most one working day, multi-day outcomes have daily-goal subtasks, every issue has a verified issue type and appropriate priority, milestones are assigned wherever a real delivery/release boundary exists (or explicitly left unset with rationale), dependencies form a valid DAG, each task has testable acceptance criteria plus a risk-proportionate test strategy and verification evidence, applicable CI/CD gates are identified or explicitly marked unverified, learning capture is included in completion criteria, and the next eligible task is unambiguous. A PR is review-ready only when its required checks and evidence are available; human review remains focused on design, correctness, trade-offs, security, and decisions that automation cannot settle.
