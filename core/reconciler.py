@@ -191,6 +191,15 @@ class ProjectReconciler:
                 rel_dag_skill_path = str(dag_skill_dir).replace("\\", "/")
             skill_entries.append({"path": rel_dag_skill_path})
 
+        # Register reusable operational tooling guidance as a first-party atomic skill.
+        tooling_skill_dir = self.system_root / "skills" / "persistent-operational-tooling"
+        if (tooling_skill_dir / "SKILL.md").exists():
+            try:
+                rel_tooling_skill_path = str(tooling_skill_dir.relative_to(self.project_root)).replace("\\", "/")
+            except ValueError:
+                rel_tooling_skill_path = str(tooling_skill_dir).replace("\\", "/")
+            skill_entries.append({"path": rel_tooling_skill_path})
+
         if skill_entries:
             existing_cfg_str = skills_config_path.read_text(encoding="utf-8") if skills_config_path.exists() else None
             existing_cfg = {}
