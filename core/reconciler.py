@@ -204,9 +204,9 @@ class ProjectReconciler:
         discipline_skill_dir = self.system_root / "skills" / "engineering-discipline"
         if (discipline_skill_dir / "SKILL.md").exists():
             try:
-                rel_discipline_path = str(discipline_skill_dir.relative_to(self.project_root)).replace("\\\\", "/")
+                rel_discipline_path = str(discipline_skill_dir.relative_to(self.project_root)).replace("\\", "/")
             except ValueError:
-                rel_discipline_path = str(discipline_skill_dir).replace("\\\\", "/")
+                rel_discipline_path = str(discipline_skill_dir).replace("\\", "/")
             skill_entries.append({"path": rel_discipline_path})
 
         if skill_entries:
