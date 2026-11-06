@@ -11,6 +11,8 @@ The `implement` skill manages the active development phase. It is **project-agno
 
 ## Operational Workflow
 
+Apply the registered `engineering-discipline` behavioral skill throughout this workflow. It is cross-cutting guidance, not a replacement for specialist skills or project rules. Surface material assumptions before acting, choose the simplest adequate implementation, keep edits task-scoped, and define evidence-backed acceptance criteria.
+
 1. **Resolve Work Context**:
    - Inspect `.alamia/project.json` for project stack, architecture dir, and memory dir.
    - If the developer specified a task (e.g. "implement X"), use that as the primary objective.
