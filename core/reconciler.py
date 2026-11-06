@@ -200,6 +200,15 @@ class ProjectReconciler:
                 rel_tooling_skill_path = str(tooling_skill_dir).replace("\\", "/")
             skill_entries.append({"path": rel_tooling_skill_path})
 
+        # Register the first-party cross-cutting engineering discipline skill.
+        discipline_skill_dir = self.system_root / "skills" / "engineering-discipline"
+        if (discipline_skill_dir / "SKILL.md").exists():
+            try:
+                rel_discipline_path = str(discipline_skill_dir.relative_to(self.project_root)).replace("\\", "/")
+            except ValueError:
+                rel_discipline_path = str(discipline_skill_dir).replace("\\", "/")
+            skill_entries.append({"path": rel_discipline_path})
+
         if skill_entries:
             existing_cfg_str = skills_config_path.read_text(encoding="utf-8") if skills_config_path.exists() else None
             existing_cfg = {}
