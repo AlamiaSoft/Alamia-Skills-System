@@ -159,6 +159,10 @@ Once bootstrapped, developers do not need to memorize individual skills. The ent
 * **What it does:** Verifies working tree status, checks test health, and drafts the **next sequential handoff** (e.g. `08-session-handoff-...md` in `.ai/transient/handoffs/` or `docs/handoffs/`) in the project's exact native format.
 * **Command:** *"End session"* or *"Wrap up"*.
 
+
+### Engineering discipline skill
+The first-party `engineering-discipline` skill is registered during bootstrap alongside other Alamia atomic skills. It applies across implementation and QA: think before acting, prefer the simplest adequate solution, keep changes surgical, define verifiable outcomes, scale checks to risk, and report completion only with observed evidence. It is behavioral guidance; CI, runtime policy, repository permissions, and human approval gates remain authoritative. Its principles are adapted from [multica-ai/andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills), distributed under MIT License.
+
 ### DAG-driven planning skill
 Use the registered `dag-task-planning` skill when defining features, Epics, GitHub Issues, daily goals, or dependency graphs. It requires implementation tasks to fit within one working day; longer efforts must be decomposed into independently verifiable daily-goal tasks. It also requires dependency validation, risk-proportionate tests and CI/CD gates, explicit verification evidence, and governed learning capture after each completed task. Resident agents may post progress/blocker updates before checks pass, but must not post completion reports or mark PRs review-ready until all required acceptance tests and blocking CI checks are green.
 
