@@ -7,7 +7,7 @@ description: >-
 
 # QA Lifecycle Orchestrator
 
-The `qa` skill performs quality assurance and validation. It dynamically uses the project's detected test runner and environment.
+The `qa` skill performs quality assurance and validation. It dynamically uses the project's detected test runner and environment. Apply the registered `engineering-discipline` skill when selecting proportionate checks, inspecting scope, and reporting only evidence-backed outcomes.
 
 ## Operational Workflow
 
