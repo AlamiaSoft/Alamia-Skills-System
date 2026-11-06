@@ -1,0 +1,27 @@
+{
+  "id": "seo-content-production",
+  "name": "SEO Content Production",
+  "steps": [
+    {
+      "skill": "keyword-intent-mapping"
+    },
+    {
+      "skill": "research-plan"
+    },
+    {
+      "skill": "editorial-brief"
+    },
+    {
+      "skill": "evidence-led-article"
+    },
+    {
+      "skill": "seo-content-optimization"
+    }
+  ],
+  "completion": [
+    "Intent is addressed",
+    "Claims are source-grounded",
+    "No unsupported ranking guarantees",
+    "Human approval before publication"
+  ]
+}

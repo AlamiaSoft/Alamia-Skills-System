@@ -1,0 +1,16 @@
+{
+  "id": "technical-seo-audit",
+  "name": "Technical SEO Audit",
+  "description": "Identify and prioritize technical SEO issues from crawl data, URLs and supplied diagnostics.",
+  "domain": "seo",
+  "version": "1.0.0",
+  "license": "MIT",
+  "tags": [
+    "seo"
+  ],
+  "compatibility": [
+    "agents supporting the Agent Skills SKILL.md convention"
+  ],
+  "requires": [],
+  "risk": "moderate"
+}

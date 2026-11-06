@@ -1,0 +1,16 @@
+{
+  "id": "engineering-discipline",
+  "name": "Engineering Discipline",
+  "description": "Apply disciplined, low-regret execution to engineering work.",
+  "domain": "engineering",
+  "version": "1.0.0",
+  "license": "MIT",
+  "tags": [
+    "engineering"
+  ],
+  "compatibility": [
+    "agents supporting the Agent Skills SKILL.md convention"
+  ],
+  "requires": [],
+  "risk": "moderate"
+}

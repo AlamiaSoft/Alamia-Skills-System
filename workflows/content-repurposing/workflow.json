@@ -1,0 +1,20 @@
+{
+  "id": "content-repurposing",
+  "name": "Content Repurposing",
+  "steps": [
+    {
+      "skill": "source-synthesis"
+    },
+    {
+      "skill": "content-repurposing"
+    },
+    {
+      "skill": "short-form-video-repurposing"
+    }
+  ],
+  "completion": [
+    "Derivatives trace to approved source",
+    "Channel formats are respected",
+    "No publication without approval"
+  ]
+}

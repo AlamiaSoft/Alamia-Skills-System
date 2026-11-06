@@ -1,0 +1,12 @@
+{
+  "id": "seo-specialist",
+  "name": "SEO Specialist",
+  "collections": [
+    "seo",
+    "content",
+    "research"
+  ],
+  "workflows": [
+    "seo-content-production"
+  ]
+}

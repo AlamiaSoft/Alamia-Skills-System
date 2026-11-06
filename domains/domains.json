@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "domains": [
+    {
+      "id": "engineering",
+      "name": "Engineering"
+    },
+    {
+      "id": "seo",
+      "name": "Seo"
+    },
+    {
+      "id": "content",
+      "name": "Content"
+    },
+    {
+      "id": "marketing",
+      "name": "Marketing"
+    },
+    {
+      "id": "video",
+      "name": "Video"
+    },
+    {
+      "id": "research",
+      "name": "Research"
+    },
+    {
+      "id": "business",
+      "name": "Business"
+    }
+  ]
+}

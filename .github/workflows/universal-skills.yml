@@ -1,0 +1,40 @@
+name: Universal skills and installer
+on:
+  push:
+    branches: [main, "feat/**"]
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  python-regression:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python tests/test_portability.py
+      - run: python -m unittest tests.test_catalog
+  installer:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20, 22]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm test
+      - run: npm pack --dry-run
+      - name: Smoke-test the packed npx CLI
+        shell: bash
+        run: |
+          set -euo pipefail
+          TARBALL="$(npm pack --silent)"
+          TARGET="$(mktemp -d)"
+          npm exec --yes --package "./$TARBALL" -- alamia-skills-install --seo --target "$TARGET"
+          test -f "$TARGET/.agents/skills/keyword-intent-mapping/SKILL.md"
+          test -f "$TARGET/.agents/skills/technical-seo-audit/SKILL.md"
+          rm -rf "$TARGET" "$TARBALL"

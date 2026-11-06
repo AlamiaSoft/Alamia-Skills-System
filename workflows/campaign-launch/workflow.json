@@ -1,0 +1,21 @@
+{
+  "id": "campaign-launch",
+  "name": "Campaign Launch",
+  "steps": [
+    {
+      "skill": "campaign-strategy"
+    },
+    {
+      "skill": "email-campaign"
+    },
+    {
+      "skill": "landing-page-review"
+    }
+  ],
+  "completion": [
+    "Audience and offer are explicit",
+    "Claims and terms verified",
+    "Measurement plan defined",
+    "Owner approval before launch"
+  ]
+}

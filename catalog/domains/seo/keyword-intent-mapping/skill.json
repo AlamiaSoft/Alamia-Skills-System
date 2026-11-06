@@ -1,0 +1,16 @@
+{
+  "id": "keyword-intent-mapping",
+  "name": "Keyword Intent Mapping",
+  "description": "Cluster queries by search intent and identify content opportunities.",
+  "domain": "seo",
+  "version": "1.0.0",
+  "license": "MIT",
+  "tags": [
+    "seo"
+  ],
+  "compatibility": [
+    "agents supporting the Agent Skills SKILL.md convention"
+  ],
+  "requires": [],
+  "risk": "low"
+}

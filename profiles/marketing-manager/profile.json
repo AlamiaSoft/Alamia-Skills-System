@@ -1,0 +1,12 @@
+{
+  "id": "marketing-manager",
+  "name": "Marketing Manager",
+  "collections": [
+    "marketing",
+    "content",
+    "research"
+  ],
+  "workflows": [
+    "campaign-launch"
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "name": "alamia-skills-install",
+  "version": "0.1.0",
+  "description": "Install curated Alamia AI skill collections into compatible agent workspaces.",
+  "license": "MIT",
+  "type": "commonjs",
+  "bin": {
+    "alamia-skills-install": "./bin/alamia-skills-install.js"
+  },
+  "files": [
+    "bin/",
+    "catalog/",
+    "domains/",
+    "profiles/",
+    "schemas/",
+    "skills/",
+    "workflows/",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "node --test tests/cli.test.js",
+    "pack:check": "npm pack --dry-run"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

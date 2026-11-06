@@ -1,0 +1,16 @@
+{
+  "id": "evidence-led-article",
+  "name": "Evidence-Led Article",
+  "description": "Draft useful articles with material factual claims traceable to sources.",
+  "domain": "content",
+  "version": "1.0.0",
+  "license": "MIT",
+  "tags": [
+    "content"
+  ],
+  "compatibility": [
+    "agents supporting the Agent Skills SKILL.md convention"
+  ],
+  "requires": [],
+  "risk": "moderate"
+}
