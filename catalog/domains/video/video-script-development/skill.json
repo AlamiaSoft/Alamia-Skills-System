@@ -1,0 +1,16 @@
+{
+  "id": "video-script-development",
+  "name": "Video Script Development",
+  "description": "Create a production-ready video concept, script and visual direction.",
+  "domain": "video",
+  "version": "1.0.0",
+  "license": "MIT",
+  "tags": [
+    "video"
+  ],
+  "compatibility": [
+    "agents supporting the Agent Skills SKILL.md convention"
+  ],
+  "requires": [],
+  "risk": "low"
+}

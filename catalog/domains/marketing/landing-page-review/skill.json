@@ -1,0 +1,16 @@
+{
+  "id": "landing-page-review",
+  "name": "Landing Page Conversion Review",
+  "description": "Review a landing page for message clarity, trust, friction and conversion-path gaps.",
+  "domain": "marketing",
+  "version": "1.0.0",
+  "license": "MIT",
+  "tags": [
+    "marketing"
+  ],
+  "compatibility": [
+    "agents supporting the Agent Skills SKILL.md convention"
+  ],
+  "requires": [],
+  "risk": "moderate"
+}

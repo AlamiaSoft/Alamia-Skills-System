@@ -1,0 +1,16 @@
+{
+  "id": "research-plan",
+  "name": "Research Plan",
+  "description": "Design a bounded investigation with answerable questions and explicit evidence standards.",
+  "domain": "research",
+  "version": "1.0.0",
+  "license": "MIT",
+  "tags": [
+    "research"
+  ],
+  "compatibility": [
+    "agents supporting the Agent Skills SKILL.md convention"
+  ],
+  "requires": [],
+  "risk": "low"
+}

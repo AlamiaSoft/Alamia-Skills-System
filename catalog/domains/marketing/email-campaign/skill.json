@@ -1,0 +1,16 @@
+{
+  "id": "email-campaign",
+  "name": "Email Campaign Builder",
+  "description": "Create consent-aware lifecycle or promotional email sequences with clear objectives.",
+  "domain": "marketing",
+  "version": "1.0.0",
+  "license": "MIT",
+  "tags": [
+    "marketing"
+  ],
+  "compatibility": [
+    "agents supporting the Agent Skills SKILL.md convention"
+  ],
+  "requires": [],
+  "risk": "moderate"
+}

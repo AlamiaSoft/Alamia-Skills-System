@@ -1,0 +1,16 @@
+{
+  "id": "dag-task-planning",
+  "name": "DAG Task Planning",
+  "description": "Decompose work into verifiable daily tasks and dependency graphs.",
+  "domain": "engineering",
+  "version": "1.0.0",
+  "license": "MIT",
+  "tags": [
+    "engineering"
+  ],
+  "compatibility": [
+    "agents supporting the Agent Skills SKILL.md convention"
+  ],
+  "requires": [],
+  "risk": "moderate"
+}

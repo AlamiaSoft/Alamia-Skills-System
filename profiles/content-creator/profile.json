@@ -1,0 +1,13 @@
+{
+  "id": "content-creator",
+  "name": "Content Creator",
+  "collections": [
+    "content",
+    "seo",
+    "video",
+    "research"
+  ],
+  "workflows": [
+    "content-repurposing"
+  ]
+}

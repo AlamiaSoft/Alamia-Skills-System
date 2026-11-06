@@ -1,0 +1,16 @@
+{
+  "id": "seo-content-optimization",
+  "name": "SEO Content Optimization",
+  "description": "Improve a page for search intent, usefulness and discoverability without keyword stuffing.",
+  "domain": "seo",
+  "version": "1.0.0",
+  "license": "MIT",
+  "tags": [
+    "seo"
+  ],
+  "compatibility": [
+    "agents supporting the Agent Skills SKILL.md convention"
+  ],
+  "requires": [],
+  "risk": "low"
+}
