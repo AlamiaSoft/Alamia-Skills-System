@@ -37,7 +37,7 @@ function main(argv=process.argv.slice(2)){
     const dest=path.join(destRoot,e.id);
     if(o.dryRun){console.log("  [DRY RUN] "+e.id);installed++;continue;}
     if(fs.existsSync(dest)&&!o.force){console.log("  [SKIP] "+e.id+" already exists");skipped++;continue;}
-    fs.mkdirSync(destRoot,{recursive:true});fs.cpSync(src,dest,{recursive:true,force:o.force,dereference:false});console.log("  [OK] "+e.id);installed++;
+    fs.mkdirSync(destRoot,{recursive:true});if(o.force&&fs.existsSync(dest))fs.rmSync(dest,{recursive:true,force:true});fs.cpSync(src,dest,{recursive:true,force:o.force,dereference:false});console.log("  [OK] "+e.id);installed++;
    }
   }
   console.log(o.dryRun?"\nDry run: "+installed+" skill(s) would be installed.":"\nComplete: "+installed+" installed, "+skipped+" preserved. Destination: "+destRoot);

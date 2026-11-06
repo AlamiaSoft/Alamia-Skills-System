@@ -15,7 +15,7 @@ jobs:
         with:
           python-version: "3.12"
       - run: python tests/test_portability.py
-      - run: python -m unittest tests.test_catalog
+      - run: python tests/test_catalog.py
   installer:
     runs-on: ubuntu-latest
     strategy:
