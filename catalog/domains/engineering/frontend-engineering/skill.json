@@ -1,0 +1,17 @@
+{
+  "id": "frontend-engineering",
+  "name": "Frontend Engineering",
+  "description": "Implement web/PWA interfaces, client state, forms, navigation, responsive behavior and API integration.",
+  "domain": "product-engineering",
+  "version": "1.0.0",
+  "license": "MIT",
+  "tags": [
+    "product-engineering",
+    "frontend-engineering"
+  ],
+  "compatibility": [
+    "agents supporting the Agent Skills SKILL.md convention"
+  ],
+  "requires": [],
+  "risk": "moderate"
+}

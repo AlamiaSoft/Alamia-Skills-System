@@ -121,6 +121,35 @@ Version releases and publish accurate changelogs. Manage feature flags, staged r
 **Artifacts:** release notes, maintenance backlog, incident/postmortem records and improvement roadmap.
 **Gate:** ownership, support path, maintenance cadence and next priorities are explicit.
 
+## Specialist skill routing
+
+The following independently installable specialist skills provide focused execution. Invoke only those relevant to the product; do not force every skill into every project.
+
+| Lifecycle capability | Specialist skill |
+|---|---|
+| Product Discovery | product-discovery |
+| Product Specification | product-specification |
+| Product Architecture | product-architecture |
+| UX/UI Engineering | ux-ui-engineering |
+| Development Planning | development-planning |
+| Backend Engineering | backend-engineering |
+| Frontend Engineering | frontend-engineering |
+| Data Engineering | data-engineering |
+| AI Integration Engineering | ai-integration-engineering |
+| Quality Assurance | quality-assurance |
+| Security Hardening | security-hardening |
+| Performance Optimization | performance-optimization |
+| DevOps and CI/CD | devops-cicd |
+| Staging Validation | staging-validation |
+| Production Deployment | production-deployment |
+| Observability and Operations | observability-operations |
+| Technical Documentation | technical-documentation |
+| Product Release Management | product-release-management |
+| Product Maintenance | product-maintenance |
+| Engineering Governance | engineering-governance |
+
+Use Engineering Governance for cross-cutting standards, review and approval policies. Use Project Knowledge System before substantial work and at every handoff. The orchestrator owns lifecycle state and gate progression; specialist skills own their focused procedures. If a specialist skill is unavailable, follow the relevant phase instructions in this orchestrator and report the limitation.
+
 ## Lifecycle state and gate management
 For each phase record status (not started, in progress, blocked, passed, accepted exception), owner, timestamp, required artifacts, verification evidence, unresolved risks, approver and next eligible phase. A document's existence does not prove a gate passed. A failed blocking gate prevents dependent work unless the accountable human owner records an explicit scoped exception.
 

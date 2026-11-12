@@ -1,0 +1,17 @@
+{
+  "id": "quality-assurance",
+  "name": "Quality Assurance",
+  "description": "Create and execute test strategy, acceptance verification, regression and release validation.",
+  "domain": "product-engineering",
+  "version": "1.0.0",
+  "license": "MIT",
+  "tags": [
+    "product-engineering",
+    "quality-assurance"
+  ],
+  "compatibility": [
+    "agents supporting the Agent Skills SKILL.md convention"
+  ],
+  "requires": [],
+  "risk": "moderate"
+}

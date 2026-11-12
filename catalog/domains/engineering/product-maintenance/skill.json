@@ -1,0 +1,17 @@
+{
+  "id": "product-maintenance",
+  "name": "Product Maintenance",
+  "description": "Triage production defects, maintain dependencies, patch vulnerabilities and prioritize technical debt.",
+  "domain": "product-engineering",
+  "version": "1.0.0",
+  "license": "MIT",
+  "tags": [
+    "product-engineering",
+    "product-maintenance"
+  ],
+  "compatibility": [
+    "agents supporting the Agent Skills SKILL.md convention"
+  ],
+  "requires": [],
+  "risk": "moderate"
+}

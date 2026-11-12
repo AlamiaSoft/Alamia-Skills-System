@@ -1,0 +1,17 @@
+{
+  "id": "product-release-management",
+  "name": "Product Release Management",
+  "description": "Version releases, prepare release notes, manage feature flags, rollout, deprecation and post-release verification.",
+  "domain": "product-engineering",
+  "version": "1.0.0",
+  "license": "MIT",
+  "tags": [
+    "product-engineering",
+    "product-release-management"
+  ],
+  "compatibility": [
+    "agents supporting the Agent Skills SKILL.md convention"
+  ],
+  "requires": [],
+  "risk": "moderate"
+}

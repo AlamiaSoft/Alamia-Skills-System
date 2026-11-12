@@ -1,0 +1,17 @@
+{
+  "id": "product-discovery",
+  "name": "Product Discovery",
+  "description": "Validate the user problem, target segment, value hypothesis, feasibility and MVP boundary.",
+  "domain": "product-engineering",
+  "version": "1.0.0",
+  "license": "MIT",
+  "tags": [
+    "product-engineering",
+    "product-discovery"
+  ],
+  "compatibility": [
+    "agents supporting the Agent Skills SKILL.md convention"
+  ],
+  "requires": [],
+  "risk": "moderate"
+}

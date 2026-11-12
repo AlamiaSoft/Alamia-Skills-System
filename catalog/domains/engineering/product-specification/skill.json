@@ -1,0 +1,17 @@
+{
+  "id": "product-specification",
+  "name": "Product Specification",
+  "description": "Turn an approved product direction into a PRD, user stories, acceptance criteria and prioritized requirements.",
+  "domain": "product-engineering",
+  "version": "1.0.0",
+  "license": "MIT",
+  "tags": [
+    "product-engineering",
+    "product-specification"
+  ],
+  "compatibility": [
+    "agents supporting the Agent Skills SKILL.md convention"
+  ],
+  "requires": [],
+  "risk": "moderate"
+}

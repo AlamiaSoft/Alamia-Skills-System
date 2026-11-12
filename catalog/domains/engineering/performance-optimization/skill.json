@@ -1,0 +1,17 @@
+{
+  "id": "performance-optimization",
+  "name": "Performance Optimization",
+  "description": "Investigate latency, throughput, resource use, database behavior and scale readiness.",
+  "domain": "product-engineering",
+  "version": "1.0.0",
+  "license": "MIT",
+  "tags": [
+    "product-engineering",
+    "performance-optimization"
+  ],
+  "compatibility": [
+    "agents supporting the Agent Skills SKILL.md convention"
+  ],
+  "requires": [],
+  "risk": "moderate"
+}
