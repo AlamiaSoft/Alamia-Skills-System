@@ -2,7 +2,7 @@
   "id": "product-engineering",
   "name": "Product Engineering",
   "description": "Orchestrate end-to-end professional software product development with evidence-based lifecycle gates from discovery through production operations.",
-  "domain": "engineering",
+  "domain": "product-engineering",
   "version": "1.0.0",
   "license": "MIT",
   "tags": ["product-development", "software-engineering", "lifecycle", "qa", "security", "devops", "deployment", "operations"],
