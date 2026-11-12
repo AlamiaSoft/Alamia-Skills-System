@@ -1,0 +1,17 @@
+{
+  "id": "technical-documentation",
+  "name": "Technical Documentation",
+  "description": "Create and maintain architecture, API, setup, deployment, operations, troubleshooting and onboarding documentation.",
+  "domain": "product-engineering",
+  "version": "1.0.0",
+  "license": "MIT",
+  "tags": [
+    "product-engineering",
+    "technical-documentation"
+  ],
+  "compatibility": [
+    "agents supporting the Agent Skills SKILL.md convention"
+  ],
+  "requires": [],
+  "risk": "moderate"
+}

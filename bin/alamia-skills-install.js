@@ -3,7 +3,7 @@
 const fs=require("node:fs"),path=require("node:path");
 const ROOT=path.resolve(__dirname,"..");
 function usage(){console.log(`Alamia Skills Installer
-Usage: npx alamia-skills-install --seo|--growth|--content|--marketing|--video|--research|--business|--engineering|--all
+Usage: npx alamia-skills-install --product-engineering|--engineering|--seo|--growth|--content|--marketing|--video|--research|--business|--all
 Options: --list --target <project-dir> --force --dry-run --help
 Installs into <project-dir>/.agents/skills/. Existing skills are preserved unless --force is used.`);}
 function parse(argv){
@@ -21,7 +21,7 @@ function main(argv=process.argv.slice(2)){
   const mf=JSON.parse(fs.readFileSync(path.join(ROOT,"catalog/collections.json"),"utf8"));
   if(mf.schemaVersion!==1||!mf.collections)throw Error("Invalid or unsupported collections manifest");
   const names=Object.keys(mf.collections).sort();
-  if(o.list){for(const n of names)console.log(n.padEnd(14)+mf.collections[n].description+" ("+mf.collections[n].skills.length+" skills)");return;}
+  if(o.list){for(const n of names)console.log(n.padEnd(20)+mf.collections[n].description+" ("+mf.collections[n].skills.length+" skills)");return;}
   if(!o.collection){usage();process.exitCode=1;return;}
   const selected=o.collection==="all"?names:[o.collection],unknown=selected.filter(n=>!mf.collections[n]);
   if(unknown.length)throw Error("Unknown collection: "+unknown.join(", ")+". Use --list.");

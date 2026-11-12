@@ -1,0 +1,17 @@
+{
+  "id": "staging-validation",
+  "name": "Staging Validation",
+  "description": "Validate a release candidate in staging, verify production parity, run smoke tests and conduct UAT.",
+  "domain": "product-engineering",
+  "version": "1.0.0",
+  "license": "MIT",
+  "tags": [
+    "product-engineering",
+    "staging-validation"
+  ],
+  "compatibility": [
+    "agents supporting the Agent Skills SKILL.md convention"
+  ],
+  "requires": [],
+  "risk": "moderate"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "project-knowledge-system",
+  "name": "Project Knowledge System",
+  "description": "Bootstrap and maintain a durable .ai/ knowledge base and .agents/ instructions for AI-assisted software projects.",
+  "domain": "product-engineering",
+  "version": "1.0.0",
+  "license": "MIT",
+  "tags": ["project-bootstrap", "ai-memory", "knowledge-management", "agent-instructions", "documentation"],
+  "compatibility": ["agents supporting the Agent Skills SKILL.md convention", "PowerShell 5.1 or newer for the bundled scaffolder"],
+  "requires": [],
+  "risk": "moderate"
+}

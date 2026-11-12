@@ -21,6 +21,100 @@
         }
       ]
     },
+    "product-engineering": {
+      "title": "Product Engineering",
+      "description": "End-to-end product delivery plus a durable project knowledge foundation.",
+      "skills": [
+        {
+          "id": "project-knowledge-system",
+          "source": "catalog/domains/engineering/project-knowledge-system"
+        },
+        {
+          "id": "product-engineering",
+          "source": "catalog/domains/engineering/product-engineering"
+        },
+        {
+          "id": "product-discovery",
+          "source": "catalog/domains/engineering/product-discovery"
+        },
+        {
+          "id": "product-specification",
+          "source": "catalog/domains/engineering/product-specification"
+        },
+        {
+          "id": "product-architecture",
+          "source": "catalog/domains/engineering/product-architecture"
+        },
+        {
+          "id": "ux-ui-engineering",
+          "source": "catalog/domains/engineering/ux-ui-engineering"
+        },
+        {
+          "id": "development-planning",
+          "source": "catalog/domains/engineering/development-planning"
+        },
+        {
+          "id": "backend-engineering",
+          "source": "catalog/domains/engineering/backend-engineering"
+        },
+        {
+          "id": "frontend-engineering",
+          "source": "catalog/domains/engineering/frontend-engineering"
+        },
+        {
+          "id": "data-engineering",
+          "source": "catalog/domains/engineering/data-engineering"
+        },
+        {
+          "id": "ai-integration-engineering",
+          "source": "catalog/domains/engineering/ai-integration-engineering"
+        },
+        {
+          "id": "quality-assurance",
+          "source": "catalog/domains/engineering/quality-assurance"
+        },
+        {
+          "id": "security-hardening",
+          "source": "catalog/domains/engineering/security-hardening"
+        },
+        {
+          "id": "performance-optimization",
+          "source": "catalog/domains/engineering/performance-optimization"
+        },
+        {
+          "id": "devops-cicd",
+          "source": "catalog/domains/engineering/devops-cicd"
+        },
+        {
+          "id": "staging-validation",
+          "source": "catalog/domains/engineering/staging-validation"
+        },
+        {
+          "id": "production-deployment",
+          "source": "catalog/domains/engineering/production-deployment"
+        },
+        {
+          "id": "observability-operations",
+          "source": "catalog/domains/engineering/observability-operations"
+        },
+        {
+          "id": "technical-documentation",
+          "source": "catalog/domains/engineering/technical-documentation"
+        },
+        {
+          "id": "product-release-management",
+          "source": "catalog/domains/engineering/product-release-management"
+        },
+        {
+          "id": "product-maintenance",
+          "source": "catalog/domains/engineering/product-maintenance"
+        },
+        {
+          "id": "engineering-governance",
+          "source": "catalog/domains/engineering/engineering-governance"
+        }
+      ]
+    },
     "seo": {
       "title": "Seo",
       "description": "Search research, technical audits and content optimization.",
