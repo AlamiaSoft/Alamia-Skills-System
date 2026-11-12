@@ -1,0 +1,27 @@
+{
+  "id": "product-engineering",
+  "name": "End-to-End Product Engineering",
+  "description": "Initialize project knowledge, then orchestrate a product from discovery through production operations.",
+  "version": "1.0.0",
+  "steps": [
+    {
+      "id": "foundation",
+      "skill": "project-knowledge-system",
+      "purpose": "Inspect the repository and initialize or reconcile .ai/ and .agents/ before substantial product work."
+    },
+    {
+      "id": "lifecycle",
+      "skill": "product-engineering",
+      "purpose": "Assess the current phase, coordinate lifecycle workstreams and enforce evidence-based gates."
+    }
+  ],
+  "execution": {
+    "mode": "sequential-with-conditional-gates",
+    "notes": [
+      "This workflow is a composition specification, not an automated runner.",
+      "For brownfield projects, assess completed phases and resume at the earliest incomplete or failed gate.",
+      "A failed blocking gate prevents dependent phases unless the accountable human owner records an explicit exception.",
+      "Production deployment always requires explicit human approval."
+    ]
+  }
+}

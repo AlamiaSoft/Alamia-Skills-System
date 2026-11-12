@@ -7,124 +7,75 @@
       "title": "Engineering",
       "description": "Software delivery, planning and operational engineering.",
       "skills": [
-        {
-          "id": "dag-task-planning",
-          "source": "skills/dag-task-planning"
-        },
-        {
-          "id": "engineering-discipline",
-          "source": "skills/engineering-discipline"
-        },
-        {
-          "id": "persistent-operational-tooling",
-          "source": "skills/persistent-operational-tooling"
-        }
+        { "id": "dag-task-planning", "source": "skills/dag-task-planning" },
+        { "id": "engineering-discipline", "source": "skills/engineering-discipline" },
+        { "id": "persistent-operational-tooling", "source": "skills/persistent-operational-tooling" }
+      ]
+    },
+    "product-engineering": {
+      "title": "Product Engineering",
+      "description": "End-to-end product delivery plus a durable project knowledge foundation.",
+      "skills": [
+        { "id": "project-knowledge-system", "source": "catalog/domains/engineering/project-knowledge-system" },
+        { "id": "product-engineering", "source": "catalog/domains/engineering/product-engineering" }
       ]
     },
     "seo": {
       "title": "Seo",
       "description": "Search research, technical audits and content optimization.",
       "skills": [
-        {
-          "id": "keyword-intent-mapping",
-          "source": "catalog/domains/seo/keyword-intent-mapping"
-        },
-        {
-          "id": "technical-seo-audit",
-          "source": "catalog/domains/seo/technical-seo-audit"
-        },
-        {
-          "id": "seo-content-optimization",
-          "source": "catalog/domains/seo/seo-content-optimization"
-        }
+        { "id": "keyword-intent-mapping", "source": "catalog/domains/seo/keyword-intent-mapping" },
+        { "id": "technical-seo-audit", "source": "catalog/domains/seo/technical-seo-audit" },
+        { "id": "seo-content-optimization", "source": "catalog/domains/seo/seo-content-optimization" }
       ]
     },
     "growth": {
       "title": "Growth",
       "description": "Product measurement, analytics, acquisition, retention, monetization visibility and SEO.",
       "skills": [
-        {
-          "id": "product-analytics-growth-seo",
-          "source": "catalog/domains/growth/product-analytics-growth-seo"
-        }
+        { "id": "product-analytics-growth-seo", "source": "catalog/domains/growth/product-analytics-growth-seo" }
       ]
     },
     "content": {
       "title": "Content",
       "description": "Editorial planning, evidence-led writing and repurposing.",
       "skills": [
-        {
-          "id": "editorial-brief",
-          "source": "catalog/domains/content/editorial-brief"
-        },
-        {
-          "id": "evidence-led-article",
-          "source": "catalog/domains/content/evidence-led-article"
-        },
-        {
-          "id": "content-repurposing",
-          "source": "catalog/domains/content/content-repurposing"
-        }
+        { "id": "editorial-brief", "source": "catalog/domains/content/editorial-brief" },
+        { "id": "evidence-led-article", "source": "catalog/domains/content/evidence-led-article" },
+        { "id": "content-repurposing", "source": "catalog/domains/content/content-repurposing" }
       ]
     },
     "marketing": {
       "title": "Marketing",
       "description": "Campaign strategy, lifecycle email and conversion reviews.",
       "skills": [
-        {
-          "id": "campaign-strategy",
-          "source": "catalog/domains/marketing/campaign-strategy"
-        },
-        {
-          "id": "email-campaign",
-          "source": "catalog/domains/marketing/email-campaign"
-        },
-        {
-          "id": "landing-page-review",
-          "source": "catalog/domains/marketing/landing-page-review"
-        }
+        { "id": "campaign-strategy", "source": "catalog/domains/marketing/campaign-strategy" },
+        { "id": "email-campaign", "source": "catalog/domains/marketing/email-campaign" },
+        { "id": "landing-page-review", "source": "catalog/domains/marketing/landing-page-review" }
       ]
     },
     "video": {
       "title": "Video",
       "description": "Video scripting and platform-aware short-form adaptation.",
       "skills": [
-        {
-          "id": "video-script-development",
-          "source": "catalog/domains/video/video-script-development"
-        },
-        {
-          "id": "short-form-video-repurposing",
-          "source": "catalog/domains/video/short-form-video-repurposing"
-        }
+        { "id": "video-script-development", "source": "catalog/domains/video/video-script-development" },
+        { "id": "short-form-video-repurposing", "source": "catalog/domains/video/short-form-video-repurposing" }
       ]
     },
     "research": {
       "title": "Research",
       "description": "Structured research plans and source-grounded synthesis.",
       "skills": [
-        {
-          "id": "research-plan",
-          "source": "catalog/domains/research/research-plan"
-        },
-        {
-          "id": "source-synthesis",
-          "source": "catalog/domains/research/source-synthesis"
-        }
+        { "id": "research-plan", "source": "catalog/domains/research/research-plan" },
+        { "id": "source-synthesis", "source": "catalog/domains/research/source-synthesis" }
       ]
     },
     "business": {
       "title": "Business",
       "description": "Operational SOP creation and meeting-to-execution workflows.",
       "skills": [
-        {
-          "id": "sop-builder",
-          "source": "catalog/domains/business/sop-builder"
-        },
-        {
-          "id": "meeting-to-execution",
-          "source": "catalog/domains/business/meeting-to-execution"
-        }
+        { "id": "sop-builder", "source": "catalog/domains/business/sop-builder" },
+        { "id": "meeting-to-execution", "source": "catalog/domains/business/meeting-to-execution" }
       ]
     }
   }

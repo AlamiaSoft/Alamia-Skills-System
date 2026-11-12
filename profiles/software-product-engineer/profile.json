@@ -1,0 +1,6 @@
+{
+  "id": "software-product-engineer",
+  "name": "Software Product Engineer",
+  "collections": ["product-engineering", "engineering"],
+  "workflows": ["product-engineering"]
+}
