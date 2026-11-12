@@ -39,6 +39,16 @@
         }
       ]
     },
+    "growth": {
+      "title": "Growth",
+      "description": "Product measurement, analytics, acquisition, retention, monetization visibility and SEO.",
+      "skills": [
+        {
+          "id": "product-analytics-growth-seo",
+          "source": "catalog/domains/growth/product-analytics-growth-seo"
+        }
+      ]
+    },
     "content": {
       "title": "Content",
       "description": "Editorial planning, evidence-led writing and repurposing.",

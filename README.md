@@ -10,6 +10,7 @@ Requires Node.js 18 or newer.
 
 ```bash
 npx alamia-skills-install --seo
+npx alamia-skills-install --growth
 npx alamia-skills-install --content
 npx alamia-skills-install --marketing
 npx alamia-skills-install --video
@@ -29,6 +30,7 @@ Additional options: `--list`, `--dry-run`, `--target ../project`, and `--force`.
 |---|---|
 | Engineering | DAG task planning, engineering discipline, operational tooling |
 | SEO | Keyword intent mapping, technical SEO audit, content optimization |
+| Growth | Product analytics, KPI frameworks, event tracking, owner dashboards, SEO and growth measurement |
 | Content | Editorial briefs, evidence-led articles, repurposing |
 | Marketing | Campaign strategy, email campaigns, landing-page reviews |
 | Video | Script development, short-form repurposing |

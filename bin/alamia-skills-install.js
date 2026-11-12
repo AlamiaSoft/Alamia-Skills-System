@@ -3,7 +3,7 @@
 const fs=require("node:fs"),path=require("node:path");
 const ROOT=path.resolve(__dirname,"..");
 function usage(){console.log(`Alamia Skills Installer
-Usage: npx alamia-skills-install --seo|--content|--marketing|--video|--research|--business|--engineering|--all
+Usage: npx alamia-skills-install --seo|--growth|--content|--marketing|--video|--research|--business|--engineering|--all
 Options: --list --target <project-dir> --force --dry-run --help
 Installs into <project-dir>/.agents/skills/. Existing skills are preserved unless --force is used.`);}
 function parse(argv){
