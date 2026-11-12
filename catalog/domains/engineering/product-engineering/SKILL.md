@@ -34,7 +34,7 @@ Discover or collect product intent, target users, repository and current deploym
 7. Report passed, failed, blocked, not-run and advisory checks distinctly.
 8. A build or happy-path demo is not proof of production readiness.
 
-## Lifecycle procedure
+## Procedure
 
 ### 0. Project foundation and knowledge
 Invoke Project Knowledge System before substantial work. Inspect existing docs and agent instructions, initialize or reconcile the .ai/ and .agents/ structure, read the project bootstrap sequence, capture current Git state and record initial intent, constraints and decisions.
