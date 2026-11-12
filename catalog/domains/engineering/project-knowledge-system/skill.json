@@ -2,7 +2,7 @@
   "id": "project-knowledge-system",
   "name": "Project Knowledge System",
   "description": "Bootstrap and maintain a durable .ai/ knowledge base and .agents/ instructions for AI-assisted software projects.",
-  "domain": "engineering",
+  "domain": "product-engineering",
   "version": "1.0.0",
   "license": "MIT",
   "tags": ["project-bootstrap", "ai-memory", "knowledge-management", "agent-instructions", "documentation"],
