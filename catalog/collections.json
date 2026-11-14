@@ -18,6 +18,10 @@
         {
           "id": "persistent-operational-tooling",
           "source": "skills/persistent-operational-tooling"
+        },
+        {
+          "id": "web-application-reconnaissance-audit",
+          "source": "catalog/domains/engineering/web-application-reconnaissance-audit"
         }
       ]
     },
