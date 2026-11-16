@@ -24,7 +24,7 @@ PR #14 was merged as `290b7a22355014788ab6aba27f59c36bf8c63405`. The post-merge 
 - The npm package declares Node.js >=18 and includes the CLI/catalog/distributable skill content; it does not package the Python lifecycle runtime.
 - The root license and both current vendor license files declare MIT.
 - The current vendor tree contains 161 Matt Pocock snapshot blobs and 11 agent-pm blobs.
-- The repository has 17 branch refs at the time of review. PRs #2 and #3 are closed without merge; their work was superseded by later merged PRs #4 and #5. Two temporary rebase branches created during this remediation also remain.
+- The repository has 18 branch refs at the time of review. PRs #2 and #3 are closed without merge; their work was superseded by later merged PRs #4 and #5. Two temporary rebase branches created during this remediation now point to `main` and contain no unique tip changes.
 - Tag enumeration was not confirmed by the available repository endpoint; do not assume there are no tags.
 
 ## Vendor provenance verification
@@ -38,7 +38,7 @@ Compared current vendored Git blob SHAs against the immutable upstream commits:
 
 For Matt Pocock, all upstream blobs are present. The 28 modified blobs are documentation overlays (21 under `docs/engineering`, 7 under `docs/productivity`); the two local-only blobs are the chief-of-staff skill files. Preserve these overlays during any future refresh. Both upstream projects and their vendored copies declare MIT.
 
-The previous `main` branch had lost `vendor/UPSTREAMS.json`, and `core/reconciler.py` could shallow-clone moving default branches when vendor directories were absent. PR #15 restores the verified provenance manifest and changes fallback restoration to clone and verify immutable commit SHAs. This finding remains open until PR #15 passes CI and is merged.
+Before PR #15, `main` had lost `vendor/UPSTREAMS.json`, and `core/reconciler.py` could shallow-clone moving default branches when vendor directories were absent. PR #15 restored the verified provenance manifest and changed fallback restoration to clone and verify immutable commit SHAs. PR #15 merged as `f54e2a2ac6304e981e0ffb01fe5ead676b508dd3`; its post-merge Python, vendor-pinning, portal, Node 20 and Node 22 checks all passed.
 
 ## Remaining publication blockers
 
@@ -78,9 +78,8 @@ The portal artifact build is green, but deployment remains gated by `PAGES_PUBLI
 
 ## Exit criteria
 
-- [ ] PR #15 immutable vendor fallback fix merged with CI green.
 - [ ] Full working-tree and all-ref secret scan completed; findings triaged and remediated.
-- [ ] All branch/tag/open-PR exposure reviewed, including the known fake test fixture.
+- [ ] All branch/tag/open-PR exposure reviewed, including the known fake test fixture. Branch tips were inventoried, but a full all-ref secret scan is still required.
 - [ ] Remaining third-party materials and attribution reviewed.
 - [ ] Generated portal artifact reviewed for accidental source leakage.
 - [ ] Owner explicitly approves repository visibility change and public Pages deployment.
