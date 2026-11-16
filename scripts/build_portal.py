@@ -67,7 +67,7 @@ def main():
     catalogue = {"schemaVersion": 1, "name": manifest.get("name", "Alamia Skills"), "collections": collections, "skills": skills, "profiles": profiles, "workflows": workflows}
     write(SITE / "data/catalog.json", json.dumps(catalogue, indent=2, ensure_ascii=False) + "\n")
     skill_template = (SITE / "skill.html").read_text(encoding="utf-8")
-    nested_template = skill_template.replace("<head>", "<head>\\n  <base href='../../'>", 1)
+    nested_template = skill_template.replace("<head>", "<head>\n  <base href='../../'>", 1)
     for skill in skills:
         write(SITE / "skills" / skill["id"] / "index.html", nested_template)
     agents = {
