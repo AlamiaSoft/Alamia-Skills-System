@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "verified_at": "2026-11-16",
+  "dependencies": [
+    {
+      "name": "mattpocock-skills",
+      "source": "https://github.com/mattpocock/skills",
+      "pinned_ref": "v1.3.1",
+      "commit_sha": "24fe0ef7737efae15c87225755e9f6f5965e4888",
+      "license": "MIT",
+      "upstream_blob_count": 159,
+      "vendored_blob_count": 161,
+      "matching_vendored_blob_count": 131,
+      "missing_upstream_blobs": 0,
+      "modified_upstream_blobs": 28,
+      "local_only_blobs": 2,
+      "snapshot_status": "upstream snapshot with documented local overlays",
+      "local_overlay_paths": [
+        "docs/engineering/*.md",
+        "docs/productivity/*.md",
+        "skills/in-progress/chief-of-staff/**"
+      ],
+      "verification_note": "Compared Git blob SHAs against the pinned upstream commit on 2026-11-16. All 159 upstream blobs are present. 131 match byte-for-byte; 28 documentation blobs differ (21 under docs/engineering and 7 under docs/productivity); two chief-of-staff files are local-only. Preserve these overlays during vendor refreshes."
+    },
+    {
+      "name": "agent-pm",
+      "source": "https://github.com/AlamiaSoft/agent-pm",
+      "pinned_ref": "76d1a82ac0401221a00ca218f4eda72e7d344c12",
+      "commit_sha": "76d1a82ac0401221a00ca218f4eda72e7d344c12",
+      "license": "MIT",
+      "upstream_blob_count": 11,
+      "vendored_blob_count": 11,
+      "matching_vendored_blob_count": 11,
+      "missing_upstream_blobs": 0,
+      "modified_upstream_blobs": 0,
+      "local_only_blobs": 0,
+      "snapshot_status": "exact blob match",
+      "verification_note": "Compared all 11 vendored file blob SHAs with the source repository at the pinned commit on 2026-11-16; all files match exactly."
+    }
+  ]
+}
