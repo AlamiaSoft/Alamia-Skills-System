@@ -188,7 +188,9 @@ This is a smoke test, not proof of visual quality. Pair it with screenshots, bou
 - Before/after screenshots for representative phone and tablet sizes.
 - Real-device validation notes, including device/browser/orientation and any remaining limitations.
 
-## Quality gate — do not mark responsive work complete until
+## Quality checks
+
+Do not mark responsive work complete until
 
 - [ ] Small phone, typical phone, large phone and tablet portrait layouts are checked.
 - [ ] Tablet landscape and a short/landscape phone viewport are checked for interactive apps.
