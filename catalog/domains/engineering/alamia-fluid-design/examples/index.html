@@ -306,11 +306,11 @@
 
       <div class="sim-bar">
         <span style="font-size: var(--font-size-xs); color: var(--color-text-muted); align-self: center; margin-right: 6px;">Simulate:</span>
-        <button class="sim-btn" onclick="resizeContainer('320px')">Folded Phone (320px)</button>
-        <button class="sim-btn" onclick="resizeContainer('420px')">Mobile (420px)</button>
-        <button class="sim-btn" onclick="resizeContainer('640px')">Tablet Small (640px)</button>
-        <button class="sim-btn" onclick="resizeContainer('840px')">Tablet Wide (840px)</button>
-        <button class="sim-btn active" onclick="resizeContainer('100%')">Full Width (100%)</button>
+        <button class="sim-btn" onclick="resizeContainer('320px', this)">Folded Phone (320px)</button>
+        <button class="sim-btn" onclick="resizeContainer('420px', this)">Mobile (420px)</button>
+        <button class="sim-btn" onclick="resizeContainer('640px', this)">Tablet Small (640px)</button>
+        <button class="sim-btn" onclick="resizeContainer('840px', this)">Tablet Wide (840px)</button>
+        <button class="sim-btn active" onclick="resizeContainer('100%', this)">Full Width (100%)</button>
       </div>
 
       <!-- Resizable Container Query Target -->
@@ -432,18 +432,22 @@
     </div>
   </footer>
 
-  <!-- Fluid Engine Script (Metrics, Viewport Tracking & Tweaks) -->
-  <script type="module" src="../engine/fluid-engine.js"></script>
+  <!-- Showcase-only telemetry; the module itself has no import-time side effects. -->
+  <script type="module">
+    import { FluidEngine } from '../engine/fluid-engine.js';
+    const engine = new FluidEngine({ enableInspector: true, updateHeroTelemetry: true });
+    engine.init();
+    window.fluidEngine = engine;
+    window.addEventListener('pagehide', () => engine.destroy(), { once: true });
+  </script>
 
   <script>
     // Live resize simulator for interactive demo
-    function resizeContainer(width) {
+    function resizeContainer(width, button) {
       const el = document.getElementById('test-container');
       el.style.width = width;
       document.querySelectorAll('.sim-btn').forEach(btn => btn.classList.remove('active'));
-      if (event && event.target) {
-        event.target.classList.add('active');
-      }
+      if (button) button.classList.add('active');
     }
 
     // Theme toggle binding
