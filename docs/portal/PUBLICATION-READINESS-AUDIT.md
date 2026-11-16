@@ -58,7 +58,7 @@ Triage the known fake test fixture as a false positive if the scanner reports it
 
 ### P1 — Branch and pull-request hygiene
 
-Review all 17 branch tips, closed unmerged PR refs, temporary rebase branches, and any tags before making the repository public. The old closed PR branches #2 and #3 are not current release sources, but their diffs remain reachable. Decide which historical branches should be retained and ensure no private notes, accidental credentials, or unfinished material are exposed.
+All 18 branch tips have been inventoried, but their complete contents have not been secret-scanned. Review every branch tip, closed unmerged PR ref, temporary rebase branch, and any tags before making the repository public. The old closed PR branches #2 and #3 are not current release sources, but their diffs remain reachable. The current PR listing returned no open PRs. Decide which historical branches should be retained and ensure no private notes, accidental credentials, or unfinished material are exposed.
 
 ### P1 — Final third-party attribution review
 
