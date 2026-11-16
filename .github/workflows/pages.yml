@@ -19,6 +19,7 @@ on:
       - 'profiles/**'
       - 'workflows/**'
       - 'scripts/build_portal.py'
+      - 'tests/test_portal_build.py'
       - 'site/**'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
