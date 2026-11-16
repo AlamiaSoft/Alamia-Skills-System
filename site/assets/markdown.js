@@ -4,8 +4,8 @@
  const inlinePattern=/(!?\[[^\]]*\]\([^)]*\)|\*\*[^*]+\*\*|__[^_]+__|~~[^~]+~~|\*[^*\n]+\*|_[^_\n]+_|\x60+[^\x60]+\x60+)/g;
  function safeUrl(raw){try{const u=new URL(raw,location.href);return ["http:","https:","mailto:"].includes(u.protocol)?u.href:null}catch{return null}}
  function inline(text,parent){
-  let last=0,m;
-  while((m=inlinePattern.exec(text))!==null){
+  const pattern=new RegExp(inlinePattern.source,"g");let last=0,m;
+  while((m=pattern.exec(text))!==null){
    parent.append(document.createTextNode(text.slice(last,m.index)));
    const token=m[0];let node=null;
    if(token.startsWith("![")){const x=token.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);if(x){const url=safeUrl(x[2]);if(url){node=document.createElement("img");node.alt=x[1];node.src=url;node.loading="lazy";node.referrerPolicy="no-referrer"}}}
@@ -16,7 +16,7 @@
    else{node=document.createElement("em");inline(token.slice(1,-1),node)}
    parent.append(node||document.createTextNode(token));last=m.index+token.length;
   }
-  parent.append(document.createTextNode(text.slice(last)));inlinePattern.lastIndex=0;
+  parent.append(document.createTextNode(text.slice(last)));
  }
  function render(source,target){
   const lines=source.replace(/^\uFEFF/,"").replace(/\r\n?/g,"\n").split("\n");
