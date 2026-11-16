@@ -22,7 +22,7 @@ A layout is not complete because its CSS uses `clamp()` or because it looks good
 
 Use this skill when building or revising responsive websites, application shells, dashboards, admin panels, data-heavy interfaces, PWAs, mobile-first workflows, product configurators, or components that must work in variable-width containers.
 
-## Inputs and assumptions
+## Inputs
 
 Inspect the actual project before changing it:
 - Framework, build system, CSS strategy, existing design tokens, component library, routing, and responsive conventions.
@@ -50,7 +50,7 @@ If using both CSS files, load tokens first, then the engine stylesheet, then app
 
 The JavaScript module is optional and must be explicitly initialized. It is diagnostics, not layout infrastructure. Inspector and demo telemetry are disabled by default. Do not make production layout or interaction depend on its viewport categories. See `references/resource-contract.md`.
 
-## Design and implementation procedure
+## Procedure
 
 ### 1. Discover content and constraints
 
@@ -110,7 +110,7 @@ Deliver the host-project implementation, which may include adapted tokens, fluid
 
 Do not add `fluid-engine.js` to a production bundle unless diagnostics are genuinely needed. CSS alone should provide responsive behavior.
 
-## Quality gate
+## Quality checks
 
 - [ ] No unexpected page-level horizontal overflow; component-level overflow is intentional, bounded, and usable.
 - [ ] Layouts adapt to available component width, not only viewport width.
