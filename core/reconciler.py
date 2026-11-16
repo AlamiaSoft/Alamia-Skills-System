@@ -6,8 +6,77 @@ and reconciles lifecycle skills in .agents/skills without destructive overwrites
 from pathlib import Path
 from typing import Any, Dict
 import json
+import re
 import shutil
+import subprocess
 import sys
+
+
+def _load_vendor_dependency(system_root: Path, name: str) -> Dict[str, Any] | None:
+    """Load a pinned vendor entry; never infer a moving branch or tag."""
+    manifest_path = system_root / "vendor" / "UPSTREAMS.json"
+    if not manifest_path.is_file():
+        return None
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    if manifest.get("schema_version") != 1:
+        raise ValueError("Unsupported vendor provenance manifest schema.")
+    dependencies = manifest.get("dependencies", [])
+    if not isinstance(dependencies, list):
+        raise ValueError("Vendor provenance dependencies must be a list.")
+    dependency = next(
+        (item for item in dependencies if isinstance(item, dict) and item.get("name") == name),
+        None,
+    )
+    if dependency is None:
+        return None
+    commit_sha = dependency.get("commit_sha", "")
+    source = dependency.get("source", "")
+    if not re.fullmatch(r"[0-9a-f]{40}", commit_sha, flags=re.IGNORECASE):
+        raise ValueError(f"Vendor dependency {name!r} has no immutable 40-character commit SHA.")
+    if not isinstance(source, str) or not source.startswith("https://github.com/"):
+        raise ValueError(f"Vendor dependency {name!r} has an invalid GitHub source URL.")
+    return dependency
+
+
+def _clone_pinned_repository(source: str, target: Path, commit_sha: str) -> None:
+    """Clone and verify one immutable commit; clean up incomplete clones on failure."""
+    if not re.fullmatch(r"[0-9a-f]{40}", commit_sha, flags=re.IGNORECASE):
+        raise ValueError("Refusing to clone a vendor repository without an immutable commit SHA.")
+    if target.exists():
+        raise FileExistsError(f"Vendor target already exists and will not be overwritten: {target}")
+    target.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        subprocess.run(
+            ["git", "clone", "--no-checkout", source, str(target)],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        subprocess.run(
+            ["git", "-C", str(target), "fetch", "--depth", "1", "origin", commit_sha],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        subprocess.run(
+            ["git", "-C", str(target), "checkout", "--detach", commit_sha],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        actual_sha = subprocess.run(
+            ["git", "-C", str(target), "rev-parse", "HEAD"],
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout.strip()
+        if actual_sha.lower() != commit_sha.lower():
+            raise RuntimeError(
+                f"Vendor checkout SHA mismatch: expected {commit_sha}, got {actual_sha}."
+            )
+    except Exception:
+        shutil.rmtree(target, ignore_errors=True)
+        raise
 
 try:
     from .engine import ProjectStateEngine, CORE_LIFECYCLE_GROUPS
@@ -123,44 +192,40 @@ class ProjectReconciler:
         vendor_repo_dir = self.system_root / "vendor" / "mattpocock-skills"
         vendor_skills_dir = vendor_repo_dir / "skills"
 
-        # If vendor skills are missing from Alamia-Skills-System, auto-pull them on demand
+        # Missing vendor snapshots may be restored only from immutable provenance pins.
         if not vendor_skills_dir.exists():
             try:
-                vendor_repo_dir.parent.mkdir(parents=True, exist_ok=True)
-                import subprocess
-                subprocess.run(
-                    ["git", "clone", "--depth", "1", "https://github.com/mattpocock/skills.git", str(vendor_repo_dir)],
-                    check=True,
-                    capture_output=True,
-                    text=True,
+                dependency = _load_vendor_dependency(self.system_root, "mattpocock-skills")
+                if dependency is None:
+                    raise RuntimeError("vendor/UPSTREAMS.json has no mattpocock-skills pin.")
+                _clone_pinned_repository(
+                    dependency["source"], vendor_repo_dir, dependency["commit_sha"]
                 )
-                actions_taken.append("Auto-pulled Matt Pocock atomic skills from GitHub into Alamia-Skills-System/vendor/.")
+                actions_taken.append(
+                    f"Restored Matt Pocock skills at pinned commit {dependency['commit_sha']}."
+                )
             except Exception as e:
-                actions_taken.append(f"Notice: Could not auto-pull atomic skills ({e}). Skipping vendor registration.")
+                actions_taken.append(
+                    f"Notice: Could not restore pinned Matt Pocock skills ({e}). Skipping vendor registration."
+                )
 
-        # Ensure agent-pm is present in vendor/agent-pm (from local sibling or GitHub)
+        # agent-pm is restored from its immutable pin; unpinned sibling copies are not trusted.
         vendor_pm_dir = self.system_root / "vendor" / "agent-pm"
         if not vendor_pm_dir.exists():
-            sibling_pm = self.system_root.parent / "agent-pm"
-            if sibling_pm.exists():
-                try:
-                    shutil.copytree(sibling_pm, vendor_pm_dir, ignore=shutil.ignore_patterns(".git", "node_modules"))
-                    actions_taken.append("Vendored agent-pm from local sibling repository.")
-                except Exception as e:
-                    actions_taken.append(f"Notice: Could not copy local agent-pm ({e}).")
-            else:
-                try:
-                    vendor_pm_dir.parent.mkdir(parents=True, exist_ok=True)
-                    import subprocess
-                    subprocess.run(
-                        ["git", "clone", "--depth", "1", "https://github.com/AlamiaSoft/agent-pm.git", str(vendor_pm_dir)],
-                        check=True,
-                        capture_output=True,
-                        text=True,
-                    )
-                    actions_taken.append("Auto-pulled agent-pm from GitHub into Alamia-Skills-System/vendor/.")
-                except Exception as e:
-                    actions_taken.append(f"Notice: Could not auto-pull agent-pm ({e}). Skipping agent-pm registration.")
+            try:
+                dependency = _load_vendor_dependency(self.system_root, "agent-pm")
+                if dependency is None:
+                    raise RuntimeError("vendor/UPSTREAMS.json has no agent-pm pin.")
+                _clone_pinned_repository(
+                    dependency["source"], vendor_pm_dir, dependency["commit_sha"]
+                )
+                actions_taken.append(
+                    f"Restored agent-pm at pinned commit {dependency['commit_sha']}."
+                )
+            except Exception as e:
+                actions_taken.append(
+                    f"Notice: Could not restore pinned agent-pm ({e}). Skipping agent-pm registration."
+                )
 
         skills_config_path = self.project_root / ".agents" / "skills.json"
         skill_entries = []
