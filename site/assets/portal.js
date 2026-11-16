@@ -1,6 +1,6 @@
 const $=s=>document.querySelector(s);let catalogue=null,searchIndex={};
 function node(tag,cls,text){const n=document.createElement(tag);if(cls)n.className=cls;if(text!==undefined)n.textContent=text;return n}
-function normalize(value){return String(value||"").normalize("NFKD").replace(/[\\u0300-\\u036f]/g,"").toLowerCase().replace(/[^a-z0-9]+/g," ").trim()}
+function normalize(value){return String(value||"").normalize("NFKD").toLowerCase().replace(/[^a-z0-9]+/g," ").trim()}
 const SEARCH_ALIASES={
  website:["website","websites","web application","web applications","web app","web apps","frontend","front end","web pwa"],
  websites:["website","websites","web application","web applications","web app","web apps","frontend","front end","web pwa"],
