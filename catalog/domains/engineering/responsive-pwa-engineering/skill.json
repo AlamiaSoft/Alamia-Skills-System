@@ -1,0 +1,27 @@
+{
+  "id": "responsive-pwa-engineering",
+  "name": "Responsive PWA Engineering",
+  "description": "Engineer, audit and verify responsive web and PWA experiences across mobile phones, tablets, desktops, orientations and real browser viewport conditions.",
+  "domain": "product-engineering",
+  "version": "1.0.0",
+  "license": "MIT",
+  "tags": [
+    "product-engineering",
+    "responsive-design",
+    "pwa",
+    "mobile",
+    "tablet",
+    "touch",
+    "viewport-testing",
+    "games"
+  ],
+  "compatibility": [
+    "agents supporting the Agent Skills SKILL.md convention"
+  ],
+  "requires": [
+    "ux-ui-engineering",
+    "frontend-engineering",
+    "quality-assurance"
+  ],
+  "risk": "moderate"
+}
