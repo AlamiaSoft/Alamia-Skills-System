@@ -16,6 +16,8 @@ jobs:
           python-version: "3.12"
       - run: python tests/test_portability.py
       - run: python tests/test_catalog.py
+      - name: Run pinned vendor restoration tests
+        run: python tests/test_vendor_pinning.py
       - name: Build static portal artifact
         run: python scripts/build_portal.py
       - name: Validate static portal artifact
