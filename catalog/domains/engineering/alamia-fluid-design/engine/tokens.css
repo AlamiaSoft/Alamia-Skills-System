@@ -3,6 +3,7 @@
  * Inspired by OpenDesign tokens contract
  */
 :root {
+  color-scheme: light;
   /* Color Palette - Neutrals & Semantic */
   --color-bg: #ffffff;
   --color-bg-subtle: #f8fafc;
@@ -59,6 +60,7 @@
 
 /* Dark Theme Tokens */
 [data-theme="dark"] {
+  color-scheme: dark;
   --color-bg: #090d16;
   --color-bg-subtle: #0f172a;
   --color-bg-elevated: #1e293b;
@@ -89,6 +91,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
+    color-scheme: dark;
     --color-bg: #090d16;
     --color-bg-subtle: #0f172a;
     --color-bg-elevated: #1e293b;
