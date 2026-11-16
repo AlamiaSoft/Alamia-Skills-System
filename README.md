@@ -21,7 +21,7 @@ npx alamia-skills-install --business
 npx alamia-skills-install --all
 ```
 
-Product Engineering installs 22 coordinated skills: the Project Knowledge System foundation, the Product Engineering lifecycle orchestrator, and 20 independently installable specialist capabilities covering discovery, specification, architecture, UX/UI, planning, backend, frontend, data, AI integrations, QA, security, performance, DevOps/CI/CD, staging, production deployment, observability, documentation, release management, maintenance and engineering governance.
+Product Engineering installs 24 coordinated skills: the Project Knowledge System foundation, the Product Engineering lifecycle orchestrator, and 22 independently installable specialist capabilities covering discovery, specification, architecture, UX/UI, planning, backend, frontend, Alamia Fluid Design, responsive PWA engineering, data, AI integrations, QA, security, performance, DevOps/CI/CD, staging, production deployment, observability, documentation, release management, maintenance and engineering governance.
 
 - **Project Knowledge System:** initializes and maintains the repository-local .ai/ knowledge base and .agents/AGENTS.md, including an idempotent PowerShell scaffolder.
 - **Product Engineering:** assesses project maturity, dispatches specialist skills and controls lifecycle state and evidence-based quality gates.
