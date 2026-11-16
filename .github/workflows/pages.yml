@@ -40,7 +40,7 @@ jobs:
       - name: Build curated portal artifact
         run: python scripts/build_portal.py
       - name: Validate generated portal artifact
-        run: python -m unittest tests.test_portal_build
+        run: python tests/test_portal_build.py
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
