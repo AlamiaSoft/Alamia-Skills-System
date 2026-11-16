@@ -1,9 +1,9 @@
 {
   "id": "alamia-fluid-design",
   "name": "Alamia Fluid Design",
-  "description": "Design and build web pages, Progressive Web Apps (PWAs), and web applications that fluidly adapt across any screen size (from 280px foldables to 4K+ ultrawides) using CSS clamp typography, fluid spacing ladders, container queries, and intrinsic layouts.",
+  "description": "Design, implement, and validate production-ready responsive web interfaces and PWAs using fluid scales, intrinsic layouts, container queries, accessible interaction patterns, and evidence-based viewport testing.",
   "domain": "product-engineering",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "license": "MIT",
   "tags": [
     "product-engineering",
@@ -12,7 +12,9 @@
     "fluid-design",
     "responsive-design",
     "container-queries",
-    "pwa"
+    "pwa",
+    "accessibility",
+    "visual-validation"
   ],
   "compatibility": [
     "agents supporting the Agent Skills SKILL.md convention"
