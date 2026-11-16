@@ -32,6 +32,14 @@ class PortalBuildTests(unittest.TestCase):
             self.assertEqual(metadata["source"], skill["source"])
             self.assertEqual(metadata["collection"], skill["collection"])
 
+
+    def test_full_text_search_index_covers_all_skills_and_instructions(self):
+        search_index = json.loads((SITE / "data" / "search-index.json").read_text(encoding="utf-8"))
+        self.assertEqual(set(search_index), {skill["id"] for skill in self.catalogue["skills"]})
+        self.assertIn("web application", search_index["web-application-reconnaissance-audit"].lower())
+        self.assertIn("web/pwa", search_index["frontend-engineering"].lower())
+        self.assertIn("responsive", search_index["frontend-engineering"].lower())
+
     def test_agent_indexes_and_sitemap_include_all_skills(self):
         agents = json.loads((SITE / "agents.json").read_text(encoding="utf-8"))
         self.assertEqual(len(agents["collections"]), len(MANIFEST["collections"]))
