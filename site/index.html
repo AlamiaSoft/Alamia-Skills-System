@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Explore Alamia Skills System: portable, reusable capabilities, collections and workflows for AI agents and the people who build with them.">
+  <meta name="theme-color" content="#101a2b">
+  <title>Alamia Skills System — Skills for capable agents</title>
+  <link rel="stylesheet" href="assets/portal.css">
+</head>
+<body>
+<header class="topbar"><a class="brand" href="./"><span class="mark">A</span><span>ALAMIA <b>SKILLS SYSTEM</b></span></a><nav><a href="#explore">Explore skills</a><a href="#collections">Collections</a><a href="#agents">For agents</a><a href="https://github.com/AlamiaSoft/Alamia-Skills-System">GitHub ↗</a></nav></header>
+<main>
+<section class="hero wrap">
+  <p class="eyebrow">A PORTABLE CAPABILITY SYSTEM</p>
+  <h1>Give AI agents<br><em>reusable expertise.</em></h1>
+  <p class="lead">A structured library of professional skills, installable collections, composable workflows and role profiles — designed for people and compatible AI agents.</p>
+  <div class="hero-actions"><a class="button primary" href="#explore">Explore the catalogue</a><a class="button ghost" href="#getting-started">Get started ↓</a></div>
+  <div class="stats"><div><strong id="skill-count">—</strong><span>Skills</span></div><div><strong id="collection-count">—</strong><span>Collections</span></div><div><strong>Open format</strong><span>Markdown + JSON</span></div></div>
+</section>
+<section class="section wrap" id="explore">
+  <div class="section-head"><div><p class="eyebrow">DISCOVER</p><h2>Find the capability you need.</h2></div><p>Search by skill name, purpose, tags or domain. Each skill has human-readable instructions and machine-readable metadata.</p></div>
+  <div class="filters"><label class="search"><span>⌕</span><input id="search" type="search" placeholder="Search skills, capabilities, tags…" autocomplete="off"></label><select id="collection-filter" aria-label="Filter by collection"><option value="">All collections</option></select></div>
+  <p class="result-count" id="result-count" aria-live="polite">Loading catalogue…</p>
+  <div class="skill-grid" id="skill-grid"></div>
+  <p class="empty" id="empty" hidden>No matching skills. Try another search or collection.</p>
+</section>
+<section class="section collections" id="collections"><div class="wrap"><div class="section-head"><div><p class="eyebrow">CURATED SETS</p><h2>Collections, not isolated prompts.</h2></div><p>Install a focused set of related capabilities into a compatible agent workspace.</p></div><div class="collection-grid" id="collection-grid"></div></div></section>
+<section class="section wrap" id="getting-started"><div class="section-head"><div><p class="eyebrow">GET STARTED</p><h2>Bring skills into your workspace.</h2></div><p>The repository contains the installer source. The README explains package publication status and local validation.</p></div><div class="start-grid"><article><span class="step">01</span><h3>Choose a collection</h3><p>Browse the catalogue and select the capability set that matches your work.</p></article><article><span class="step">02</span><h3>Install</h3><pre>npx alamia-skills-install --engineering</pre><p>Requires Node.js 18 or newer and an available package publication.</p></article><article><span class="step">03</span><h3>Use with your agent</h3><p>Skills install into <code>.agents/skills/</code>. Your agent must support the Agent Skills <code>SKILL.md</code> convention.</p></article></div></section>
+<section class="section agent-section" id="agents"><div class="wrap agent-grid"><div><p class="eyebrow">BUILT FOR PEOPLE AND AGENTS</p><h2>Readable by humans.<br><em>Discoverable by agents.</em></h2><p>Every published skill has a Markdown instruction file and a JSON metadata file. The generated catalogue and agent index provide stable entry points for programmatic discovery.</p></div><div class="resource-list"><a href="agents.json"><span>Machine-readable agent index</span><b>agents.json ↗</b></a><a href="data/catalog.json"><span>Complete skill catalogue</span><b>catalog.json ↗</b></a><a href="llms.txt"><span>LLM orientation file</span><b>llms.txt ↗</b></a><a href="https://github.com/AlamiaSoft/Alamia-Skills-System"><span>Source, issues and contributions</span><b>GitHub ↗</b></a></div></div></section>
+</main>
+<footer><div class="wrap footer"><span>© Alamia Skills System</span><span>Skills describe capabilities · Workflows compose capabilities · Profiles recommend them</span><a href="https://github.com/AlamiaSoft/Alamia-Skills-System">Source repository ↗</a></div></footer>
+<script src="assets/portal.js" defer></script>
+</body></html>
