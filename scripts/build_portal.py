@@ -26,7 +26,7 @@ def main():
     SITE.mkdir(parents=True, exist_ok=True)
     shutil.rmtree(SITE / "data", ignore_errors=True)
     (SITE / "assets").mkdir(parents=True, exist_ok=True)
-    collections, skills, seen = [], [], set()
+    collections, skills, seen, search_index = [], [], set(), {}
     for collection_id, collection in manifest["collections"].items():
         entries = []
         for item in collection.get("skills", []):
@@ -46,6 +46,11 @@ def main():
             if metadata.get("domain") != collection_id:
                 raise SystemExit(f"Domain/collection mismatch for {skill_id}: {metadata.get('domain')} != {collection_id}")
             md_url, json_url = f"data/skills/{skill_id}.md", f"data/skills/{skill_id}.json"
+            search_index[skill_id] = " ".join([
+                metadata.get("name", ""), metadata.get("description", ""), skill_id,
+                metadata.get("domain", ""), " ".join(metadata.get("tags", [])),
+                collection.get("title", collection_id), collection.get("description", ""), markdown,
+            ])
             write(SITE / md_url, markdown)
             public_metadata = {**metadata, "source": source, "collection": collection_id, "markdown": md_url, "metadata_url": json_url, "skill_page": f"skills/{skill_id}/"}
             write(SITE / json_url, json.dumps(public_metadata, indent=2, ensure_ascii=False) + "\n")
@@ -66,6 +71,7 @@ def main():
         workflows.append(read_json(path))
     catalogue = {"schemaVersion": 1, "name": manifest.get("name", "Alamia Skills"), "collections": collections, "skills": skills, "profiles": profiles, "workflows": workflows}
     write(SITE / "data/catalog.json", json.dumps(catalogue, indent=2, ensure_ascii=False) + "\n")
+    write(SITE / "data/search-index.json", json.dumps(search_index, ensure_ascii=False) + "\n")
     skill_template = (SITE / "skill.html").read_text(encoding="utf-8")
     nested_template = skill_template.replace("<head>", "<head>\n  <base href='../../'>", 1)
     for skill in skills:
