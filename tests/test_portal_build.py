@@ -40,6 +40,16 @@ class PortalBuildTests(unittest.TestCase):
         self.assertIn("web/pwa", search_index["frontend-engineering"].lower())
         self.assertIn("responsive", search_index["frontend-engineering"].lower())
 
+    def test_skill_pages_load_safe_markdown_viewer_assets(self):
+        template = (SITE / "skill.html").read_text(encoding="utf-8")
+        renderer = (SITE / "assets" / "markdown.js").read_text(encoding="utf-8")
+        reader = (SITE / "assets" / "skill.js").read_text(encoding="utf-8")
+        self.assertIn("assets/markdown.js", template)
+        self.assertIn("AlamiaMarkdown.render", reader)
+        self.assertIn("textContent", renderer)
+        self.assertIn("Raw Markdown", reader)
+        self.assertTrue((SITE / "assets" / "markdown.js").is_file())
+
     def test_agent_indexes_and_sitemap_include_all_skills(self):
         agents = json.loads((SITE / "agents.json").read_text(encoding="utf-8"))
         self.assertEqual(len(agents["collections"]), len(MANIFEST["collections"]))
