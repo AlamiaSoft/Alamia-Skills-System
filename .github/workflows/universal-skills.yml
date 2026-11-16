@@ -16,6 +16,10 @@ jobs:
           python-version: "3.12"
       - run: python tests/test_portability.py
       - run: python tests/test_catalog.py
+      - name: Build static portal artifact
+        run: python scripts/build_portal.py
+      - name: Validate static portal artifact
+        run: python tests/test_portal_build.py
   installer:
     runs-on: ubuntu-latest
     strategy:
