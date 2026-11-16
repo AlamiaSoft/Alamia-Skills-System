@@ -48,6 +48,10 @@ Additional options: `--list`, `--dry-run`, `--target ../project`, and `--force`.
 
 The canonical manifest is `catalog/collections.json`.
 
+## Portal
+
+The static human and agent portal is generated from the canonical catalogue. Its public URL will be announced after the publication-readiness audit is cleared and repository visibility is approved.
+
 ## Architecture
 
 - `core/`: project discovery, state engine and non-destructive reconciler.
