@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content">
+  <title>AeroStudio — Fluid Product Configurator</title>
+  
+  <link rel="stylesheet" href="../../engine/tokens.css">
+  <link rel="stylesheet" href="../../engine/fluid-engine.css">
+
+  <style>
+    /* Configurator Adaptive Layout */
+    .config-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+    }
+
+    @media (min-width: 900px) {
+      .config-layout {
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: var(--space-xl);
+        align-items: start;
+      }
+    }
+
+    /* Sticky Sidebar on Desktop, Normal flow on mobile */
+    .sticky-order-summary {
+      position: relative;
+    }
+
+    @media (min-width: 900px) {
+      .sticky-order-summary {
+        position: sticky;
+        top: calc(var(--space-md) + 60px);
+      }
+    }
+
+    /* Product Preview Stage */
+    .preview-stage {
+      aspect-ratio: 4/3;
+      width: 100%;
+      background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-bg-subtle) 100%);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .color-swatch-btn {
+      width: clamp(38px, 5vw, 48px);
+      height: clamp(38px, 5vw, 48px);
+      border-radius: 50%;
+      border: 2px solid transparent;
+      outline-offset: 3px;
+      cursor: pointer;
+      transition: transform 0.15s ease, border-color 0.15s ease;
+    }
+    .color-swatch-btn.selected {
+      border-color: var(--color-text);
+      transform: scale(1.1);
+    }
+
+    .spec-pill {
+      border: 1px solid var(--color-border-strong);
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      font-size: var(--font-size-sm);
+      font-weight: 600;
+      background: var(--color-bg-elevated);
+      color: var(--color-text);
+      transition: background 0.15s, border-color 0.15s;
+      flex: 1 1 120px;
+      text-align: center;
+    }
+    .spec-pill.selected {
+      background: var(--color-primary);
+      color: var(--color-primary-fg);
+      border-color: var(--color-primary);
+    }
+
+    /* Mobile Sticky Checkout Bar (Shows on mobile viewports only) */
+    .mobile-checkout-bar {
+      display: none;
+    }
+
+    @media (max-width: 899px) {
+      .mobile-checkout-bar {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: var(--color-bg-elevated);
+        border-top: 1px solid var(--color-border);
+        padding: var(--space-xs) var(--space-sm) max(var(--space-xs), env(safe-area-inset-bottom));
+        justify-content: space-between;
+        align-items: center;
+        z-index: 100;
+        box-shadow: 0 -4px 12px rgba(0,0,0,0.06);
+      }
+    }
+  </style>
+</head>
+<body class="safe-top safe-bottom" style="padding-bottom: 80px;">
+
+  <!-- Header -->
+  <header style="border-bottom: 1px solid var(--color-border); background: var(--color-bg-elevated); position: sticky; top: 0; z-index: 50;">
+    <div class="fluid-shell-wide fluid-flex-between" style="padding-top: var(--space-xs); padding-bottom: var(--space-xs);">
+      <div style="display: flex; align-items: center; gap: var(--space-sm);">
+        <a href="../../index.html" style="text-decoration: none; font-size: 1.2rem;">←</a>
+        <div style="font-weight: 800; font-size: var(--font-size-md);">AeroStudio</div>
+        <span class="badge">Customizer</span>
+      </div>
+      <div class="fluid-flex-wrap" style="gap: var(--space-xs);">
+        <span style="font-size: var(--font-size-xs); color: var(--color-text-muted);">Free Worldwide Shipping</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Configurator -->
+  <main class="fluid-shell-wide" style="padding-top: var(--space-md); padding-bottom: var(--space-xl);">
+    
+    <div class="config-layout">
+
+      <!-- Left Column: Visual Showcase & Customization Options -->
+      <div style="display: flex; flex-direction: column; gap: var(--space-md);">
+        
+        <!-- Live Color Preview Stage -->
+        <div id="product-preview" class="preview-stage">
+          <div id="product-art" style="font-size: clamp(4rem, 15vw, 9rem); filter: drop-shadow(0 15px 25px rgba(0,0,0,0.15)); transition: transform 0.25s ease;">
+            🎧
+          </div>
+          <div style="position: absolute; bottom: var(--space-xs); right: var(--space-xs);">
+            <span id="finish-badge" class="badge">Midnight Black</span>
+          </div>
+        </div>
+
+        <!-- Color Selection Step -->
+        <div class="card">
+          <h3 class="text-md" style="margin-bottom: var(--space-xs);">1. Select Finish</h3>
+          <div class="fluid-flex-wrap" style="gap: var(--space-sm);">
+            <button class="color-swatch-btn selected" style="background: #0f172a;" title="Midnight Black" onclick="selectColor('#0f172a', 'Midnight Black', '🎧')"></button>
+            <button class="color-swatch-btn" style="background: #f8fafc; border-color: #cbd5e1;" title="Pure White" onclick="selectColor('#f8fafc', 'Pure White', '🎧')"></button>
+            <button class="color-swatch-btn" style="background: #0284c7;" title="Cyan Deep" onclick="selectColor('#0284c7', 'Cyan Deep', '🎧')"></button>
+            <button class="color-swatch-btn" style="background: #ea580c;" title="Solar Sunset" onclick="selectColor('#ea580c', 'Solar Sunset', '🎧')"></button>
+          </div>
+        </div>
+
+        <!-- Audio Profile Step -->
+        <div class="card">
+          <h3 class="text-md" style="margin-bottom: var(--space-xs);">2. Acoustic Engine</h3>
+          <div class="fluid-flex-wrap">
+            <button class="spec-pill selected" onclick="selectAcoustic(this, 'Standard Hi-Fi', 0)">Standard Hi-Fi<br><span style="font-size: 11px; opacity: 0.8;">Included</span></button>
+            <button class="spec-pill" onclick="selectAcoustic(this, 'Spatial Studio Pro', 80)">Spatial Studio Pro<br><span style="font-size: 11px; opacity: 0.8;">+$80</span></button>
+            <button class="spec-pill" onclick="selectAcoustic(this, 'Audiophile Lossless DAC', 150)">Audiophile DAC<br><span style="font-size: 11px; opacity: 0.8;">+$150</span></button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Column: Sticky Summary & Purchase Panel -->
+      <div class="sticky-order-summary">
+        <div class="card" style="padding: var(--space-lg); border: 2px solid var(--color-border-strong);">
+          <span class="badge" style="margin-bottom: var(--space-xs);">Configured Model</span>
+          <h2 class="text-xl" style="margin-bottom: var(--space-2xs);">Aero Pro Wireless</h2>
+          <p class="text-sm" style="color: var(--color-text-secondary); margin-bottom: var(--space-sm);">Handcrafted acoustic fidelity with active spatial cancellation.</p>
+
+          <hr style="border: 0; border-top: 1px solid var(--color-border); margin-bottom: var(--space-sm);">
+
+          <div style="display: flex; flex-direction: column; gap: var(--space-2xs); font-size: var(--font-size-sm); margin-bottom: var(--space-md);">
+            <div class="fluid-flex-between">
+              <span style="color: var(--color-text-secondary);">Base Unit</span>
+              <strong>$299</strong>
+            </div>
+            <div class="fluid-flex-between">
+              <span id="acoustic-label-text" style="color: var(--color-text-secondary);">Acoustics: Standard</span>
+              <strong id="acoustic-price-text">+$0</strong>
+            </div>
+            <div class="fluid-flex-between">
+              <span id="color-label-text" style="color: var(--color-text-secondary);">Finish: Midnight Black</span>
+              <strong>Included</strong>
+            </div>
+          </div>
+
+          <div class="fluid-flex-between" style="border-top: 2px dashed var(--color-border); padding-top: var(--space-sm); margin-bottom: var(--space-md);">
+            <span class="text-md" style="font-weight: 700;">Total</span>
+            <span id="total-price" style="font-size: var(--font-size-2xl); font-weight: 800; font-family: var(--font-mono); color: var(--color-accent);">$299</span>
+          </div>
+
+          <button class="btn btn-primary touch-target" style="width: 100%; font-size: var(--font-size-base); padding: var(--space-sm);">
+            Complete Order →
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Mobile Floating Checkout Bar -->
+  <div class="mobile-checkout-bar">
+    <div>
+      <div style="font-size: 11px; color: var(--color-text-muted);">Total Configured</div>
+      <div id="mobile-price" style="font-size: var(--font-size-lg); font-weight: 800; font-family: var(--font-mono);">$299</div>
+    </div>
+    <button class="btn btn-primary touch-target" style="padding: var(--space-xs) var(--space-md);">
+      Checkout →
+    </button>
+  </div>
+
+  <script>
+    let basePrice = 299;
+    let addPrice = 0;
+
+    function selectColor(color, name, icon) {
+      document.querySelectorAll('.color-swatch-btn').forEach(b => b.classList.remove('selected'));
+      event.target.classList.add('selected');
+      document.getElementById('finish-badge').textContent = name;
+      document.getElementById('color-label-text').textContent = `Finish: ${name}`;
+      
+      const art = document.getElementById('product-art');
+      art.style.transform = 'scale(0.85) rotate(-5deg)';
+      setTimeout(() => {
+        art.textContent = icon;
+        art.style.transform = 'scale(1) rotate(0deg)';
+      }, 150);
+    }
+
+    function selectAcoustic(btn, name, price) {
+      document.querySelectorAll('.spec-pill').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      addPrice = price;
+      document.getElementById('acoustic-label-text').textContent = `Acoustics: ${name}`;
+      document.getElementById('acoustic-price-text').textContent = `+$${price}`;
+      updateTotal();
+    }
+
+    function updateTotal() {
+      const total = basePrice + addPrice;
+      document.getElementById('total-price').textContent = `$${total}`;
+      document.getElementById('mobile-price').textContent = `$${total}`;
+    }
+  </script>
+</body>
+</html>

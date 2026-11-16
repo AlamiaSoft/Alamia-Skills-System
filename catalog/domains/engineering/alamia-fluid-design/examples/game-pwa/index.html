@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+  <title>PathGrid — Sequential PWA Board Game</title>
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#0284c7">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <link rel="stylesheet" href="../../engine/tokens.css">
+  <link rel="stylesheet" href="../../engine/fluid-engine.css">
+
+  <style>
+    /* PWA Game Responsive Layout: Fits within ANY viewport height and width */
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 100dvh;
+      overflow: hidden;
+      touch-action: manipulation;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .game-header {
+      width: 100%;
+      max-width: 600px;
+      padding: var(--space-xs) var(--space-sm);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    /* Fluid Board: Uses min(vw, dvh) with aspect-ratio so it never scrolls */
+    .board-stage {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      flex: 1;
+      padding: var(--space-xs);
+    }
+
+    .game-board {
+      display: grid;
+      width: min(88vw, 58dvh);
+      height: min(88vw, 58dvh);
+      max-width: 520px;
+      max-height: 520px;
+      gap: clamp(4px, 1.2vmin, 12px);
+      background: var(--color-surface);
+      padding: clamp(6px, 1.5vmin, 16px);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--color-border);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .cell {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--color-bg-elevated);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      font-size: clamp(0.9rem, 3.5vmin, 1.75rem);
+      font-weight: 800;
+      font-family: var(--font-mono);
+      color: var(--color-text);
+      cursor: pointer;
+      transition: transform 0.12s ease, background 0.15s ease, color 0.15s ease;
+      touch-action: none;
+    }
+
+    .cell:hover:not(.filled) {
+      background: var(--color-surface-hover);
+    }
+
+    .cell.valid-next {
+      border-color: var(--color-accent);
+      background: var(--color-accent-soft);
+      animation: pulse-ring 1.5s infinite;
+    }
+
+    .cell.filled {
+      background: var(--color-primary);
+      color: var(--color-primary-fg);
+      border-color: var(--color-primary);
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .cell.latest {
+      background: var(--color-accent);
+      color: #ffffff;
+      border-color: var(--color-accent-fg);
+      transform: scale(1.04);
+    }
+
+    @keyframes pulse-ring {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(2, 132, 199, 0.4); }
+      50% { box-shadow: 0 0 0 6px rgba(2, 132, 199, 0); }
+    }
+
+    /* Game Controls Toolbar */
+    .game-footer {
+      width: 100%;
+      max-width: 600px;
+      padding: var(--space-xs) var(--space-sm) max(var(--space-sm), env(safe-area-inset-bottom));
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+      flex-shrink: 0;
+    }
+
+    .stat-pill {
+      background: var(--color-bg-elevated);
+      border: 1px solid var(--color-border);
+      padding: 4px 12px;
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-xs);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Modal dialog */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-md);
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  </style>
+</head>
+<body class="safe-top safe-bottom">
+
+  <!-- Header Section -->
+  <header class="game-header">
+    <div style="display: flex; align-items: center; gap: var(--space-xs);">
+      <a href="../../index.html" style="text-decoration: none; font-size: 1.2rem;" title="Back to Showcase">←</a>
+      <div>
+        <h1 style="font-size: var(--font-size-md); font-weight: 800; line-height: 1;">PathGrid</h1>
+        <span style="font-size: 10px; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.05em;">Sequential PWA</span>
+      </div>
+    </div>
+
+    <div style="display: flex; gap: var(--space-2xs); align-items: center;">
+      <div class="stat-pill">
+        <span>⏱️</span>
+        <span id="timer-display">00:00</span>
+      </div>
+      <div class="stat-pill">
+        <span>🎯</span>
+        <span id="score-display">0 / 16</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Responsive Board Stage -->
+  <main class="board-stage">
+    <div id="game-board" class="game-board">
+      <!-- Grid cells populated dynamically -->
+    </div>
+  </main>
+
+  <!-- Footer Controls -->
+  <footer class="game-footer">
+    <div style="display: flex; justify-content: space-between; align-items: center; gap: var(--space-2xs);">
+      <!-- Grid Size Selectors -->
+      <div style="display: flex; gap: 4px; background: var(--color-surface); padding: 3px; border-radius: var(--radius-sm);">
+        <button class="btn" style="padding: 4px 10px; font-size: 11px; background: var(--color-bg-elevated);" onclick="setGridSize(4)">4×4</button>
+        <button class="btn" style="padding: 4px 10px; font-size: 11px;" onclick="setGridSize(5)">5×5</button>
+      </div>
+
+      <!-- Action Buttons -->
+      <div style="display: flex; gap: var(--space-2xs);">
+        <button class="btn btn-outline touch-target" style="padding: 6px 12px;" onclick="undoMove()">↩ Undo</button>
+        <button class="btn btn-primary touch-target" style="padding: 6px 14px;" onclick="restartGame()">↻ Reset</button>
+      </div>
+    </div>
+    <div style="text-align: center; font-size: 11px; color: var(--color-text-muted);">
+      Fill all cells consecutively (1 → N) moving to adjacent cells!
+    </div>
+  </footer>
+
+  <!-- Win Modal -->
+  <div id="win-modal" class="modal-overlay">
+    <div class="card" style="max-width: 400px; width: 100%; text-align: center; padding: var(--space-lg);">
+      <div style="font-size: 3rem; margin-bottom: var(--space-xs);">🏆</div>
+      <h2 class="text-xl" style="margin-bottom: var(--space-2xs);">Board Cleared!</h2>
+      <p class="text-sm" style="color: var(--color-text-secondary); margin-bottom: var(--space-md);">
+        You completed the entire sequence in <strong id="win-time">--</strong>!
+      </p>
+      <button class="btn btn-primary" style="width: 100%;" onclick="closeModalAndRestart()">Play Again</button>
+    </div>
+  </div>
+
+  <script>
+    // PWA Service Worker Registration
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js').catch(() => {});
+    }
+
+    let size = 4;
+    let totalCells = size * size;
+    let path = [];
+    let timer = 0;
+    let timerInterval = null;
+
+    function initGame() {
+      totalCells = size * size;
+      path = [];
+      clearInterval(timerInterval);
+      timer = 0;
+      updateTimerDisplay();
+      timerInterval = setInterval(() => {
+        timer++;
+        updateTimerDisplay();
+      }, 1000);
+
+      const board = document.getElementById('game-board');
+      board.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
+      board.innerHTML = '';
+
+      for (let r = 0; r < size; r++) {
+        for (let c = 0; c < size; c++) {
+          const cell = document.createElement('div');
+          cell.className = 'cell';
+          cell.dataset.row = r;
+          cell.dataset.col = c;
+          cell.addEventListener('pointerdown', (e) => handleCellClick(r, c));
+          board.appendChild(cell);
+        }
+      }
+
+      updateBoardUI();
+    }
+
+    function setGridSize(s) {
+      size = s;
+      document.querySelectorAll('.game-footer .btn').forEach((b, i) => {
+        if ((s === 4 && i === 0) || (s === 5 && i === 1)) {
+          b.style.background = 'var(--color-bg-elevated)';
+        } else if (i < 2) {
+          b.style.background = 'transparent';
+        }
+      });
+      initGame();
+    }
+
+    function isAdjacent(r1, c1, r2, c2) {
+      const dr = Math.abs(r1 - r2);
+      const dc = Math.abs(c1 - c2);
+      return (dr <= 1 && dc <= 1) && !(dr === 0 && dc === 0);
+    }
+
+    function handleCellClick(r, c) {
+      const isAlreadyFilled = path.some(p => p.r === r && p.c === c);
+
+      if (path.length === 0) {
+        // First cell in path
+        path.push({ r, c, val: 1 });
+        vibrate();
+      } else if (!isAlreadyFilled) {
+        const last = path[path.length - 1];
+        if (isAdjacent(last.r, last.c, r, c)) {
+          path.push({ r, c, val: path.length + 1 });
+          vibrate();
+        }
+      }
+
+      updateBoardUI();
+
+      if (path.length === totalCells) {
+        clearInterval(timerInterval);
+        document.getElementById('win-time').textContent = formatTime(timer);
+        document.getElementById('win-modal').classList.add('active');
+      }
+    }
+
+    function undoMove() {
+      if (path.length > 0) {
+        path.pop();
+        updateBoardUI();
+      }
+    }
+
+    function restartGame() {
+      initGame();
+    }
+
+    function closeModalAndRestart() {
+      document.getElementById('win-modal').classList.remove('active');
+      initGame();
+    }
+
+    function vibrate() {
+      if ('vibrate' in navigator) navigator.vibrate(20);
+    }
+
+    function updateBoardUI() {
+      const cells = document.querySelectorAll('.cell');
+      const last = path.length > 0 ? path[path.length - 1] : null;
+
+      cells.forEach(cell => {
+        const r = parseInt(cell.dataset.row);
+        const c = parseInt(cell.dataset.col);
+        const entry = path.find(p => p.r === r && p.c === c);
+
+        cell.className = 'cell';
+        cell.textContent = '';
+
+        if (entry) {
+          cell.classList.add('filled');
+          cell.textContent = entry.val;
+          if (last && last.r === r && last.c === c) {
+            cell.classList.add('latest');
+          }
+        } else if (last && isAdjacent(last.r, last.c, r, c)) {
+          cell.classList.add('valid-next');
+        }
+      });
+
+      document.getElementById('score-display').textContent = `${path.length} / ${totalCells}`;
+    }
+
+    function formatTime(s) {
+      const m = Math.floor(s / 60);
+      const sec = s % 60;
+      return `${String(m).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
+    }
+
+    function updateTimerDisplay() {
+      document.getElementById('timer-display').textContent = formatTime(timer);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => initGame());
+  </script>
+</body>
+</html>

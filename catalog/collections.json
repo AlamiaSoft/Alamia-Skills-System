@@ -66,6 +66,10 @@
           "source": "catalog/domains/engineering/frontend-engineering"
         },
         {
+          "id": "alamia-fluid-design",
+          "source": "catalog/domains/engineering/alamia-fluid-design"
+        },
+        {
           "id": "data-engineering",
           "source": "catalog/domains/engineering/data-engineering"
         },

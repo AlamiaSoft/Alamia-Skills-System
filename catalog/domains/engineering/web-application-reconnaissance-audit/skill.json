@@ -2,7 +2,7 @@
   "id": "web-application-reconnaissance-audit",
   "name": "Web Application Reconnaissance & Feature Audit",
   "description": "Systematically inspect an authorized web application, map its navigation and accessible screens, capture full-page evidence, document observed features and workflows, and produce a structured audit package for later analysis.",
-  "domain": "product-engineering",
+  "domain": "engineering",
   "version": "1.0.0",
   "license": "MIT",
   "tags": [

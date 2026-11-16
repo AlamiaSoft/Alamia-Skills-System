@@ -1,0 +1,369 @@
+/**
+ * Fluid Engine — Universal Responsive CSS Architecture
+ * Adapts typography, spacing, layouts, and components to ANY screen size.
+ */
+
+:root {
+  /* ==========================================================================
+     1. FLUID TYPOGRAPHY SCALES
+     Calculated with continuous slope from 320px (compact mobile) to 1800px (4K/desktop)
+     Formula: clamp(min, preferred-calc, max)
+     ========================================================================== */
+  --font-size-xs: clamp(0.75rem, 0.72rem + 0.15vw, 0.875rem);       /* 12px -> 14px */
+  --font-size-sm: clamp(0.875rem, 0.82rem + 0.28vw, 1.0rem);        /* 14px -> 16px */
+  --font-size-base: clamp(1.0rem, 0.94rem + 0.35vw, 1.125rem);      /* 16px -> 18px */
+  --font-size-md: clamp(1.15rem, 1.05rem + 0.55vw, 1.375rem);       /* 18.4px -> 22px */
+  --font-size-lg: clamp(1.35rem, 1.22rem + 0.9vw, 1.75rem);         /* 21.6px -> 28px */
+  --font-size-xl: clamp(1.65rem, 1.45rem + 1.4vw, 2.35rem);         /* 26.4px -> 37.6px */
+  --font-size-2xl: clamp(2.1rem, 1.75rem + 2.2vw, 3.25rem);         /* 33.6px -> 52px */
+  --font-size-3xl: clamp(2.75rem, 2.15rem + 3.4vw, 4.5rem);         /* 44px -> 72px */
+  --font-size-hero: clamp(3.25rem, 2.4rem + 5.0vw, 6.25rem);        /* 52px -> 100px */
+
+  /* Type Details */
+  --leading-tight: 1.15;
+  --leading-snug: 1.3;
+  --leading-normal: 1.6;
+  --leading-relaxed: 1.75;
+
+  --tracking-tight: -0.025em;
+  --tracking-normal: 0em;
+  --tracking-wide: 0.03em;
+  --tracking-caps: 0.08em;
+
+  /* ==========================================================================
+     2. FLUID SPACING LADDER
+     Scales seamlessly between viewports so padding/margins never crowd or balloon.
+     ========================================================================== */
+  --space-3xs: clamp(0.25rem, 0.22rem + 0.15vw, 0.375rem);     /* 4px -> 6px */
+  --space-2xs: clamp(0.5rem, 0.45rem + 0.25vw, 0.625rem);      /* 8px -> 10px */
+  --space-xs: clamp(0.75rem, 0.68rem + 0.35vw, 1.0rem);        /* 12px -> 16px */
+  --space-sm: clamp(1.0rem, 0.88rem + 0.6vw, 1.5rem);          /* 16px -> 24px */
+  --space-md: clamp(1.5rem, 1.3rem + 1.0vw, 2.25rem);          /* 24px -> 36px */
+  --space-lg: clamp(2.0rem, 1.65rem + 1.8vw, 3.5rem);          /* 32px -> 56px */
+  --space-xl: clamp(2.75rem, 2.15rem + 2.8vw, 5.0rem);         /* 44px -> 80px */
+  --space-2xl: clamp(3.75rem, 2.85rem + 4.2vw, 7.5rem);        /* 60px -> 120px */
+
+  /* ==========================================================================
+     3. CONTENT WIDTHS & INSETS
+     ========================================================================== */
+  --container-max-width: 1400px;
+  --container-wide-max: 1800px;
+  --container-narrow-max: 840px;
+  --gutter: clamp(1rem, 0.75rem + 2.5vw, 3.5rem);
+
+  /* Touch Target Minimum (WCAG 2.2 AA: 24px, AAA / Mobile: 44px) */
+  --min-touch-target: 44px;
+
+  /* Dynamic Viewport Height (falls back cleanly) */
+  --app-height: 100vh;
+  --app-height: 100dvh;
+}
+
+/* ==========================================================================
+   4. MODERN BASE RESET & ACCESSIBILITY
+   ========================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+  tab-size: 4;
+  scroll-behavior: smooth;
+  color-scheme: light dark;
+}
+
+body {
+  min-height: var(--app-height);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-base);
+  line-height: var(--leading-normal);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip; /* Prevents unwanted sideways scrolling on mobile without breaking position: sticky */
+  padding-left: env(safe-area-inset-left, 0px);
+  padding-right: env(safe-area-inset-right, 0px);
+}
+
+img, svg, video, canvas, audio, iframe, embed, object {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+input, button, textarea, select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+/* Accessible focus ring */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+/* ==========================================================================
+   5. CONTAINER QUERY LAYOUTS
+   Components adapt to their parent container, not just screen width!
+   ========================================================================== */
+.container-query-root {
+  container-type: inline-size;
+  container-name: layout-container;
+  width: 100%;
+}
+
+.cq-panel {
+  container-type: inline-size;
+  width: 100%;
+}
+
+/* Shell & Container */
+.fluid-shell {
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.fluid-shell-wide {
+  width: 100%;
+  max-width: var(--container-wide-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.fluid-shell-narrow {
+  width: 100%;
+  max-width: var(--container-narrow-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* ==========================================================================
+   6. INTRINSIC FLUID GRIDS (Zero Breakpoint Snapping)
+   ========================================================================== */
+.fluid-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--grid-min-item, 280px)), 1fr));
+  gap: var(--grid-gap, var(--space-md));
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Critical Grid/Flex Min-Width 0 Protection (Prevents Content Min-Width Blowout) */
+.fluid-grid > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.fluid-grid-dense {
+  --grid-min-item: 200px;
+  --grid-gap: var(--space-sm);
+}
+
+.fluid-grid-wide {
+  --grid-min-item: 360px;
+  --grid-gap: var(--space-lg);
+}
+
+/* Fluid Auto-Flex (Wrap automatically with consistent spacing) */
+.fluid-flex-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  align-items: center;
+}
+
+.fluid-flex-between {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+/* Fluid Split Layout (Row on wide, Stacks cleanly on narrow) */
+.fluid-split {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+@container (min-width: 680px) {
+  .fluid-split {
+    flex-direction: row;
+    align-items: center;
+  }
+  .fluid-split > * {
+    flex: 1 1 0%;
+  }
+}
+
+/* ==========================================================================
+   7. TYPOGRAPHY HELPERS
+   ========================================================================== */
+.text-hero {
+  font-size: var(--font-size-hero);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  font-weight: 800;
+}
+
+.text-3xl {
+  font-size: var(--font-size-3xl);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  font-weight: 700;
+}
+
+.text-2xl {
+  font-size: var(--font-size-2xl);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-tight);
+  font-weight: 700;
+}
+
+.text-xl {
+  font-size: var(--font-size-xl);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-tight);
+  font-weight: 600;
+}
+
+.text-lg {
+  font-size: var(--font-size-lg);
+  line-height: var(--leading-normal);
+  font-weight: 600;
+}
+
+.text-base {
+  font-size: var(--font-size-base);
+  line-height: var(--leading-normal);
+}
+
+.text-sm {
+  font-size: var(--font-size-sm);
+  line-height: var(--leading-normal);
+}
+
+.text-xs {
+  font-size: var(--font-size-xs);
+  line-height: var(--leading-normal);
+}
+
+.text-caps {
+  font-size: var(--font-size-xs);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.measure-prose {
+  max-width: 65ch; /* Optimal line length: 50-75 characters */
+}
+
+/* ==========================================================================
+   8. INTERACTIVE TOUCH & POINTER RULES
+   ========================================================================== */
+.touch-target {
+  min-height: var(--min-touch-target);
+  min-width: var(--min-touch-target);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (pointer: coarse) {
+  /* On touchscreens, enlarge tap targets automatically */
+  button, .btn, a, input, select {
+    min-height: var(--min-touch-target);
+  }
+}
+
+/* ==========================================================================
+   9. PWA & STANDALONE COMPONENT ADAPTATIONS
+   ========================================================================== */
+.safe-top {
+  padding-top: max(var(--space-sm), env(safe-area-inset-top));
+}
+
+.safe-bottom {
+  padding-bottom: max(var(--space-sm), env(safe-area-inset-bottom));
+}
+
+@media all and (display-mode: standalone) {
+  /* When installed as a PWA, add subtle top app-bar padding */
+  body {
+    padding-top: env(safe-area-inset-top);
+  }
+}
+
+/* ==========================================================================
+   10. ADVANCED EDGE-CASE PRIMITIVES (v1.1.0)
+   ========================================================================== */
+
+/* Subgrid Card Row Alignment (Aligns headers, bodies, actions across uneven cards) */
+.fluid-subgrid-card {
+  display: grid;
+  grid-template-rows: subgrid;
+  grid-row: span 3;
+}
+
+/* Landscape Smartphone Height Compaction (< 480px height) */
+@media (max-height: 480px) and (orientation: landscape) {
+  :root {
+    --space-md: clamp(0.75rem, 0.65rem + 0.5vw, 1.25rem);
+    --space-lg: clamp(1.0rem, 0.85rem + 0.8vw, 1.75rem);
+    --space-xl: clamp(1.25rem, 1.0rem + 1.2vw, 2.25rem);
+    --space-2xl: clamp(1.75rem, 1.35rem + 1.8vw, 3.25rem);
+  }
+  header, footer {
+    padding-block: var(--space-3xs) !important;
+  }
+  .hide-on-short-landscape {
+    display: none !important;
+  }
+}
+
+/* Foldable Dual-Screen & Multi-Segment API */
+@media (horizontal-viewport-segments: 2) {
+  .fluid-split-foldable {
+    display: grid;
+    grid-template-columns: env(viewport-segment-width 0 0) env(viewport-segment-width 1 0);
+    gap: env(viewport-segment-gap 0 0);
+  }
+}
+
+/* High Contrast & Forced Colors Mode (Assistive Technology Protection) */
+@media (forced-colors: active) {
+  .card, .btn, input, select, textarea {
+    border: 1px solid ButtonText !important;
+  }
+  :focus-visible {
+    outline: 3px solid Highlight !important;
+    outline-offset: 3px;
+  }
+}
+
+/* Reduced Motion Preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

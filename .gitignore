@@ -2,3 +2,6 @@ undefined
 # npm package artifacts
 *.tgz
 node_modules/
+
+__pycache__/
+*.py[cod]
