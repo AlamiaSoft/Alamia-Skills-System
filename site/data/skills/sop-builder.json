@@ -1,0 +1,21 @@
+{
+  "id": "sop-builder",
+  "name": "Standard Operating Procedure Builder",
+  "description": "Convert a repeatable business process into a clear, controlled SOP.",
+  "domain": "business",
+  "version": "1.0.0",
+  "license": "MIT",
+  "tags": [
+    "business"
+  ],
+  "compatibility": [
+    "agents supporting the Agent Skills SKILL.md convention"
+  ],
+  "requires": [],
+  "risk": "moderate",
+  "source": "catalog/domains/business/sop-builder",
+  "collection": "business",
+  "markdown": "data/skills/sop-builder.md",
+  "metadata_url": "data/skills/sop-builder.json",
+  "skill_page": "skills/sop-builder/"
+}

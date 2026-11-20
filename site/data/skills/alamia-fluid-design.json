@@ -1,0 +1,29 @@
+{
+  "id": "alamia-fluid-design",
+  "name": "Alamia Fluid Design",
+  "description": "Design, implement, and validate production-ready responsive web interfaces and PWAs using fluid scales, intrinsic layouts, container queries, accessible interaction patterns, and evidence-based viewport testing.",
+  "domain": "product-engineering",
+  "version": "1.2.0",
+  "license": "MIT",
+  "tags": [
+    "product-engineering",
+    "ux-ui-engineering",
+    "frontend-engineering",
+    "fluid-design",
+    "responsive-design",
+    "container-queries",
+    "pwa",
+    "accessibility",
+    "visual-validation"
+  ],
+  "compatibility": [
+    "agents supporting the Agent Skills SKILL.md convention"
+  ],
+  "requires": [],
+  "risk": "low",
+  "source": "catalog/domains/engineering/alamia-fluid-design",
+  "collection": "product-engineering",
+  "markdown": "data/skills/alamia-fluid-design.md",
+  "metadata_url": "data/skills/alamia-fluid-design.json",
+  "skill_page": "skills/alamia-fluid-design/"
+}

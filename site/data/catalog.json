@@ -1,0 +1,1263 @@
+{
+  "schemaVersion": 1,
+  "name": "Alamia Skills",
+  "collections": [
+    {
+      "id": "engineering",
+      "title": "Engineering",
+      "description": "Software delivery, planning and operational engineering.",
+      "skills": [
+        "dag-task-planning",
+        "engineering-discipline",
+        "persistent-operational-tooling",
+        "web-application-reconnaissance-audit"
+      ],
+      "install": "npx alamia-skills-install --engineering"
+    },
+    {
+      "id": "product-engineering",
+      "title": "Product Engineering",
+      "description": "End-to-end product delivery plus a durable project knowledge foundation.",
+      "skills": [
+        "project-knowledge-system",
+        "product-engineering",
+        "product-discovery",
+        "product-specification",
+        "product-architecture",
+        "ux-ui-engineering",
+        "development-planning",
+        "backend-engineering",
+        "frontend-engineering",
+        "alamia-fluid-design",
+        "responsive-pwa-engineering",
+        "data-engineering",
+        "ai-integration-engineering",
+        "quality-assurance",
+        "security-hardening",
+        "performance-optimization",
+        "devops-cicd",
+        "staging-validation",
+        "production-deployment",
+        "observability-operations",
+        "technical-documentation",
+        "product-release-management",
+        "product-maintenance",
+        "engineering-governance"
+      ],
+      "install": "npx alamia-skills-install --product-engineering"
+    },
+    {
+      "id": "seo",
+      "title": "Seo",
+      "description": "Search research, technical audits and content optimization.",
+      "skills": [
+        "keyword-intent-mapping",
+        "technical-seo-audit",
+        "seo-content-optimization"
+      ],
+      "install": "npx alamia-skills-install --seo"
+    },
+    {
+      "id": "growth",
+      "title": "Growth",
+      "description": "Product measurement, analytics, acquisition, retention, monetization visibility and SEO.",
+      "skills": [
+        "product-analytics-growth-seo"
+      ],
+      "install": "npx alamia-skills-install --growth"
+    },
+    {
+      "id": "content",
+      "title": "Content",
+      "description": "Editorial planning, evidence-led writing and repurposing.",
+      "skills": [
+        "editorial-brief",
+        "evidence-led-article",
+        "content-repurposing"
+      ],
+      "install": "npx alamia-skills-install --content"
+    },
+    {
+      "id": "marketing",
+      "title": "Marketing",
+      "description": "Campaign strategy, lifecycle email and conversion reviews.",
+      "skills": [
+        "campaign-strategy",
+        "email-campaign",
+        "landing-page-review"
+      ],
+      "install": "npx alamia-skills-install --marketing"
+    },
+    {
+      "id": "video",
+      "title": "Video",
+      "description": "Video scripting and platform-aware short-form adaptation.",
+      "skills": [
+        "video-script-development",
+        "short-form-video-repurposing"
+      ],
+      "install": "npx alamia-skills-install --video"
+    },
+    {
+      "id": "research",
+      "title": "Research",
+      "description": "Structured research plans and source-grounded synthesis.",
+      "skills": [
+        "research-plan",
+        "source-synthesis"
+      ],
+      "install": "npx alamia-skills-install --research"
+    },
+    {
+      "id": "business",
+      "title": "Business",
+      "description": "Operational SOP creation and meeting-to-execution workflows.",
+      "skills": [
+        "sop-builder",
+        "meeting-to-execution"
+      ],
+      "install": "npx alamia-skills-install --business"
+    }
+  ],
+  "skills": [
+    {
+      "id": "dag-task-planning",
+      "name": "DAG Task Planning",
+      "description": "Decompose work into verifiable daily tasks and dependency graphs.",
+      "domain": "engineering",
+      "version": "1.0.0",
+      "license": "MIT",
+      "tags": [
+        "engineering"
+      ],
+      "compatibility": [
+        "agents supporting the Agent Skills SKILL.md convention"
+      ],
+      "requires": [],
+      "risk": "moderate",
+      "source": "skills/dag-task-planning",
+      "collection": "engineering",
+      "markdown": "data/skills/dag-task-planning.md",
+      "metadata_url": "data/skills/dag-task-planning.json",
+      "skill_page": "skills/dag-task-planning/"
+    },
+    {
+      "id": "engineering-discipline",
+      "name": "Engineering Discipline",
+      "description": "Apply disciplined, low-regret execution to engineering work.",
+      "domain": "engineering",
+      "version": "1.0.0",
+      "license": "MIT",
+      "tags": [
+        "engineering"
+      ],
+      "compatibility": [
+        "agents supporting the Agent Skills SKILL.md convention"
+      ],
+      "requires": [],
+      "risk": "moderate",
+      "source": "skills/engineering-discipline",
+      "collection": "engineering",
+      "markdown": "data/skills/engineering-discipline.md",
+      "metadata_url": "data/skills/engineering-discipline.json",
+      "skill_page": "skills/engineering-discipline/"
+    },
+    {
+      "id": "persistent-operational-tooling",
+      "name": "Persistent Operational Tooling",
+      "description": "Discover, reuse and safely persist operational tools.",
+      "domain": "engineering",
+      "version": "1.0.0",
+      "license": "MIT",
+      "tags": [
+        "engineering"
+      ],
+      "compatibility": [
+        "agents supporting the Agent Skills SKILL.md convention"
+      ],
+      "requires": [],
+      "risk": "moderate",
+      "source": "skills/persistent-operational-tooling",
+      "collection": "engineering",
+      "markdown": "data/skills/persistent-operational-tooling.md",
+      "metadata_url": "data/skills/persistent-operational-tooling.json",
+      "skill_page": "skills/persistent-operational-tooling/"
+    },
+    {
+      "id": "web-application-reconnaissance-audit",
+      "name": "Web Application Reconnaissance & Feature Audit",
+      "description": "Systematically inspect an authorized web application, map its navigation and accessible screens, capture full-page evidence, document observed features and workflows, and produce a structured audit package for later analysis.",
+      "domain": "engineering",
+      "version": "1.0.0",
+      "license": "MIT",
+      "tags": [
+        "product-engineering",
+        "browser-automation",
+        "web-app-audit",
+        "screenshots",
+        "feature-inventory",
+        "competitive-intelligence"
+      ],
+      "compatibility": [
+        "agents supporting the Agent Skills SKILL.md convention",
+        "browser automation tools with navigation, interaction and full-page screenshot support"
+      ],
+      "requires": [],
+      "risk": "moderate",
+      "source": "catalog/domains/engineering/web-application-reconnaissance-audit",
+      "collection": "engineering",
+      "markdown": "data/skills/web-application-reconnaissance-audit.md",
+      "metadata_url": "data/skills/web-application-reconnaissance-audit.json",
+      "skill_page": "skills/web-application-reconnaissance-audit/"
+    },
+    {
+      "id": "project-knowledge-system",
+      "name": "Project Knowledge System",
+      "description": "Bootstrap and maintain a durable .ai/ knowledge base and .agents/ instructions for AI-assisted software projects.",
+      "domain": "product-engineering",
+      "version": "1.0.0",
+      "license": "MIT",
+      "tags": [
+        "project-bootstrap",
+        "ai-memory",
+        "knowledge-management",
+        "agent-instructions",
+        "documentation"
+      ],
+      "compatibility": [
+        "agents supporting the Agent Skills SKILL.md convention",
+        "PowerShell 5.1 or newer for the bundled scaffolder"
+      ],
+      "requires": [],
+      "risk": "moderate",
+      "source": "catalog/domains/engineering/project-knowledge-system",
+      "collection": "product-engineering",
+      "markdown": "data/skills/project-knowledge-system.md",
+      "metadata_url": "data/skills/project-knowledge-system.json",
+      "skill_page": "skills/project-knowledge-system/"
+    },
+    {
+      "id": "product-engineering",
+      "name": "Product Engineering",
+      "description": "Orchestrate end-to-end professional software product development with evidence-based lifecycle gates from discovery through production operations.",
+      "domain": "product-engineering",
+      "version": "1.0.0",
+      "license": "MIT",
+      "tags": [
+        "product-development",
+        "software-engineering",
+        "lifecycle",
+        "qa",
+        "security",
+        "devops",
+        "deployment",
+        "operations"
+      ],
+      "compatibility": [
+        "agents supporting the Agent Skills SKILL.md convention"
+      ],
+      "requires": [
+        "project-knowledge-system"
+      ],
+      "risk": "high",
+      "source": "catalog/domains/engineering/product-engineering",
+      "collection": "product-engineering",
+      "markdown": "data/skills/product-engineering.md",
+      "metadata_url": "data/skills/product-engineering.json",
+      "skill_page": "skills/product-engineering/"
+    },
+    {
+      "id": "product-discovery",
+      "name": "Product Discovery",
+      "description": "Validate the user problem, target segment, value hypothesis, feasibility and MVP boundary.",
+      "domain": "product-engineering",
+      "version": "1.0.0",
+      "license": "MIT",
+      "tags": [
+        "product-engineering",
+        "product-discovery"
+      ],
+      "compatibility": [
+        "agents supporting the Agent Skills SKILL.md convention"
+      ],
+      "requires": [],
+      "risk": "moderate",
+      "source": "catalog/domains/engineering/product-discovery",
+      "collection": "product-engineering",
+      "markdown": "data/skills/product-discovery.md",
+      "metadata_url": "data/skills/product-discovery.json",
+      "skill_page": "skills/product-discovery/"
+    },
+    {
+      "id": "product-specification",
+      "name": "Product Specification",
+      "description": "Turn an approved product direction into a PRD, user stories, acceptance criteria and prioritized requirements.",
+      "domain": "product-engineering",
+      "version": "1.0.0",
+      "license": "MIT",
+      "tags": [
+        "product-engineering",
+        "product-specification"
+      ],
+      "compatibility": [
+        "agents supporting the Agent Skills SKILL.md convention"
+      ],
+      "requires": [],
+      "risk": "moderate",
+      "source": "catalog/domains/engineering/product-specification",
+      "collection": "product-engineering",
+      "markdown": "data/skills/product-specification.md",
+      "metadata_url": "data/skills/product-specification.json",
+      "skill_page": "skills/product-specification/"
+    },
+    {
+      "id": "product-architecture",
+      "name": "Product Architecture",
+      "description": "Design or review system boundaries, modules, data flows, technology choices, integrations and deployment topology.",
+      "domain": "product-engineering",
+      "version": "1.0.0",
+      "license": "MIT",
+      "tags": [
+        "product-engineering",
+        "product-architecture"
+      ],
+      "compatibility": [
+        "agents supporting the Agent Skills SKILL.md convention"
+      ],
+      "requires": [],
+      "risk": "moderate",
+      "source": "catalog/domains/engineering/product-architecture",
+      "collection": "product-engineering",
+      "markdown": "data/skills/product-architecture.md",
+      "metadata_url": "data/skills/product-architecture.json",
+      "skill_page": "skills/product-architecture/"
+    },
+    {
+      "id": "ux-ui-engineering",
+      "name": "UX/UI Engineering",
+      "description": "Design user journeys, information architecture, responsive interfaces, design systems and accessibility behavior.",
+      "domain": "product-engineering",
+      "version": "1.0.0",
+      "license": "MIT",
+      "tags": [
+        "product-engineering",
+        "ux-ui-engineering"
+      ],
+      "compatibility": [
+        "agents supporting the Agent Skills SKILL.md convention"
+      ],
+      "requires": [],
+      "risk": "moderate",
+      "source": "catalog/domains/engineering/ux-ui-engineering",
+      "collection": "product-engineering",
+      "markdown": "data/skills/ux-ui-engineering.md",
+      "metadata_url": "data/skills/ux-ui-engineering.json",
+      "skill_page": "skills/ux-ui-engineering/"
+    },
+    {
+      "id": "development-planning",
+      "name": "Development Planning",
+      "description": "Decompose requirements into dependency-aware implementation slices, tasks, milestones and delivery gates.",
+      "domain": "product-engineering",
+      "version": "1.0.0",
+      "license": "MIT",
+      "tags": [
+        "product-engineering",
+        "development-planning"
+      ],
+      "compatibility": [
+        "agents supporting the Agent Skills SKILL.md convention"
+      ],
+      "requires": [],
+      "risk": "moderate",
+      "source": "catalog/domains/engineering/development-planning",
+      "collection": "product-engineering",
+      "markdown": "data/skills/development-planning.md",
+      "metadata_url": "data/skills/development-planning.json",
+      "skill_page": "skills/development-planning/"
+    },
+    {
+      "id": "backend-engineering",
+      "name": "Backend Engineering",
+      "description": "Implement and review backend services, APIs, domain logic, auth, jobs and integrations.",
+      "domain": "product-engineering",
+      "version": "1.0.0",
+      "license": "MIT",
+      "tags": [
+        "product-engineering",
+        "backend-engineering"
+      ],
+      "compatibility": [
+        "agents supporting the Agent Skills SKILL.md convention"
+      ],
+      "requires": [],
+      "risk": "moderate",
+      "source": "catalog/domains/engineering/backend-engineering",
+      "collection": "product-engineering",
+      "markdown": "data/skills/backend-engineering.md",
+      "metadata_url": "data/skills/backend-engineering.json",
+      "skill_page": "skills/backend-engineering/"
+    },
+    {
+      "id": "frontend-engineering",
+      "name": "Frontend Engineering",
+      "description": "Implement web/PWA interfaces, client state, forms, navigation, responsive behavior and API integration.",
+      "domain": "product-engineering",
+      "version": "1.0.0",
+      "license": "MIT",
+      "tags": [
+        "product-engineering",
+        "frontend-engineering"
+      ],
+      "compatibility": [
+        "agents supporting the Agent Skills SKILL.md convention"
+      ],
+      "requires": [],
+      "risk": "moderate",
+      "source": "catalog/domains/engineering/frontend-engineering",
+      "collection": "product-engineering",
+      "markdown": "data/skills/frontend-engineering.md",
+      "metadata_url": "data/skills/frontend-engineering.json",
+      "skill_page": "skills/frontend-engineering/"
+    },
+    {
+      "id": "alamia-fluid-design",
+      "name": "Alamia Fluid Design",
+      "description": "Design, implement, and validate production-ready responsive web interfaces and PWAs using fluid scales, intrinsic layouts, container queries, accessible interaction patterns, and evidence-based viewport testing.",
+      "domain": "product-engineering",
+      "version": "1.2.0",
+      "license": "MIT",
+      "tags": [
+        "product-engineering",
+        "ux-ui-engineering",
+        "frontend-engineering",
+        "fluid-design",
+        "responsive-design",
+        "container-queries",
+        "pwa",
+        "accessibility",
+        "visual-validation"
+      ],
+      "compatibility": [
+        "agents supporting the Agent Skills SKILL.md convention"
+      ],
+      "requires": [],
+      "risk": "low",
+      "source": "catalog/domains/engineering/alamia-fluid-design",
+      "collection": "product-engineering",
+      "markdown": "data/skills/alamia-fluid-design.md",
+      "metadata_url": "data/skills/alamia-fluid-design.json",
+      "skill_page": "skills/alamia-fluid-design/"
+    },
+    {
+      "id": "responsive-pwa-engineering",
+      "name": "Responsive PWA Engineering",
+      "description": "Engineer, audit and verify responsive web and PWA experiences across mobile phones, tablets, desktops, orientations and real browser viewport conditions.",
+      "domain": "product-engineering",
+      "version": "1.0.0",
+      "license": "MIT",
+      "tags": [
+        "product-engineering",
+        "responsive-design",
+        "pwa",
+        "mobile",
+        "tablet",
+        "touch",
+        "viewport-testing",
+        "games"
+      ],
+      "compatibility": [
+        "agents supporting the Agent Skills SKILL.md convention"
+      ],
+      "requires": [
+        "ux-ui-engineering",
+        "frontend-engineering",
+        "quality-assurance"
+      ],
+      "risk": "moderate",
+      "source": "catalog/domains/engineering/responsive-pwa-engineering",
+      "collection": "product-engineering",
+      "markdown": "data/skills/responsive-pwa-engineering.md",
+      "metadata_url": "data/skills/responsive-pwa-engineering.json",
+      "skill_page": "skills/responsive-pwa-engineering/"
+    },
+    {
+      "id": "data-engineering",
+      "name": "Data Engineering",
+      "description": "Design schemas, migrations, relationships, indexing, imports, retention, backup and data integrity controls.",
+      "domain": "product-engineering",
+      "version": "1.0.0",
+      "license": "MIT",
+      "tags": [
+        "product-engineering",
+        "data-engineering"
+      ],
+      "compatibility": [
+        "agents supporting the Agent Skills SKILL.md convention"
+      ],
+      "requires": [],
+      "risk": "high",
+      "source": "catalog/domains/engineering/data-engineering",
+      "collection": "product-engineering",
+      "markdown": "data/skills/data-engineering.md",
+      "metadata_url": "data/skills/data-engineering.json",
+      "skill_page": "skills/data-engineering/"
+    },
+    {
+      "id": "ai-integration-engineering",
+      "name": "AI Integration Engineering",
+      "description": "Add LLMs, agents, MCP tools, retrieval and AI workflows with evaluation, safety and cost controls.",
+      "domain": "product-engineering",
+      "version": "1.0.0",
+      "license": "MIT",
+      "tags": [
+        "product-engineering",
+        "ai-integration-engineering"
+      ],
+      "compatibility": [
+        "agents supporting the Agent Skills SKILL.md convention"
+      ],
+      "requires": [],
+      "risk": "moderate",
+      "source": "catalog/domains/engineering/ai-integration-engineering",
+      "collection": "product-engineering",
+      "markdown": "data/skills/ai-integration-engineering.md",
+      "metadata_url": "data/skills/ai-integration-engineering.json",
+      "skill_page": "skills/ai-integration-engineering/"
+    },
+    {
+      "id": "quality-assurance",
+      "name": "Quality Assurance",
+      "description": "Create and execute test strategy, acceptance verification, regression and release validation.",
+      "domain": "product-engineering",
+      "version": "1.0.0",
+      "license": "MIT",
+      "tags": [
+        "product-engineering",
+        "quality-assurance"
+      ],
+      "compatibility": [
+        "agents supporting the Agent Skills SKILL.md convention"
+      ],
+      "requires": [],
+      "risk": "moderate",
+      "source": "catalog/domains/engineering/quality-assurance",
+      "collection": "product-engineering",
+      "markdown": "data/skills/quality-assurance.md",
+      "metadata_url": "data/skills/quality-assurance.json",
+      "skill_page": "skills/quality-assurance/"
+    },
+    {
+      "id": "security-hardening",
+      "name": "Security Hardening",
+      "description": "Threat-model, audit and harden applications, APIs, dependencies, containers and infrastructure.",
+      "domain": "product-engineering",
+      "version": "1.0.0",
+      "license": "MIT",
+      "tags": [
+        "product-engineering",
+        "security-hardening"
+      ],
+      "compatibility": [
+        "agents supporting the Agent Skills SKILL.md convention"
+      ],
+      "requires": [],
+      "risk": "high",
+      "source": "catalog/domains/engineering/security-hardening",
+      "collection": "product-engineering",
+      "markdown": "data/skills/security-hardening.md",
+      "metadata_url": "data/skills/security-hardening.json",
+      "skill_page": "skills/security-hardening/"
+    },
+    {
+      "id": "performance-optimization",
+      "name": "Performance Optimization",
+      "description": "Investigate latency, throughput, resource use, database behavior and scale readiness.",
+      "domain": "product-engineering",
+      "version": "1.0.0",
+      "license": "MIT",
+      "tags": [
+        "product-engineering",
+        "performance-optimization"
+      ],
+      "compatibility": [
+        "agents supporting the Agent Skills SKILL.md convention"
+      ],
+      "requires": [],
+      "risk": "moderate",
+      "source": "catalog/domains/engineering/performance-optimization",
+      "collection": "product-engineering",
+      "markdown": "data/skills/performance-optimization.md",
+      "metadata_url": "data/skills/performance-optimization.json",
+      "skill_page": "skills/performance-optimization/"
+    },
+    {
+      "id": "devops-cicd",
+      "name": "DevOps and CI/CD",
+      "description": "Build reproducible pipelines, containers, environments, infrastructure automation, secrets and rollback.",
+      "domain": "product-engineering",
+      "version": "1.0.0",
+      "license": "MIT",
+      "tags": [
+        "product-engineering",
+        "devops-cicd"
+      ],
+      "compatibility": [
+        "agents supporting the Agent Skills SKILL.md convention"
+      ],
+      "requires": [],
+      "risk": "moderate",
+      "source": "catalog/domains/engineering/devops-cicd",
+      "collection": "product-engineering",
+      "markdown": "data/skills/devops-cicd.md",
+      "metadata_url": "data/skills/devops-cicd.json",
+      "skill_page": "skills/devops-cicd/"
+    },
+    {
+      "id": "staging-validation",
+      "name": "Staging Validation",
+      "description": "Validate a release candidate in staging, verify production parity, run smoke tests and conduct UAT.",
+      "domain": "product-engineering",
+      "version": "1.0.0",
+      "license": "MIT",
+      "tags": [
+        "product-engineering",
+        "staging-validation"
+      ],
+      "compatibility": [
+        "agents supporting the Agent Skills SKILL.md convention"
+      ],
+      "requires": [],
+      "risk": "moderate",
+      "source": "catalog/domains/engineering/staging-validation",
+      "collection": "product-engineering",
+      "markdown": "data/skills/staging-validation.md",
+      "metadata_url": "data/skills/staging-validation.json",
+      "skill_page": "skills/staging-validation/"
+    },
+    {
+      "id": "production-deployment",
+      "name": "Production Deployment",
+      "description": "Prepare or execute an explicitly approved production release, rollback or hotfix.",
+      "domain": "product-engineering",
+      "version": "1.0.0",
+      "license": "MIT",
+      "tags": [
+        "product-engineering",
+        "production-deployment"
+      ],
+      "compatibility": [
+        "agents supporting the Agent Skills SKILL.md convention"
+      ],
+      "requires": [],
+      "risk": "high",
+      "source": "catalog/domains/engineering/production-deployment",
+      "collection": "product-engineering",
+      "markdown": "data/skills/production-deployment.md",
+      "metadata_url": "data/skills/production-deployment.json",
+      "skill_page": "skills/production-deployment/"
+    },
+    {
+      "id": "observability-operations",
+      "name": "Observability and Operations",
+      "description": "Instrument and operate service health, logs, metrics, traces, alerts, incident response and product KPI dashboards.",
+      "domain": "product-engineering",
+      "version": "1.0.0",
+      "license": "MIT",
+      "tags": [
+        "product-engineering",
+        "observability-operations"
+      ],
+      "compatibility": [
+        "agents supporting the Agent Skills SKILL.md convention"
+      ],
+      "requires": [],
+      "risk": "moderate",
+      "source": "catalog/domains/engineering/observability-operations",
+      "collection": "product-engineering",
+      "markdown": "data/skills/observability-operations.md",
+      "metadata_url": "data/skills/observability-operations.json",
+      "skill_page": "skills/observability-operations/"
+    },
+    {
+      "id": "technical-documentation",
+      "name": "Technical Documentation",
+      "description": "Create and maintain architecture, API, setup, deployment, operations, troubleshooting and onboarding documentation.",
+      "domain": "product-engineering",
+      "version": "1.0.0",
+      "license": "MIT",
+      "tags": [
+        "product-engineering",
+        "technical-documentation"
+      ],
+      "compatibility": [
+        "agents supporting the Agent Skills SKILL.md convention"
+      ],
+      "requires": [],
+      "risk": "moderate",
+      "source": "catalog/domains/engineering/technical-documentation",
+      "collection": "product-engineering",
+      "markdown": "data/skills/technical-documentation.md",
+      "metadata_url": "data/skills/technical-documentation.json",
+      "skill_page": "skills/technical-documentation/"
+    },
+    {
+      "id": "product-release-management",
+      "name": "Product Release Management",
+      "description": "Version releases, prepare release notes, manage feature flags, rollout, deprecation and post-release verification.",
+      "domain": "product-engineering",
+      "version": "1.0.0",
+      "license": "MIT",
+      "tags": [
+        "product-engineering",
+        "product-release-management"
+      ],
+      "compatibility": [
+        "agents supporting the Agent Skills SKILL.md convention"
+      ],
+      "requires": [],
+      "risk": "moderate",
+      "source": "catalog/domains/engineering/product-release-management",
+      "collection": "product-engineering",
+      "markdown": "data/skills/product-release-management.md",
+      "metadata_url": "data/skills/product-release-management.json",
+      "skill_page": "skills/product-release-management/"
+    },
+    {
+      "id": "product-maintenance",
+      "name": "Product Maintenance",
+      "description": "Triage production defects, maintain dependencies, patch vulnerabilities and prioritize technical debt.",
+      "domain": "product-engineering",
+      "version": "1.0.0",
+      "license": "MIT",
+      "tags": [
+        "product-engineering",
+        "product-maintenance"
+      ],
+      "compatibility": [
+        "agents supporting the Agent Skills SKILL.md convention"
+      ],
+      "requires": [],
+      "risk": "moderate",
+      "source": "catalog/domains/engineering/product-maintenance",
+      "collection": "product-engineering",
+      "markdown": "data/skills/product-maintenance.md",
+      "metadata_url": "data/skills/product-maintenance.json",
+      "skill_page": "skills/product-maintenance/"
+    },
+    {
+      "id": "engineering-governance",
+      "name": "Engineering Governance",
+      "description": "Establish engineering standards, Git/PR practices, Definition of Done, ownership, quality gates and agent approval boundaries.",
+      "domain": "product-engineering",
+      "version": "1.0.0",
+      "license": "MIT",
+      "tags": [
+        "product-engineering",
+        "engineering-governance"
+      ],
+      "compatibility": [
+        "agents supporting the Agent Skills SKILL.md convention"
+      ],
+      "requires": [],
+      "risk": "moderate",
+      "source": "catalog/domains/engineering/engineering-governance",
+      "collection": "product-engineering",
+      "markdown": "data/skills/engineering-governance.md",
+      "metadata_url": "data/skills/engineering-governance.json",
+      "skill_page": "skills/engineering-governance/"
+    },
+    {
+      "id": "keyword-intent-mapping",
+      "name": "Keyword Intent Mapping",
+      "description": "Cluster queries by search intent and identify content opportunities.",
+      "domain": "seo",
+      "version": "1.0.0",
+      "license": "MIT",
+      "tags": [
+        "seo"
+      ],
+      "compatibility": [
+        "agents supporting the Agent Skills SKILL.md convention"
+      ],
+      "requires": [],
+      "risk": "low",
+      "source": "catalog/domains/seo/keyword-intent-mapping",
+      "collection": "seo",
+      "markdown": "data/skills/keyword-intent-mapping.md",
+      "metadata_url": "data/skills/keyword-intent-mapping.json",
+      "skill_page": "skills/keyword-intent-mapping/"
+    },
+    {
+      "id": "technical-seo-audit",
+      "name": "Technical SEO Audit",
+      "description": "Identify and prioritize technical SEO issues from crawl data, URLs and supplied diagnostics.",
+      "domain": "seo",
+      "version": "1.0.0",
+      "license": "MIT",
+      "tags": [
+        "seo"
+      ],
+      "compatibility": [
+        "agents supporting the Agent Skills SKILL.md convention"
+      ],
+      "requires": [],
+      "risk": "moderate",
+      "source": "catalog/domains/seo/technical-seo-audit",
+      "collection": "seo",
+      "markdown": "data/skills/technical-seo-audit.md",
+      "metadata_url": "data/skills/technical-seo-audit.json",
+      "skill_page": "skills/technical-seo-audit/"
+    },
+    {
+      "id": "seo-content-optimization",
+      "name": "SEO Content Optimization",
+      "description": "Improve a page for search intent, usefulness and discoverability without keyword stuffing.",
+      "domain": "seo",
+      "version": "1.0.0",
+      "license": "MIT",
+      "tags": [
+        "seo"
+      ],
+      "compatibility": [
+        "agents supporting the Agent Skills SKILL.md convention"
+      ],
+      "requires": [],
+      "risk": "low",
+      "source": "catalog/domains/seo/seo-content-optimization",
+      "collection": "seo",
+      "markdown": "data/skills/seo-content-optimization.md",
+      "metadata_url": "data/skills/seo-content-optimization.json",
+      "skill_page": "skills/seo-content-optimization/"
+    },
+    {
+      "id": "product-analytics-growth-seo",
+      "name": "Product Analytics, Growth & SEO",
+      "description": "Define product KPIs, event tracking, analytics integrations, owner dashboards, operational measurement and relevant SEO improvements for websites, apps, PWAs and SaaS products.",
+      "domain": "growth",
+      "version": "1.0.0",
+      "license": "MIT",
+      "tags": [
+        "product-analytics",
+        "growth",
+        "kpi",
+        "measurement",
+        "event-tracking",
+        "retention",
+        "conversion",
+        "seo",
+        "observability",
+        "dashboard"
+      ],
+      "compatibility": [
+        "agents supporting the Agent Skills SKILL.md convention"
+      ],
+      "requires": [],
+      "risk": "moderate",
+      "source": "catalog/domains/growth/product-analytics-growth-seo",
+      "collection": "growth",
+      "markdown": "data/skills/product-analytics-growth-seo.md",
+      "metadata_url": "data/skills/product-analytics-growth-seo.json",
+      "skill_page": "skills/product-analytics-growth-seo/"
+    },
+    {
+      "id": "editorial-brief",
+      "name": "Editorial Brief",
+      "description": "Turn a topic or business objective into a practical, evidence-aware writing brief.",
+      "domain": "content",
+      "version": "1.0.0",
+      "license": "MIT",
+      "tags": [
+        "content"
+      ],
+      "compatibility": [
+        "agents supporting the Agent Skills SKILL.md convention"
+      ],
+      "requires": [],
+      "risk": "low",
+      "source": "catalog/domains/content/editorial-brief",
+      "collection": "content",
+      "markdown": "data/skills/editorial-brief.md",
+      "metadata_url": "data/skills/editorial-brief.json",
+      "skill_page": "skills/editorial-brief/"
+    },
+    {
+      "id": "evidence-led-article",
+      "name": "Evidence-Led Article",
+      "description": "Draft useful articles with material factual claims traceable to sources.",
+      "domain": "content",
+      "version": "1.0.0",
+      "license": "MIT",
+      "tags": [
+        "content"
+      ],
+      "compatibility": [
+        "agents supporting the Agent Skills SKILL.md convention"
+      ],
+      "requires": [],
+      "risk": "moderate",
+      "source": "catalog/domains/content/evidence-led-article",
+      "collection": "content",
+      "markdown": "data/skills/evidence-led-article.md",
+      "metadata_url": "data/skills/evidence-led-article.json",
+      "skill_page": "skills/evidence-led-article/"
+    },
+    {
+      "id": "content-repurposing",
+      "name": "Content Repurposing",
+      "description": "Adapt an approved asset into channel-native derivatives while preserving its meaning.",
+      "domain": "content",
+      "version": "1.0.0",
+      "license": "MIT",
+      "tags": [
+        "content"
+      ],
+      "compatibility": [
+        "agents supporting the Agent Skills SKILL.md convention"
+      ],
+      "requires": [],
+      "risk": "low",
+      "source": "catalog/domains/content/content-repurposing",
+      "collection": "content",
+      "markdown": "data/skills/content-repurposing.md",
+      "metadata_url": "data/skills/content-repurposing.json",
+      "skill_page": "skills/content-repurposing/"
+    },
+    {
+      "id": "campaign-strategy",
+      "name": "Campaign Strategy",
+      "description": "Translate a marketing objective into an audience-aware campaign and measurement plan.",
+      "domain": "marketing",
+      "version": "1.0.0",
+      "license": "MIT",
+      "tags": [
+        "marketing"
+      ],
+      "compatibility": [
+        "agents supporting the Agent Skills SKILL.md convention"
+      ],
+      "requires": [],
+      "risk": "moderate",
+      "source": "catalog/domains/marketing/campaign-strategy",
+      "collection": "marketing",
+      "markdown": "data/skills/campaign-strategy.md",
+      "metadata_url": "data/skills/campaign-strategy.json",
+      "skill_page": "skills/campaign-strategy/"
+    },
+    {
+      "id": "email-campaign",
+      "name": "Email Campaign Builder",
+      "description": "Create consent-aware lifecycle or promotional email sequences with clear objectives.",
+      "domain": "marketing",
+      "version": "1.0.0",
+      "license": "MIT",
+      "tags": [
+        "marketing"
+      ],
+      "compatibility": [
+        "agents supporting the Agent Skills SKILL.md convention"
+      ],
+      "requires": [],
+      "risk": "moderate",
+      "source": "catalog/domains/marketing/email-campaign",
+      "collection": "marketing",
+      "markdown": "data/skills/email-campaign.md",
+      "metadata_url": "data/skills/email-campaign.json",
+      "skill_page": "skills/email-campaign/"
+    },
+    {
+      "id": "landing-page-review",
+      "name": "Landing Page Conversion Review",
+      "description": "Review a landing page for message clarity, trust, friction and conversion-path gaps.",
+      "domain": "marketing",
+      "version": "1.0.0",
+      "license": "MIT",
+      "tags": [
+        "marketing"
+      ],
+      "compatibility": [
+        "agents supporting the Agent Skills SKILL.md convention"
+      ],
+      "requires": [],
+      "risk": "moderate",
+      "source": "catalog/domains/marketing/landing-page-review",
+      "collection": "marketing",
+      "markdown": "data/skills/landing-page-review.md",
+      "metadata_url": "data/skills/landing-page-review.json",
+      "skill_page": "skills/landing-page-review/"
+    },
+    {
+      "id": "video-script-development",
+      "name": "Video Script Development",
+      "description": "Create a production-ready video concept, script and visual direction.",
+      "domain": "video",
+      "version": "1.0.0",
+      "license": "MIT",
+      "tags": [
+        "video"
+      ],
+      "compatibility": [
+        "agents supporting the Agent Skills SKILL.md convention"
+      ],
+      "requires": [],
+      "risk": "low",
+      "source": "catalog/domains/video/video-script-development",
+      "collection": "video",
+      "markdown": "data/skills/video-script-development.md",
+      "metadata_url": "data/skills/video-script-development.json",
+      "skill_page": "skills/video-script-development/"
+    },
+    {
+      "id": "short-form-video-repurposing",
+      "name": "Short-Form Video Repurposing",
+      "description": "Turn approved long-form material into platform-specific short-video concepts.",
+      "domain": "video",
+      "version": "1.0.0",
+      "license": "MIT",
+      "tags": [
+        "video"
+      ],
+      "compatibility": [
+        "agents supporting the Agent Skills SKILL.md convention"
+      ],
+      "requires": [],
+      "risk": "low",
+      "source": "catalog/domains/video/short-form-video-repurposing",
+      "collection": "video",
+      "markdown": "data/skills/short-form-video-repurposing.md",
+      "metadata_url": "data/skills/short-form-video-repurposing.json",
+      "skill_page": "skills/short-form-video-repurposing/"
+    },
+    {
+      "id": "research-plan",
+      "name": "Research Plan",
+      "description": "Design a bounded investigation with answerable questions and explicit evidence standards.",
+      "domain": "research",
+      "version": "1.0.0",
+      "license": "MIT",
+      "tags": [
+        "research"
+      ],
+      "compatibility": [
+        "agents supporting the Agent Skills SKILL.md convention"
+      ],
+      "requires": [],
+      "risk": "low",
+      "source": "catalog/domains/research/research-plan",
+      "collection": "research",
+      "markdown": "data/skills/research-plan.md",
+      "metadata_url": "data/skills/research-plan.json",
+      "skill_page": "skills/research-plan/"
+    },
+    {
+      "id": "source-synthesis",
+      "name": "Source Synthesis",
+      "description": "Produce a balanced, traceable synthesis from supplied or retrieved sources.",
+      "domain": "research",
+      "version": "1.0.0",
+      "license": "MIT",
+      "tags": [
+        "research"
+      ],
+      "compatibility": [
+        "agents supporting the Agent Skills SKILL.md convention"
+      ],
+      "requires": [],
+      "risk": "moderate",
+      "source": "catalog/domains/research/source-synthesis",
+      "collection": "research",
+      "markdown": "data/skills/source-synthesis.md",
+      "metadata_url": "data/skills/source-synthesis.json",
+      "skill_page": "skills/source-synthesis/"
+    },
+    {
+      "id": "sop-builder",
+      "name": "Standard Operating Procedure Builder",
+      "description": "Convert a repeatable business process into a clear, controlled SOP.",
+      "domain": "business",
+      "version": "1.0.0",
+      "license": "MIT",
+      "tags": [
+        "business"
+      ],
+      "compatibility": [
+        "agents supporting the Agent Skills SKILL.md convention"
+      ],
+      "requires": [],
+      "risk": "moderate",
+      "source": "catalog/domains/business/sop-builder",
+      "collection": "business",
+      "markdown": "data/skills/sop-builder.md",
+      "metadata_url": "data/skills/sop-builder.json",
+      "skill_page": "skills/sop-builder/"
+    },
+    {
+      "id": "meeting-to-execution",
+      "name": "Meeting-to-Execution",
+      "description": "Turn meeting notes into decisions, accountable actions and follow-up drafts.",
+      "domain": "business",
+      "version": "1.0.0",
+      "license": "MIT",
+      "tags": [
+        "business"
+      ],
+      "compatibility": [
+        "agents supporting the Agent Skills SKILL.md convention"
+      ],
+      "requires": [],
+      "risk": "low",
+      "source": "catalog/domains/business/meeting-to-execution",
+      "collection": "business",
+      "markdown": "data/skills/meeting-to-execution.md",
+      "metadata_url": "data/skills/meeting-to-execution.json",
+      "skill_page": "skills/meeting-to-execution/"
+    }
+  ],
+  "profiles": [
+    {
+      "id": "content-creator",
+      "name": "Content Creator",
+      "collections": [
+        "content",
+        "seo",
+        "video",
+        "research"
+      ],
+      "workflows": [
+        "content-repurposing"
+      ]
+    },
+    {
+      "id": "marketing-manager",
+      "name": "Marketing Manager",
+      "collections": [
+        "marketing",
+        "content",
+        "research"
+      ],
+      "workflows": [
+        "campaign-launch"
+      ]
+    },
+    {
+      "id": "seo-specialist",
+      "name": "SEO Specialist",
+      "collections": [
+        "seo",
+        "content",
+        "research"
+      ],
+      "workflows": [
+        "seo-content-production"
+      ]
+    },
+    {
+      "id": "software-product-engineer",
+      "name": "Software Product Engineer",
+      "collections": [
+        "product-engineering",
+        "engineering"
+      ],
+      "workflows": [
+        "product-engineering"
+      ]
+    }
+  ],
+  "workflows": [
+    {
+      "id": "campaign-launch",
+      "name": "Campaign Launch",
+      "steps": [
+        {
+          "skill": "campaign-strategy"
+        },
+        {
+          "skill": "email-campaign"
+        },
+        {
+          "skill": "landing-page-review"
+        }
+      ],
+      "completion": [
+        "Audience and offer are explicit",
+        "Claims and terms verified",
+        "Measurement plan defined",
+        "Owner approval before launch"
+      ]
+    },
+    {
+      "id": "content-repurposing",
+      "name": "Content Repurposing",
+      "steps": [
+        {
+          "skill": "source-synthesis"
+        },
+        {
+          "skill": "content-repurposing"
+        },
+        {
+          "skill": "short-form-video-repurposing"
+        }
+      ],
+      "completion": [
+        "Derivatives trace to approved source",
+        "Channel formats are respected",
+        "No publication without approval"
+      ]
+    },
+    {
+      "id": "product-engineering",
+      "name": "End-to-End Product Engineering",
+      "description": "Initialize project knowledge, then orchestrate a product from discovery through production operations.",
+      "version": "1.0.0",
+      "steps": [
+        {
+          "id": "foundation",
+          "skill": "project-knowledge-system",
+          "purpose": "Inspect the repository and initialize or reconcile .ai/ and .agents/ before substantial product work."
+        },
+        {
+          "id": "lifecycle",
+          "skill": "product-engineering",
+          "purpose": "Assess the current phase, coordinate lifecycle workstreams and enforce evidence-based gates."
+        }
+      ],
+      "execution": {
+        "mode": "sequential-with-conditional-gates",
+        "notes": [
+          "This workflow is a composition specification, not an automated runner.",
+          "For brownfield projects, assess completed phases and resume at the earliest incomplete or failed gate.",
+          "A failed blocking gate prevents dependent phases unless the accountable human owner records an explicit exception.",
+          "Production deployment always requires explicit human approval."
+        ]
+      }
+    },
+    {
+      "id": "seo-content-production",
+      "name": "SEO Content Production",
+      "steps": [
+        {
+          "skill": "keyword-intent-mapping"
+        },
+        {
+          "skill": "research-plan"
+        },
+        {
+          "skill": "editorial-brief"
+        },
+        {
+          "skill": "evidence-led-article"
+        },
+        {
+          "skill": "seo-content-optimization"
+        }
+      ],
+      "completion": [
+        "Intent is addressed",
+        "Claims are source-grounded",
+        "No unsupported ranking guarantees",
+        "Human approval before publication"
+      ]
+    }
+  ]
+}

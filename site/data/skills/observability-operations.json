@@ -1,0 +1,22 @@
+{
+  "id": "observability-operations",
+  "name": "Observability and Operations",
+  "description": "Instrument and operate service health, logs, metrics, traces, alerts, incident response and product KPI dashboards.",
+  "domain": "product-engineering",
+  "version": "1.0.0",
+  "license": "MIT",
+  "tags": [
+    "product-engineering",
+    "observability-operations"
+  ],
+  "compatibility": [
+    "agents supporting the Agent Skills SKILL.md convention"
+  ],
+  "requires": [],
+  "risk": "moderate",
+  "source": "catalog/domains/engineering/observability-operations",
+  "collection": "product-engineering",
+  "markdown": "data/skills/observability-operations.md",
+  "metadata_url": "data/skills/observability-operations.json",
+  "skill_page": "skills/observability-operations/"
+}

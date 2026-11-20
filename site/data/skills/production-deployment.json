@@ -1,0 +1,22 @@
+{
+  "id": "production-deployment",
+  "name": "Production Deployment",
+  "description": "Prepare or execute an explicitly approved production release, rollback or hotfix.",
+  "domain": "product-engineering",
+  "version": "1.0.0",
+  "license": "MIT",
+  "tags": [
+    "product-engineering",
+    "production-deployment"
+  ],
+  "compatibility": [
+    "agents supporting the Agent Skills SKILL.md convention"
+  ],
+  "requires": [],
+  "risk": "high",
+  "source": "catalog/domains/engineering/production-deployment",
+  "collection": "product-engineering",
+  "markdown": "data/skills/production-deployment.md",
+  "metadata_url": "data/skills/production-deployment.json",
+  "skill_page": "skills/production-deployment/"
+}

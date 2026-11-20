@@ -1,0 +1,30 @@
+{
+  "id": "product-analytics-growth-seo",
+  "name": "Product Analytics, Growth & SEO",
+  "description": "Define product KPIs, event tracking, analytics integrations, owner dashboards, operational measurement and relevant SEO improvements for websites, apps, PWAs and SaaS products.",
+  "domain": "growth",
+  "version": "1.0.0",
+  "license": "MIT",
+  "tags": [
+    "product-analytics",
+    "growth",
+    "kpi",
+    "measurement",
+    "event-tracking",
+    "retention",
+    "conversion",
+    "seo",
+    "observability",
+    "dashboard"
+  ],
+  "compatibility": [
+    "agents supporting the Agent Skills SKILL.md convention"
+  ],
+  "requires": [],
+  "risk": "moderate",
+  "source": "catalog/domains/growth/product-analytics-growth-seo",
+  "collection": "growth",
+  "markdown": "data/skills/product-analytics-growth-seo.md",
+  "metadata_url": "data/skills/product-analytics-growth-seo.json",
+  "skill_page": "skills/product-analytics-growth-seo/"
+}

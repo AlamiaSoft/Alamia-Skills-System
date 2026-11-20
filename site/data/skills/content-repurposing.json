@@ -1,0 +1,21 @@
+{
+  "id": "content-repurposing",
+  "name": "Content Repurposing",
+  "description": "Adapt an approved asset into channel-native derivatives while preserving its meaning.",
+  "domain": "content",
+  "version": "1.0.0",
+  "license": "MIT",
+  "tags": [
+    "content"
+  ],
+  "compatibility": [
+    "agents supporting the Agent Skills SKILL.md convention"
+  ],
+  "requires": [],
+  "risk": "low",
+  "source": "catalog/domains/content/content-repurposing",
+  "collection": "content",
+  "markdown": "data/skills/content-repurposing.md",
+  "metadata_url": "data/skills/content-repurposing.json",
+  "skill_page": "skills/content-repurposing/"
+}

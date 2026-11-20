@@ -1,0 +1,22 @@
+{
+  "id": "engineering-governance",
+  "name": "Engineering Governance",
+  "description": "Establish engineering standards, Git/PR practices, Definition of Done, ownership, quality gates and agent approval boundaries.",
+  "domain": "product-engineering",
+  "version": "1.0.0",
+  "license": "MIT",
+  "tags": [
+    "product-engineering",
+    "engineering-governance"
+  ],
+  "compatibility": [
+    "agents supporting the Agent Skills SKILL.md convention"
+  ],
+  "requires": [],
+  "risk": "moderate",
+  "source": "catalog/domains/engineering/engineering-governance",
+  "collection": "product-engineering",
+  "markdown": "data/skills/engineering-governance.md",
+  "metadata_url": "data/skills/engineering-governance.json",
+  "skill_page": "skills/engineering-governance/"
+}

@@ -1,0 +1,21 @@
+{
+  "id": "meeting-to-execution",
+  "name": "Meeting-to-Execution",
+  "description": "Turn meeting notes into decisions, accountable actions and follow-up drafts.",
+  "domain": "business",
+  "version": "1.0.0",
+  "license": "MIT",
+  "tags": [
+    "business"
+  ],
+  "compatibility": [
+    "agents supporting the Agent Skills SKILL.md convention"
+  ],
+  "requires": [],
+  "risk": "low",
+  "source": "catalog/domains/business/meeting-to-execution",
+  "collection": "business",
+  "markdown": "data/skills/meeting-to-execution.md",
+  "metadata_url": "data/skills/meeting-to-execution.json",
+  "skill_page": "skills/meeting-to-execution/"
+}

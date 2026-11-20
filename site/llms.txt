@@ -1,0 +1,15 @@
+# Alamia Skills System
+
+Portable, reusable professional capabilities for compatible AI agents.
+
+## Start here
+- Catalogue: data/catalog.json
+- Agent discovery: agents.json
+- Collections and skill resources are indexed in the catalogue.
+- Canonical source repository: https://github.com/AlamiaSoft/Alamia-Skills-System
+
+## Skill resource convention
+For each skill ID, read data/skills/{id}.json for metadata and data/skills/{id}.md for the complete agent-facing instructions.
+
+## Important semantics
+Skills describe capabilities. Collections group skills. Workflows compose skills as specifications; they are not an automated execution engine. Role profiles recommend collections and workflows.

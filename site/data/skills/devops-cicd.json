@@ -1,0 +1,22 @@
+{
+  "id": "devops-cicd",
+  "name": "DevOps and CI/CD",
+  "description": "Build reproducible pipelines, containers, environments, infrastructure automation, secrets and rollback.",
+  "domain": "product-engineering",
+  "version": "1.0.0",
+  "license": "MIT",
+  "tags": [
+    "product-engineering",
+    "devops-cicd"
+  ],
+  "compatibility": [
+    "agents supporting the Agent Skills SKILL.md convention"
+  ],
+  "requires": [],
+  "risk": "moderate",
+  "source": "catalog/domains/engineering/devops-cicd",
+  "collection": "product-engineering",
+  "markdown": "data/skills/devops-cicd.md",
+  "metadata_url": "data/skills/devops-cicd.json",
+  "skill_page": "skills/devops-cicd/"
+}

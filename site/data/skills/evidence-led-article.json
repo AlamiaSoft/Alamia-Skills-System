@@ -1,0 +1,21 @@
+{
+  "id": "evidence-led-article",
+  "name": "Evidence-Led Article",
+  "description": "Draft useful articles with material factual claims traceable to sources.",
+  "domain": "content",
+  "version": "1.0.0",
+  "license": "MIT",
+  "tags": [
+    "content"
+  ],
+  "compatibility": [
+    "agents supporting the Agent Skills SKILL.md convention"
+  ],
+  "requires": [],
+  "risk": "moderate",
+  "source": "catalog/domains/content/evidence-led-article",
+  "collection": "content",
+  "markdown": "data/skills/evidence-led-article.md",
+  "metadata_url": "data/skills/evidence-led-article.json",
+  "skill_page": "skills/evidence-led-article/"
+}

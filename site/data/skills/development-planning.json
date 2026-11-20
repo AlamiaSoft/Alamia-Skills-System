@@ -1,0 +1,22 @@
+{
+  "id": "development-planning",
+  "name": "Development Planning",
+  "description": "Decompose requirements into dependency-aware implementation slices, tasks, milestones and delivery gates.",
+  "domain": "product-engineering",
+  "version": "1.0.0",
+  "license": "MIT",
+  "tags": [
+    "product-engineering",
+    "development-planning"
+  ],
+  "compatibility": [
+    "agents supporting the Agent Skills SKILL.md convention"
+  ],
+  "requires": [],
+  "risk": "moderate",
+  "source": "catalog/domains/engineering/development-planning",
+  "collection": "product-engineering",
+  "markdown": "data/skills/development-planning.md",
+  "metadata_url": "data/skills/development-planning.json",
+  "skill_page": "skills/development-planning/"
+}

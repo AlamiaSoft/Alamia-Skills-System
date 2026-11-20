@@ -1,0 +1,22 @@
+{
+  "id": "data-engineering",
+  "name": "Data Engineering",
+  "description": "Design schemas, migrations, relationships, indexing, imports, retention, backup and data integrity controls.",
+  "domain": "product-engineering",
+  "version": "1.0.0",
+  "license": "MIT",
+  "tags": [
+    "product-engineering",
+    "data-engineering"
+  ],
+  "compatibility": [
+    "agents supporting the Agent Skills SKILL.md convention"
+  ],
+  "requires": [],
+  "risk": "high",
+  "source": "catalog/domains/engineering/data-engineering",
+  "collection": "product-engineering",
+  "markdown": "data/skills/data-engineering.md",
+  "metadata_url": "data/skills/data-engineering.json",
+  "skill_page": "skills/data-engineering/"
+}

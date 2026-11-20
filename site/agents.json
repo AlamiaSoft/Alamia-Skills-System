@@ -1,0 +1,110 @@
+{
+  "name": "Alamia Skills System",
+  "description": "Portable, reusable professional capabilities for compatible AI agents.",
+  "catalog": "data/catalog.json",
+  "collections": [
+    {
+      "id": "engineering",
+      "title": "Engineering",
+      "skills": [
+        "dag-task-planning",
+        "engineering-discipline",
+        "persistent-operational-tooling",
+        "web-application-reconnaissance-audit"
+      ]
+    },
+    {
+      "id": "product-engineering",
+      "title": "Product Engineering",
+      "skills": [
+        "project-knowledge-system",
+        "product-engineering",
+        "product-discovery",
+        "product-specification",
+        "product-architecture",
+        "ux-ui-engineering",
+        "development-planning",
+        "backend-engineering",
+        "frontend-engineering",
+        "alamia-fluid-design",
+        "responsive-pwa-engineering",
+        "data-engineering",
+        "ai-integration-engineering",
+        "quality-assurance",
+        "security-hardening",
+        "performance-optimization",
+        "devops-cicd",
+        "staging-validation",
+        "production-deployment",
+        "observability-operations",
+        "technical-documentation",
+        "product-release-management",
+        "product-maintenance",
+        "engineering-governance"
+      ]
+    },
+    {
+      "id": "seo",
+      "title": "Seo",
+      "skills": [
+        "keyword-intent-mapping",
+        "technical-seo-audit",
+        "seo-content-optimization"
+      ]
+    },
+    {
+      "id": "growth",
+      "title": "Growth",
+      "skills": [
+        "product-analytics-growth-seo"
+      ]
+    },
+    {
+      "id": "content",
+      "title": "Content",
+      "skills": [
+        "editorial-brief",
+        "evidence-led-article",
+        "content-repurposing"
+      ]
+    },
+    {
+      "id": "marketing",
+      "title": "Marketing",
+      "skills": [
+        "campaign-strategy",
+        "email-campaign",
+        "landing-page-review"
+      ]
+    },
+    {
+      "id": "video",
+      "title": "Video",
+      "skills": [
+        "video-script-development",
+        "short-form-video-repurposing"
+      ]
+    },
+    {
+      "id": "research",
+      "title": "Research",
+      "skills": [
+        "research-plan",
+        "source-synthesis"
+      ]
+    },
+    {
+      "id": "business",
+      "title": "Business",
+      "skills": [
+        "sop-builder",
+        "meeting-to-execution"
+      ]
+    }
+  ],
+  "skill_resources": "data/skills/{skill_id}.md",
+  "metadata_resources": "data/skills/{skill_id}.json",
+  "skill_pages": "skills/{skill_id}/",
+  "repository": "https://github.com/AlamiaSoft/Alamia-Skills-System",
+  "install_prerequisites": "Node.js >=18; package publication status is documented in the repository README."
+}

@@ -1,0 +1,22 @@
+{
+  "id": "product-architecture",
+  "name": "Product Architecture",
+  "description": "Design or review system boundaries, modules, data flows, technology choices, integrations and deployment topology.",
+  "domain": "product-engineering",
+  "version": "1.0.0",
+  "license": "MIT",
+  "tags": [
+    "product-engineering",
+    "product-architecture"
+  ],
+  "compatibility": [
+    "agents supporting the Agent Skills SKILL.md convention"
+  ],
+  "requires": [],
+  "risk": "moderate",
+  "source": "catalog/domains/engineering/product-architecture",
+  "collection": "product-engineering",
+  "markdown": "data/skills/product-architecture.md",
+  "metadata_url": "data/skills/product-architecture.json",
+  "skill_page": "skills/product-architecture/"
+}

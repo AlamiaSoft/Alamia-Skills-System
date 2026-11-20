@@ -1,0 +1,30 @@
+{
+  "id": "product-engineering",
+  "name": "Product Engineering",
+  "description": "Orchestrate end-to-end professional software product development with evidence-based lifecycle gates from discovery through production operations.",
+  "domain": "product-engineering",
+  "version": "1.0.0",
+  "license": "MIT",
+  "tags": [
+    "product-development",
+    "software-engineering",
+    "lifecycle",
+    "qa",
+    "security",
+    "devops",
+    "deployment",
+    "operations"
+  ],
+  "compatibility": [
+    "agents supporting the Agent Skills SKILL.md convention"
+  ],
+  "requires": [
+    "project-knowledge-system"
+  ],
+  "risk": "high",
+  "source": "catalog/domains/engineering/product-engineering",
+  "collection": "product-engineering",
+  "markdown": "data/skills/product-engineering.md",
+  "metadata_url": "data/skills/product-engineering.json",
+  "skill_page": "skills/product-engineering/"
+}

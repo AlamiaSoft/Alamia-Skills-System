@@ -1,0 +1,21 @@
+{
+  "id": "short-form-video-repurposing",
+  "name": "Short-Form Video Repurposing",
+  "description": "Turn approved long-form material into platform-specific short-video concepts.",
+  "domain": "video",
+  "version": "1.0.0",
+  "license": "MIT",
+  "tags": [
+    "video"
+  ],
+  "compatibility": [
+    "agents supporting the Agent Skills SKILL.md convention"
+  ],
+  "requires": [],
+  "risk": "low",
+  "source": "catalog/domains/video/short-form-video-repurposing",
+  "collection": "video",
+  "markdown": "data/skills/short-form-video-repurposing.md",
+  "metadata_url": "data/skills/short-form-video-repurposing.json",
+  "skill_page": "skills/short-form-video-repurposing/"
+}

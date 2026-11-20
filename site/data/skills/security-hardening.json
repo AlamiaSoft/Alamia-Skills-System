@@ -1,0 +1,22 @@
+{
+  "id": "security-hardening",
+  "name": "Security Hardening",
+  "description": "Threat-model, audit and harden applications, APIs, dependencies, containers and infrastructure.",
+  "domain": "product-engineering",
+  "version": "1.0.0",
+  "license": "MIT",
+  "tags": [
+    "product-engineering",
+    "security-hardening"
+  ],
+  "compatibility": [
+    "agents supporting the Agent Skills SKILL.md convention"
+  ],
+  "requires": [],
+  "risk": "high",
+  "source": "catalog/domains/engineering/security-hardening",
+  "collection": "product-engineering",
+  "markdown": "data/skills/security-hardening.md",
+  "metadata_url": "data/skills/security-hardening.json",
+  "skill_page": "skills/security-hardening/"
+}

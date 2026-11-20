@@ -1,0 +1,22 @@
+{
+  "id": "backend-engineering",
+  "name": "Backend Engineering",
+  "description": "Implement and review backend services, APIs, domain logic, auth, jobs and integrations.",
+  "domain": "product-engineering",
+  "version": "1.0.0",
+  "license": "MIT",
+  "tags": [
+    "product-engineering",
+    "backend-engineering"
+  ],
+  "compatibility": [
+    "agents supporting the Agent Skills SKILL.md convention"
+  ],
+  "requires": [],
+  "risk": "moderate",
+  "source": "catalog/domains/engineering/backend-engineering",
+  "collection": "product-engineering",
+  "markdown": "data/skills/backend-engineering.md",
+  "metadata_url": "data/skills/backend-engineering.json",
+  "skill_page": "skills/backend-engineering/"
+}

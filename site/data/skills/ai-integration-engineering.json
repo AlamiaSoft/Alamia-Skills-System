@@ -1,0 +1,22 @@
+{
+  "id": "ai-integration-engineering",
+  "name": "AI Integration Engineering",
+  "description": "Add LLMs, agents, MCP tools, retrieval and AI workflows with evaluation, safety and cost controls.",
+  "domain": "product-engineering",
+  "version": "1.0.0",
+  "license": "MIT",
+  "tags": [
+    "product-engineering",
+    "ai-integration-engineering"
+  ],
+  "compatibility": [
+    "agents supporting the Agent Skills SKILL.md convention"
+  ],
+  "requires": [],
+  "risk": "moderate",
+  "source": "catalog/domains/engineering/ai-integration-engineering",
+  "collection": "product-engineering",
+  "markdown": "data/skills/ai-integration-engineering.md",
+  "metadata_url": "data/skills/ai-integration-engineering.json",
+  "skill_page": "skills/ai-integration-engineering/"
+}

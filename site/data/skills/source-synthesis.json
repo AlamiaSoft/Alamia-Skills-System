@@ -1,0 +1,21 @@
+{
+  "id": "source-synthesis",
+  "name": "Source Synthesis",
+  "description": "Produce a balanced, traceable synthesis from supplied or retrieved sources.",
+  "domain": "research",
+  "version": "1.0.0",
+  "license": "MIT",
+  "tags": [
+    "research"
+  ],
+  "compatibility": [
+    "agents supporting the Agent Skills SKILL.md convention"
+  ],
+  "requires": [],
+  "risk": "moderate",
+  "source": "catalog/domains/research/source-synthesis",
+  "collection": "research",
+  "markdown": "data/skills/source-synthesis.md",
+  "metadata_url": "data/skills/source-synthesis.json",
+  "skill_page": "skills/source-synthesis/"
+}

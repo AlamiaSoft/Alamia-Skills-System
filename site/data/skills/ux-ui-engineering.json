@@ -1,0 +1,22 @@
+{
+  "id": "ux-ui-engineering",
+  "name": "UX/UI Engineering",
+  "description": "Design user journeys, information architecture, responsive interfaces, design systems and accessibility behavior.",
+  "domain": "product-engineering",
+  "version": "1.0.0",
+  "license": "MIT",
+  "tags": [
+    "product-engineering",
+    "ux-ui-engineering"
+  ],
+  "compatibility": [
+    "agents supporting the Agent Skills SKILL.md convention"
+  ],
+  "requires": [],
+  "risk": "moderate",
+  "source": "catalog/domains/engineering/ux-ui-engineering",
+  "collection": "product-engineering",
+  "markdown": "data/skills/ux-ui-engineering.md",
+  "metadata_url": "data/skills/ux-ui-engineering.json",
+  "skill_page": "skills/ux-ui-engineering/"
+}
