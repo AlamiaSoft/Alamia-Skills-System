@@ -78,3 +78,25 @@ def test_doc_engine_scans_and_syncs(tmp_path: Path):
     titles = [d["title"] for d in parsed]
     assert any("Architecture" in t for t in titles)
     assert any("Sprint" in t for t in titles)
+
+
+def test_doc_engine_disambiguates_duplicate_ids(tmp_path: Path):
+    """Multiple README.md or same-stem markdown files must receive unique IDs."""
+    docs_dir = tmp_path / "docs"
+    docs_dir.mkdir(parents=True)
+    (docs_dir / "README.md").write_text("# Master Docs Index\nContent", encoding="utf-8")
+    (tmp_path / "README.md").write_text("# Root Project Overview\nContent", encoding="utf-8")
+    
+    sub_dir = tmp_path / "module-a"
+    sub_dir.mkdir(parents=True)
+    (sub_dir / "README.md").write_text("# Module A Guide\nContent", encoding="utf-8")
+
+    engine = DocEngine(tmp_path)
+    scanned = engine.scan_documents()
+
+    ids = [d["id"] for d in scanned]
+    # All IDs must be strictly unique
+    assert len(ids) == len(set(ids)), f"Duplicate IDs detected: {ids}"
+    assert "master-index" in ids
+    assert "project-overview" in ids
+    assert any("module-a" in i for i in ids)

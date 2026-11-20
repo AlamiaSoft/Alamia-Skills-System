@@ -311,6 +311,8 @@
       indexes: 'list-ordered',
       operations: 'terminal',
       sprint: 'calendar-check',
+      'skills system': 'cpu',
+      'skills-system': 'cpu',
       general: 'file'
     };
 
@@ -406,7 +408,7 @@
 
       const priorityOrder = [
         "Overview", "Architecture", "Adr", "Workers", "Handoffs",
-        "Lessons", "Standards", "Glossary", "Indexes", "Operations", "Sprint", "General"
+        "Lessons", "Standards", "Glossary", "Indexes", "Operations", "Sprint", "Skills System", "General"
       ];
 
       const sortedCategories = Object.keys(categories).sort((a, b) => {
@@ -662,11 +664,14 @@
 
     // Load and render a specific document
     function loadDoc(docId) {
-      const doc = docs.find(d => d.id === docId);
+      let doc = docs.find(d => d.id === docId);
+      if (!doc && docId === 'readme') {
+        doc = docs.find(d => d.id === 'project-overview' || d.id === 'master-index');
+      }
       if (!doc) return;
 
-      currentDocId = docId;
-      window.location.hash = docId;
+      currentDocId = doc.id;
+      window.location.hash = doc.id;
       buildSidebar();
 
       document.getElementById("doc-title").textContent = doc.title;
