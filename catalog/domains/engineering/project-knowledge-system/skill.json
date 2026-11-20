@@ -1,12 +1,12 @@
 {
   "id": "project-knowledge-system",
   "name": "Project Knowledge System",
-  "description": "Bootstrap and maintain a durable .ai/ knowledge base and .agents/ instructions for AI-assisted software projects.",
+  "description": "Bootstrap, audit, migrate and maintain one canonical docs/ knowledge base shared by human developers and AI agents.",
   "domain": "product-engineering",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "license": "MIT",
-  "tags": ["project-bootstrap", "ai-memory", "knowledge-management", "agent-instructions", "documentation"],
-  "compatibility": ["agents supporting the Agent Skills SKILL.md convention", "PowerShell 5.1 or newer for the bundled scaffolder"],
+  "tags": ["project-bootstrap", "ai-memory", "knowledge-management", "agent-instructions", "documentation", "migration", "single-source-of-truth"],
+  "compatibility": ["agents supporting the Agent Skills SKILL.md convention", "PowerShell 5.1 or newer for the bundled initializer"],
   "requires": [],
   "risk": "moderate"
 }
