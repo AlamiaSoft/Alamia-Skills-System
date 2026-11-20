@@ -11,6 +11,7 @@ Initializes the canonical documentation and AI memory architecture:
     ├── assets/
     │   └── marked.min.js              # Offline Client-Side Markdown Parser
     ├── permanent/                     # Lives for years
+    │   ├── product/                    # Product vision, PRDs and requirements
     │   ├── architecture/              # System design, boundaries, invariants
     │   ├── adr/                       # Architecture Decision Records
     │   ├── glossary/                  # Terminology single source of truth
@@ -21,6 +22,7 @@ Initializes the canonical documentation and AI memory architecture:
     │   └── backlog/                   # Pending tasks & roadmap
     ├── history/                       # Architecture timeline & retrospectives
     ├── lessons/                       # Operational playbooks & incident post-mortems
+    ├── research/                      # Sourced market and technical research
     └── indexes/                       # repository.md (concept-to-code map)
 """
 
@@ -48,7 +50,7 @@ If you are an AI Agent entering a fresh conversation, you **must** read the foll
 ## Directory Structure
 
 ### 1. Permanent Knowledge (Lives for Years)
-* **`permanent/architecture/`**: High-level design intent, tradeoffs, system boundaries, and components.
+* **`permanent/product/`**: Product vision, positioning, PRDs, requirements, and enduring product constraints.\n* **`permanent/architecture/`**: High-level design intent, tradeoffs, system boundaries, and components.
 * **`permanent/adr/`**: Architecture Decision Records. Contains the record of all accepted, rejected, and deprecated architectural choices.
 * **`permanent/glossary/`**: The single source of truth for project terminology, codes, and domain concepts.
 * **`permanent/standards/`**: Coding conventions, testing standards, and compliance rules.
@@ -63,7 +65,7 @@ If you are an AI Agent entering a fresh conversation, you **must** read the foll
 * **`indexes/`**: 
   * `repository.md`: Maps high-level architectural concepts to source code directories and ADRs.
   * `dependency-map.md`: Architecture diagrams of system components.
-* **`lessons/`**: Operational knowledge, debugging outcomes, incident playbooks, and learned failure modes.
+* **`lessons/`**: Operational knowledge, debugging outcomes, incident playbooks, and learned failure modes.\n* **`research/`**: Dated market, user, technical and competitive research with source references and confidence.
 """
 
 AGENTS_RULES_TEMPLATE = """# AI Workspace Instructions (AGENTS.md)
@@ -257,7 +259,7 @@ class DocScaffolder:
 
         # 1. Directories
         dirs = [
-            self.root / "docs" / "permanent" / "architecture",
+            self.root / "docs" / "permanent" / "product",\n            self.root / "docs" / "permanent" / "architecture",
             self.root / "docs" / "permanent" / "adr",
             self.root / "docs" / "permanent" / "glossary",
             self.root / "docs" / "permanent" / "standards",
@@ -265,7 +267,7 @@ class DocScaffolder:
             self.root / "docs" / "transient" / "handoffs",
             self.root / "docs" / "transient" / "backlog",
             self.root / "docs" / "history",
-            self.root / "docs" / "lessons",
+            self.root / "docs" / "lessons",\n            self.root / "docs" / "research",
             self.root / "docs" / "indexes",
             self.root / "docs" / "assets",
             self.root / ".agents",
